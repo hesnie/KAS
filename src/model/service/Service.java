@@ -2,10 +2,7 @@ package model.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import jdk.nashorn.internal.runtime.ListAdapter;
 import model.model.Booking;
-import model.model.Companion;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
@@ -25,17 +22,22 @@ public class Service {
         ArrayList<TourType> listToursOnConference = conference.getLocation().getTours();
         ArrayList<Booking> listBookingsOnConference = conference.getBookings();
         for (int i = 0; i < listToursOnConference.size(); i++) {
-            String s = listToursOnConference.get(i).getName() + " (";
+            String s = listToursOnConference.get(i).getName() + ": ";
             for (int j = 0; j < listBookingsOnConference.size(); j++) {
-                Companion c = listBookingsOnConference.get(j).getCompanion();
-                if (c != null && c.getBookingTours().contains(listToursOnConference.get(i))) {
-                    s += listBookingsOnConference.get(j).getCompanion().getName();
+                Booking b = listBookingsOnConference.get(j);
+                if (b.getCompanion() != null) {
+                    for (int l = 0; l < b.getCompanion().getBookingTours().size(); l++) {
+                        if (b.getCompanion().getBookingTours().get(l).getTour().getTourType() == listToursOnConference
+                                .get(i)) {
+                            s += b.getCompanion().getName() + "(" + b.getParticipant().getName() + ")" + ", ";
+                        }
+                    }
                 }
             }
-            s += ")";
             listToursAndCompanions.add(s);
         }
         return listToursAndCompanions;
+
     }
 
     public ArrayList<String> ListHotelsAndParticipants(Conference conference) {
@@ -188,8 +190,13 @@ public class Service {
 
     }
 
+<<<<<<< HEAD
     public void printTest4() {
         for (String s : ListToursAndCompanions2(c2)) {
+=======
+    public void printTest3() {
+        for (String s : ListToursAndCompanions(c2)) {
+>>>>>>> f5922fe4a6d7a770787ebd200342768ab1f1623d
             System.out.println(s);
         }
     }
