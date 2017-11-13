@@ -2,8 +2,8 @@ package model.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import model.model.Booking;
+import model.model.Companion;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
@@ -16,6 +16,7 @@ public class Service {
 
     public ArrayList<String> ListToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
+        ArrayList<Companion> totalCompanionsOnTour = new ArrayList<>();
         for (int i = 0; i < conference.getLocation().getTours().size(); i++) {
             String string = conference.getLocation().getTours().get(i).getName();
             listToursAndCompanions.add(string);
