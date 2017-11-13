@@ -11,11 +11,12 @@ public class Booking {
     private Companion companion;
     private Conference conference;
 
-    Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker) {
+    Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker, Participant participant) {
         this.wifi = wifi;
         this.breakfast = breaktast;
         this.shower = shower;
         this.isSpeaker = isSpeaker;
+        this.participant = participant;
     }
 
     double calcTotalPrice() {
