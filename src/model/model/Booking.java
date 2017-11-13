@@ -85,4 +85,16 @@ public class Booking {
     public void setParticipant(Participant participant) {
         this.participant = participant;
     }
+
+    void setWifi(boolean wifi) {
+        this.wifi = wifi;
+    }
+
+    void setBreakfast(boolean breakfast) {
+        this.breakfast = breakfast;
+    }
+
+    void setShower(boolean shower) {
+        this.shower = shower;
+    }
 }
