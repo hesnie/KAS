@@ -66,9 +66,5 @@ public class Service {
 
         // Ny conference
         Conference c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
-
-        // Booking
-        c1.createBooking(p1);
-
     }
 }
