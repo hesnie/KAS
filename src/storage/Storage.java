@@ -2,13 +2,13 @@ package storage;
 
 import java.util.ArrayList;
 
-import model.Company;
-import model.Conference;
-import model.ConferenceType;
-import model.Hotel;
-import model.Location;
-import model.Participant;
-import model.Tour;
+import model.model.Company;
+import model.model.Conference;
+import model.model.ConferenceType;
+import model.model.Hotel;
+import model.model.Location;
+import model.model.Participant;
+import model.model.Tour;
 
 public class Storage {
     private ArrayList<Conference> conferences = new ArrayList<>();
