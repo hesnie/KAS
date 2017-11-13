@@ -10,7 +10,7 @@ public class Conference {
     private double price;
     private ConferenceType conferenceType;
     private Location location;
-    private ArrayList<Booking> bookings;
+    private ArrayList<Booking> bookings = new ArrayList<>();
 
     public Conference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
             Location location) {
@@ -22,9 +22,10 @@ public class Conference {
     }
 
     public void createBooking(Participant participant) {
-        Booking booking = new Booking(false, false, false, false, participant);
+        Booking booking = new Booking(false, false, false, false, participant, this);
         booking.setHotel(null);
         booking.setCompany(null);
+        bookings.add(booking);
     }
 
     public void setHotelServices(int index, boolean wifi, boolean breakfast, boolean shower) {

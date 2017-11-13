@@ -2,7 +2,6 @@ package model.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import model.model.Booking;
 import model.model.Conference;
 import model.model.ConferenceType;
@@ -13,6 +12,9 @@ import model.model.Tour;
 import model.model.TourType;
 
 public class Service {
+
+    // Skal slettes, kun til test
+    private Conference c1;
 
     public ArrayList<String> ListToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
@@ -66,7 +68,7 @@ public class Service {
         l2.addTour(tT3);
 
         // Ny conference
-        Conference c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
+        c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
 
         // Ny tour
         Tour t1 = new Tour(LocalDate.of(2017, 12, 6), tT1);
@@ -74,6 +76,7 @@ public class Service {
         // booking
         c1.createBooking(p1);
         c1.createBooking(p2);
+        c1.createBooking(p3);
 
         // companions and companions tours
         c1.getBookings().get(0).createCompanion("Henrik");
@@ -85,7 +88,16 @@ public class Service {
         // set hotels for participants
         c1.getBookings().get(0).setHotel(h1);
         c1.getBookings().get(1).setHotel(h2);
+        c1.getBookings().get(2).setHotel(h1);
         c1.setHotelServices(0, true, true, true);
         c1.setHotelServices(1, true, false, false);
+        c1.setHotelServices(2, true, true, true);
     }
+
+    public void printTest() {
+        for (int i = 0; i < c1.getBookings().size(); i++) {
+            System.out.println(c1.getBookings().get(i).calcTotalPrice());
+        }
+    }
+
 }
