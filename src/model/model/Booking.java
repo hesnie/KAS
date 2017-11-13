@@ -35,7 +35,7 @@ public class Booking {
             if (hotel != null) {
                 price += calcHotelPricePrDay() * (conference.getDuration() - 1);
             }
-            price += conference.getPrice() * (conference.getDuration() - 1);
+            price += conference.getPrice() * conference.getDuration();
         }
         return price;
     }
