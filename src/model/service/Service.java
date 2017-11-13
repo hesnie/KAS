@@ -50,33 +50,39 @@ public class Service {
         h3.setShowerPrice(50);
 
         // Ny Tour
-        TourType t1 = new TourType("tur til havnen", "Vi går en tur ned på havnen", 150, (short) 15);
-        TourType t2 = new TourType("Aros", "En lækker tur til Aros", 150, (short) 20);
-        TourType t3 = new TourType("Sejltur", "Sejltur på vandet", 200, (short) 10);
+        TourType tT1 = new TourType("tur til havnen", "Vi går en tur ned på havnen", 150, (short) 15);
+        TourType tT2 = new TourType("Aros", "En lækker tur til Aros", 150, (short) 20);
+        TourType tT3 = new TourType("Sejltur", "Sejltur på vandet", 200, (short) 10);
 
         // Tilføj hotel
         l1.addHotel(h1);
         l1.addHotel(h2);
-        l1.addTour(t1);
-        l1.addTour(t2);
+        l1.addTour(tT1);
+        l1.addTour(tT2);
 
         l2.addHotel(h2);
         l2.addHotel(h3);
-        l2.addTour(t2);
-        l2.addTour(t3);
+        l2.addTour(tT2);
+        l2.addTour(tT3);
 
         // Ny conference
         Conference c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
+
+        // Ny tour
+        Tour t1 = new Tour(LocalDate.of(2017, 12, 6), tT1);
 
         // booking
         c1.createBooking(p1);
         c1.createBooking(p2);
 
+        // companions and companions tours
         c1.getBookings().get(0).createCompanion("Henrik");
         c1.getBookings().get(0).getCompanion().createBookingTour(t1);
 
         c1.getBookings().get(1).createCompanion("Mathias");
+        c1.getBookings().get(1).getCompanion().createBookingTour(t1);
 
+        // set hotels for participants
         c1.getBookings().get(0).setHotel(h1);
         c1.getBookings().get(1).setHotel(h2);
         c1.setHotelServices(0, true, true, true);
