@@ -21,8 +21,8 @@ public class Conference {
         this.location = location;
     }
 
-    public void createBooking(Participant participant) {
-        Booking booking = new Booking(false, false, false, false, participant, this);
+    public void createBooking(Participant participant, boolean isSpeaker) {
+        Booking booking = new Booking(false, false, false, isSpeaker, participant, this);
         booking.setHotel(null);
         booking.setCompany(null);
         bookings.add(booking);
