@@ -11,6 +11,8 @@ public class App {
         s1.initContent();
 
         s1.printTest2();
+
+        s1.printTest4();
     }
 
 }
