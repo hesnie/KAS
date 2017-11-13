@@ -23,15 +23,15 @@ public class Booking {
         double price = 0.0;
 
         if (isSpeaker) {
-            price = (calcHotelPrice() * (conference.getDuration() - 1)) + companion.calcPrice();
+            price = (calcHotelPricePrDay() * (conference.getDuration() - 1)) + companion.calcPrice();
         } else {
-            price = ((calcHotelPrice() + conference.getPrice()) * (conference.getDuration()) - 1)
+            price = ((calcHotelPricePrDay() + conference.getPrice()) * (conference.getDuration()) - 1)
                     + companion.calcPrice();
         }
         return price;
     }
 
-    double calcHotelPrice() {
+    double calcHotelPricePrDay() {
         double price = 0.0;
 
         if (wifi) {

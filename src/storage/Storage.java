@@ -2,7 +2,6 @@ package storage;
 
 import java.util.ArrayList;
 
-import model.Companion;
 import model.Company;
 import model.Conference;
 import model.ConferenceType;
