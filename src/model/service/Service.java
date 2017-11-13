@@ -2,6 +2,8 @@ package model.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import jdk.nashorn.internal.runtime.ListAdapter;
 import model.model.Booking;
 import model.model.Companion;
 import model.model.Conference;
@@ -20,10 +22,18 @@ public class Service {
 
     public ArrayList<String> ListToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
-        ArrayList<Companion> totalCompanionsOnTour = new ArrayList<>();
-        for (int i = 0; i < conference.getLocation().getTours().size(); i++) {
-            String string = conference.getLocation().getTours().get(i).getName();
-            listToursAndCompanions.add(string);
+        ArrayList<TourType> listToursOnConference = conference.getLocation().getTours();
+        ArrayList<Booking> listBookingsOnConference = conference.getBookings();
+        for (int i = 0; i < listToursOnConference.size(); i++) {
+            String s = listToursOnConference.get(i).getName() + " (";
+            for (int j = 0; j < listBookingsOnConference.size(); j++) {
+                Companion c = listBookingsOnConference.get(j).getCompanion();
+                if (c != null && c.getBookingTours().contains(listToursOnConference.get(i))) {
+                    s += listBookingsOnConference.get(j).getCompanion().getName();
+                }
+            }
+            s += ")";
+            listToursAndCompanions.add(s);
         }
         return listToursAndCompanions;
     }
@@ -145,6 +155,7 @@ public class Service {
         }
     }
 
+<<<<<<< HEAD
     public void printTest2() {
         // for (int i = 0; i < c2.getLocation().getHotels().size(); i++) {
         // System.out.println(c2.getLocation().getHotels().get(i).getName() + ":");
@@ -158,4 +169,11 @@ public class Service {
         System.out.println(ListHotelsAndParticipants(c2));
     }
 
+=======
+    public void printTest3() {
+        for (String s : ListToursAndCompanions(c2)) {
+            System.out.println(s);
+        }
+    }
+>>>>>>> 6a3243bbe76303716edd0b3f2a12167e894b91a9
 }
