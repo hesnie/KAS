@@ -7,4 +7,40 @@ public class Tour {
     private float price;
     private short maxParticipants;
 
+    public Tour(String name, float price, short maxParticipants) {
+        this.name = name;
+        this.price = price;
+        this.maxParticipants = maxParticipants;
+        lunchIncluded = false;
+        this.description = "";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isLunchIncluded() {
+        return lunchIncluded;
+    }
+
+    public void setLunchIncluded(boolean lunchIncluded) {
+        this.lunchIncluded = lunchIncluded;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public short getMaxParticipants() {
+        return maxParticipants;
+    }
+
 }
