@@ -11,7 +11,7 @@ public class Companion {
         this.name = name;
     }
 
-    public BookingTour createBookingTour(Tour tour, LocalDate date) {
+    public BookingTour createBookingTour(TourType tour, LocalDate date) {
         BookingTour b = new BookingTour(tour, date);
         bookingTours.add(b);
         return b;

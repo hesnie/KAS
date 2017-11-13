@@ -73,7 +73,7 @@ public class Booking {
         return companion;
     }
 
-    Companion createCompanion(String name) {
+    public Companion createCompanion(String name) {
         Companion companion = new Companion(name);
         return companion;
     }

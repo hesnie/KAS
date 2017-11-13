@@ -1,13 +1,9 @@
 package model.model;
 
-import java.time.LocalDate;
-
 public class BookingTour {
-    private LocalDate date;
     private Tour tour;
 
-    BookingTour(Tour tour, LocalDate date) {
-        this.date = date;
+    BookingTour(Tour tour) {
         this.tour = tour;
     }
 
@@ -15,7 +11,4 @@ public class BookingTour {
         return tour;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
 }

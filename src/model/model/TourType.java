@@ -1,13 +1,13 @@
 package model.model;
 
-public class Tour {
+public class TourType {
     private String name;
     private String description;
     private boolean lunchIncluded;
     private float price;
     private short maxParticipants;
 
-    public Tour(String name, String description, float price, short maxParticipants) {
+    public TourType(String name, String description, float price, short maxParticipants) {
         this.name = name;
         this.price = price;
         this.maxParticipants = maxParticipants;

@@ -66,5 +66,20 @@ public class Service {
 
         // Ny conference
         Conference c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
+
+        // booking
+        c1.createBooking(p1);
+        c1.createBooking(p2);
+
+        c1.getBookings().get(0).createCompanion("Henrik");
+        c1.getBookings().get(0).getCompanion().createBookingTour(t1, )
+
+        c1.getBookings().get(1).createCompanion("Mathias");
+
+
+        c1.getBookings().get(0).setHotel(h1);
+        c1.getBookings().get(1).setHotel(h2);
+        c1.setHotelServices(0, true, true, true);
+        c1.setHotelServices(1, true, false, false);
     }
 }

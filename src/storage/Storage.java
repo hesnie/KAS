@@ -8,13 +8,13 @@ import model.model.ConferenceType;
 import model.model.Hotel;
 import model.model.Location;
 import model.model.Participant;
-import model.model.Tour;
+import model.model.TourType;
 
 public class Storage {
     private ArrayList<Conference> conferences = new ArrayList<>();
     private ArrayList<ConferenceType> conferenceTypes = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
-    private ArrayList<Tour> tours = new ArrayList<>();
+    private ArrayList<TourType> tours = new ArrayList<>();
     private ArrayList<Hotel> hotels = new ArrayList<>();
     private ArrayList<Participant> participants = new ArrayList<>();
     private ArrayList<Company> companies = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Storage {
         return new ArrayList(locations);
     }
 
-    public ArrayList<Tour> getTours() {
+    public ArrayList<TourType> getTours() {
         return new ArrayList(tours);
     }
 
@@ -67,7 +67,7 @@ public class Storage {
         locations.add(location);
     }
 
-    public void addTour(Tour tour) {
+    public void addTour(TourType tour) {
         tours.add(tour);
     }
 
@@ -99,7 +99,7 @@ public class Storage {
         locations.remove(location);
     }
 
-    public void removeTour(Tour tour) {
+    public void removeTour(TourType tour) {
         tours.remove(tour);
     }
 
