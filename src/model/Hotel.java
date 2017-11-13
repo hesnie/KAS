@@ -12,9 +12,6 @@ public class Hotel {
     private float wifiPrice;
     private float breakfastPrice;
     private float showerPrice;
-    private Hotel hotel;
-    private Company company;
-    private Companion companion;
 
     public Hotel(String name, String adress, float priceSingle, float priceDouble) {
         this.name = name;
@@ -86,31 +83,5 @@ public class Hotel {
 
     public void setShowerPrice(float showerPrice) {
         this.showerPrice = showerPrice;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Companion getCompanion() {
-        return companion;
-    }
-
-    public Companion createCompanion(String name) {
-        Companion companion = new Companion(name);
-        this.companion = companion;
-        return companion;
     }
 }

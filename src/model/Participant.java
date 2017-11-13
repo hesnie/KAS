@@ -7,9 +7,12 @@ public class Participant {
     private String country;
     private short phoneNUmber;
 
-    public Participant(String name, String adress) {
+    public Participant(String name, String adress, short phoneNumber) {
         this.name = name;
         this.adress = adress;
+        this.town = "";
+        this.country = "";
+        this.phoneNUmber = phoneNumber;
     }
 
 }
