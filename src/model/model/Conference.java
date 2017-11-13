@@ -27,6 +27,12 @@ public class Conference {
         booking.setCompany(null);
     }
 
+    public void setHotelServices(int index, boolean wifi, boolean breakfast, boolean shower) {
+        bookings.get(index).setWifi(wifi);
+        bookings.get(index).setBreakfast(breakfast);
+        bookings.get(index).setShower(shower);
+    }
+
     public void deleteBooking(Booking booking) {
         bookings.remove(booking);
     }
