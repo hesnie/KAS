@@ -13,7 +13,10 @@ public class Service {
 
     public ArrayList<String> ListToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
-
+        for (int i = 0; i < conference.getLocation().getTours().size(); i++) {
+            String string = conference.getLocation().getTours().get(i).getName();
+            listToursAndCompanions.add(string);
+        }
         return listToursAndCompanions;
     }
 

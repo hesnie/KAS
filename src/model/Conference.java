@@ -43,4 +43,13 @@ public class Conference {
     public short getDuration() {
         return duration;
     }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Companion createCompanionForBooking(int index, String name) {
+        bookings.get(index).createCompanion(name);
+        return bookings.get(index).getCompanion();
+    }
 }
