@@ -7,8 +7,8 @@ public class Booking {
     private boolean isSpeaker;
     private Company company;
     private Hotel hotel;
-    private Companion companion;
     private Participant participant;
+    private Companion companion;
     private Conference conference;
 
     Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker) {
@@ -19,8 +19,7 @@ public class Booking {
     }
 
     double calcTotalPrice() {
-        double price = 0.0;
-
+        double price = ((calcHotelPrice() + conference.getPrice()) * conference.getDuration()) + companion.calcPrice();
         return price;
     }
 
