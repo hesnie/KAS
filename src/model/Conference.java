@@ -21,11 +21,12 @@ public class Conference {
         this.location = location;
     }
 
-    public void createBooking() {
-        Booking booking = new Booking(false, false, false, false);
+    public void createBooking(Participant participant) {
+        Booking booking = new Booking(false, false, false, false, participant);
         booking.setHotel(null);
         booking.setCompany(null);
         booking.setConference(this);
+
     }
 
     public void deleteBooking(Booking booking) {
