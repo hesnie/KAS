@@ -28,6 +28,19 @@ public class Service {
         return listToursAndCompanions;
     }
 
+    public ArrayList<String> ListHotelsAndParticipants(Conference conference) {
+        ArrayList<String> listHotelsAndParticipants = new ArrayList<>();
+        for (int i = 0; i < conference.getLocation().getHotels().size(); i++) {
+            listHotelsAndParticipants.add(conference.getLocation().getHotels().get(i).getName() + ":");
+            for (int j = 0; j < conference.getBookings().size(); j++) {
+                if (conference.getBookings().get(j).getHotel() == conference.getLocation().getHotels().get(i)) {
+                    listHotelsAndParticipants.add(conference.getBookings().get(j).getParticipant().getName());
+                }
+            }
+        }
+        return listHotelsAndParticipants;
+    }
+
     public void initContent() {
 
         // participants
@@ -130,6 +143,19 @@ public class Service {
         for (int i = 0; i < c2.getBookings().size(); i++) {
             System.out.println(c2.getBookings().get(i).calcTotalPrice());
         }
+    }
+
+    public void printTest2() {
+        // for (int i = 0; i < c2.getLocation().getHotels().size(); i++) {
+        // System.out.println(c2.getLocation().getHotels().get(i).getName() + ":");
+        // for (int j = 0; j < c2.getBookings().size(); j++) {
+        // if (c2.getBookings().get(j).getHotel() ==
+        // c2.getLocation().getHotels().get(i)) {
+        // System.out.println(c2.getBookings().get(j).getParticipant().getName());
+        // }
+        // }
+        // }
+        System.out.println(ListHotelsAndParticipants(c2));
     }
 
 }

@@ -10,7 +10,7 @@ public class App {
         Service s1 = new Service();
         s1.initContent();
 
-        s1.printTest();
+        s1.printTest2();
     }
 
 }

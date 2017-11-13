@@ -14,4 +14,9 @@ public class Participant {
         this.country = "";
         this.phoneNUmber = phoneNumber;
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

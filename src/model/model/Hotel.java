@@ -92,4 +92,8 @@ public class Hotel {
     public double getPriceDouble() {
         return priceDouble;
     }
+
+    public String getName() {
+        return name;
+    }
 }
