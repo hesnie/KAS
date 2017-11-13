@@ -5,7 +5,8 @@ public class ConferenceType {
     private String name;
     private String description;
 
-    public ConferenceType() {
-
+    public ConferenceType(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 }
