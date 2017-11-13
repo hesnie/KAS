@@ -7,12 +7,12 @@ public class Tour {
     private float price;
     private short maxParticipants;
 
-    public Tour(String name, float price, short maxParticipants) {
+    public Tour(String name, String description, float price, short maxParticipants) {
         this.name = name;
         this.price = price;
         this.maxParticipants = maxParticipants;
         lunchIncluded = false;
-        this.description = "";
+        this.description = description;
     }
 
     public String getName() {

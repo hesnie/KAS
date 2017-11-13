@@ -17,6 +17,10 @@ public class Companion {
         return b;
     }
 
+    ArrayList<BookingTour> getBookingTours() {
+        return new ArrayList(bookingTours);
+    }
+
     float calcPrice() {
         float price = 0;
         for (int i = 0; i < bookingTours.size(); i++) {
