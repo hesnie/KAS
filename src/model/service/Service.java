@@ -152,7 +152,6 @@ public class Service {
         }
     }
 
-<<<<<<< HEAD
     public void printTest2() {
         // for (int i = 0; i < c2.getLocation().getHotels().size(); i++) {
         // System.out.println(c2.getLocation().getHotels().get(i).getName() + ":");
@@ -166,7 +165,6 @@ public class Service {
         System.out.println(ListHotelsAndParticipants(c2));
     }
 
-=======
     public void printTest3() {
         for (String s : ListToursAndCompanions(c2)) {
             System.out.println(s);
@@ -174,7 +172,5 @@ public class Service {
         for (Booking b : c1.getBookings()) {
             System.out.println(b.getParticipant());
         }
-
     }
->>>>>>> 6a3243bbe76303716edd0b3f2a12167e894b91a9
 }
