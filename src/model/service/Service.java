@@ -83,16 +83,15 @@ public class Service {
         Tour t3 = new Tour(LocalDate.of(2017, 11, 23), tT3);
 
         // booking
-        c1.createBooking(p1);
-        c1.createBooking(p2);
-        c1.createBooking(p3);
+        c1.createBooking(p1, false);
+        c1.createBooking(p2, false);
+        c1.createBooking(p3, false);
 
         // test
-        c2.createBooking(p1);
-        c2.createBooking(p2);
-        c2.createBooking(p3);
-        c2.createBooking(p4);
-        // c2.getBookings().get(3)
+        c2.createBooking(p1, false);
+        c2.createBooking(p2, false);
+        c2.createBooking(p3, false);
+        c2.createBooking(p4, true);
 
         // companions and companions tours
         c1.getBookings().get(0).createCompanion("Henrik");
@@ -106,6 +105,7 @@ public class Service {
         c2.getBookings().get(2).getCompanion().createBookingTour(t1);
         c2.getBookings().get(2).getCompanion().createBookingTour(t3);
 
+        c2.getBookings().get(3).createCompanion("Jan Madsen");
         c2.getBookings().get(3).getCompanion().createBookingTour(t1);
         c2.getBookings().get(3).getCompanion().createBookingTour(t2);
 
@@ -127,8 +127,8 @@ public class Service {
     }
 
     public void printTest() {
-        for (int i = 0; i < c1.getBookings().size(); i++) {
-            System.out.println(c1.getBookings().get(i).calcTotalPrice());
+        for (int i = 0; i < c2.getBookings().size(); i++) {
+            System.out.println(c2.getBookings().get(i).calcTotalPrice());
         }
     }
 
