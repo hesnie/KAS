@@ -16,6 +16,7 @@ public class Service {
 
     // Skal slettes, kun til test
     private Conference c1;
+    private Conference c2;
 
     public ArrayList<String> ListToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
@@ -45,7 +46,7 @@ public class Service {
         Location l2 = new Location("Kongresscenter Aarhus", "lige på sin plads", (short) 200, "Meget højt til loftet");
 
         // Nyt hotel
-        Hotel h1 = new Hotel("hilton", "Midt i byen", 500, 800, true, true, true, 50, 100, 20);
+        Hotel h1 = new Hotel("Den hvide svane", "Midt i byen", 1050, 1200, true, true, true, 50, 100, 20);
         Hotel h2 = new Hotel("Hostel", "Ved havnen", 200, 300);
         Hotel h3 = new Hotel("det dyre", "trøjborg", 300, 400);
         h3.setHasWifi(true);
@@ -54,15 +55,16 @@ public class Service {
         h3.setShowerPrice(50);
 
         // Ny Tour
-        TourType tT1 = new TourType("tur til havnen", "Vi går en tur ned på havnen", 150, (short) 15);
-        TourType tT2 = new TourType("Aros", "En lækker tur til Aros", 150, (short) 20);
-        TourType tT3 = new TourType("Sejltur", "Sejltur på vandet", 200, (short) 10);
+        TourType tT1 = new TourType("Egeskov", "Tur til egeskov", 150, (short) 15);
+        TourType tT2 = new TourType("Byrundttur i Odense", "En lækker tur i Odense", 150, (short) 20);
+        TourType tT3 = new TourType("Trapholt", "Tur til trapholt", 200, (short) 10);
 
         // Tilføj hotel
         l1.addHotel(h1);
         l1.addHotel(h2);
         l1.addTour(tT1);
         l1.addTour(tT2);
+        l1.addTour(tT3);
 
         l2.addHotel(h2);
         l2.addHotel(h3);
@@ -72,13 +74,25 @@ public class Service {
         // Ny conference
         c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
 
+        // test
+        c2 = new Conference(LocalDate.of(2017, 11, 20), (short) 3, 1500, ct2, l1);
+
         // Ny tour
-        Tour t1 = new Tour(LocalDate.of(2017, 12, 6), tT1);
+        Tour t1 = new Tour(LocalDate.of(2017, 11, 21), tT1);
+        Tour t2 = new Tour(LocalDate.of(2017, 11, 22), tT2);
+        Tour t3 = new Tour(LocalDate.of(2017, 11, 23), tT3);
 
         // booking
         c1.createBooking(p1);
         c1.createBooking(p2);
         c1.createBooking(p3);
+
+        // test
+        c2.createBooking(p1);
+        c2.createBooking(p2);
+        c2.createBooking(p3);
+        c2.createBooking(p4);
+        // c2.getBookings().get(3)
 
         // companions and companions tours
         c1.getBookings().get(0).createCompanion("Henrik");
@@ -87,6 +101,14 @@ public class Service {
         c1.getBookings().get(1).createCompanion("Mathias");
         c1.getBookings().get(1).getCompanion().createBookingTour(t1);
 
+        // test
+        c2.getBookings().get(2).createCompanion("Mie Sommer");
+        c2.getBookings().get(2).getCompanion().createBookingTour(t1);
+        c2.getBookings().get(2).getCompanion().createBookingTour(t3);
+
+        c2.getBookings().get(3).getCompanion().createBookingTour(t1);
+        c2.getBookings().get(3).getCompanion().createBookingTour(t2);
+
         // set hotels for participants
         c1.getBookings().get(0).setHotel(h1);
         c1.getBookings().get(1).setHotel(h2);
@@ -94,6 +116,14 @@ public class Service {
         c1.setHotelServices(0, true, true, true);
         c1.setHotelServices(1, true, false, false);
         c1.setHotelServices(2, true, true, true);
+
+        // test
+        c2.getBookings().get(1).setHotel(h1);
+        c2.getBookings().get(2).setHotel(h1);
+        c2.setHotelServices(2, true, false, false);
+
+        c2.getBookings().get(3).setHotel(h1);
+        c2.setHotelServices(3, true, false, false);
     }
 
     public void printTest() {
