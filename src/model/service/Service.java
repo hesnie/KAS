@@ -46,7 +46,7 @@ public class Service {
         Location l2 = new Location("Kongresscenter Aarhus", "lige på sin plads", (short) 200, "Meget højt til loftet");
 
         // Nyt hotel
-        Hotel h1 = new Hotel("Den hvide svane", "Midt i byen", 1050, 1200, true, true, true, 50, 100, 20);
+        Hotel h1 = new Hotel("Den hvide svane", "Midt i byen", 1050, 1250, true, true, false, 50, 0, 0);
         Hotel h2 = new Hotel("Hostel", "Ved havnen", 200, 300);
         Hotel h3 = new Hotel("det dyre", "trøjborg", 300, 400);
         h3.setHasWifi(true);
@@ -55,8 +55,8 @@ public class Service {
         h3.setShowerPrice(50);
 
         // Ny Tour
-        TourType tT1 = new TourType("Egeskov", "Tur til egeskov", 150, (short) 15);
-        TourType tT2 = new TourType("Byrundttur i Odense", "En lækker tur i Odense", 150, (short) 20);
+        TourType tT1 = new TourType("Egeskov", "Tur til egeskov", 75, (short) 15);
+        TourType tT2 = new TourType("Byrundttur i Odense", "En lækker tur i Odense", 125, (short) 20);
         TourType tT3 = new TourType("Trapholt", "Tur til trapholt", 200, (short) 10);
 
         // Tilføj hotel
