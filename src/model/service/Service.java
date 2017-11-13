@@ -58,27 +58,6 @@ public class Service {
         return listHotelsAndParticipants;
     }
 
-    public ArrayList<String> ListToursAndCompanions2(Conference conference) {
-        ArrayList<String> listToursAndCompanions2 = new ArrayList<>();
-        String s = "";
-        for (int i = 0; i < conference.getLocation().getTours().size(); i++) {
-            s = conference.getLocation().getTours().get(i).getName();
-            for (int j = 0; j < conference.getBookings().size(); j++) {
-                for (int h = 0; h < conference.getBookings().size(); h++) {
-                    if (conference.getLocation().getTours().get(i) == conference.getBookings().get(j).getCompanion()
-                            .getBookingTours().get(h).getTour().getTourType()) {
-                        s += conference.getBookings().get(j).getCompanion().getName() + "("
-                                + conference.getBookings().get(j).getParticipant().getName();
-
-                    }
-                }
-
-            }
-            listToursAndCompanions2.add(s);
-        }
-        return listToursAndCompanions2;
-    }
-
     public void initContent() {
 
         // participants
@@ -190,13 +169,8 @@ public class Service {
 
     }
 
-<<<<<<< HEAD
-    public void printTest4() {
-        for (String s : ListToursAndCompanions2(c2)) {
-=======
     public void printTest3() {
         for (String s : ListToursAndCompanions(c2)) {
->>>>>>> f5922fe4a6d7a770787ebd200342768ab1f1623d
             System.out.println(s);
         }
     }
