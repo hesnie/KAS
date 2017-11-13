@@ -11,8 +11,10 @@ public class App {
         s1.initContent();
 
         // s1.printTest();
+        System.out.println();
         s1.printTest2();
-
+        System.out.println();
         s1.printTest3();
+        System.out.println();
     }
 }

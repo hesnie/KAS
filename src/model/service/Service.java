@@ -169,8 +169,10 @@ public class Service {
         for (String s : ListToursAndCompanions(c2)) {
             System.out.println(s);
         }
+
+        System.out.println();
         for (Booking b : c1.getBookings()) {
-            System.out.println(b.getParticipant());
+            System.out.println(b.getParticipant().getName());
         }
     }
 }
