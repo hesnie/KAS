@@ -14,5 +14,4 @@ public class BookingTour {
     Tour getTour() {
         return tour;
     }
-
 }
