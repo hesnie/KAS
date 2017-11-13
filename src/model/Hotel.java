@@ -4,14 +4,14 @@ public class Hotel {
 
     private String name;
     private String adress;
-    private float priceSingle;
-    private float priceDouble;
+    private double priceSingle;
+    private double priceDouble;
     private boolean hasWifi;
     private boolean hasBreakfast;
     private boolean hasShower;
-    private float wifiPrice;
-    private float breakfastPrice;
-    private float showerPrice;
+    private double wifiPrice;
+    private double breakfastPrice;
+    private double showerPrice;
 
     public Hotel(String name, String adress, float priceSingle, float priceDouble) {
         this.name = name;
@@ -23,8 +23,8 @@ public class Hotel {
         this.hasShower = false;
     }
 
-    public Hotel(String name, String adress, float priceSingle, float priceDouble, boolean hasWifi,
-            boolean hasBreakfast, boolean hasShower, float wifiPrice, float breakfastPrice, float showerPrice) {
+    public Hotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
+            boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice, double showerPrice) {
         this.name = name;
         this.adress = adress;
         this.priceSingle = priceSingle;
@@ -61,27 +61,35 @@ public class Hotel {
         this.hasShower = hasShower;
     }
 
-    public float getWifiPrice() {
+    public double getWifiPrice() {
         return wifiPrice;
     }
 
-    public void setWifiPrice(float wifiPrice) {
+    public void setWifiPrice(double wifiPrice) {
         this.wifiPrice = wifiPrice;
     }
 
-    public float getBreakfastPrice() {
+    public double getBreakfastPrice() {
         return breakfastPrice;
     }
 
-    public void setBreakfastPrice(float breakfastPrice) {
+    public void setBreakfastPrice(double breakfastPrice) {
         this.breakfastPrice = breakfastPrice;
     }
 
-    public float getShowerPrice() {
+    public double getShowerPrice() {
         return showerPrice;
     }
 
-    public void setShowerPrice(float showerPrice) {
+    public void setShowerPrice(double showerPrice) {
         this.showerPrice = showerPrice;
+    }
+
+    public double getPriceSingle() {
+        return priceSingle;
+    }
+
+    public double getPriceDouble() {
+        return priceDouble;
     }
 }

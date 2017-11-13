@@ -9,6 +9,7 @@ public class Booking {
     private Hotel hotel;
     private Companion companion;
     private Participant participant;
+    private Conference conference;
 
     Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker) {
         this.wifi = wifi;
@@ -17,14 +18,32 @@ public class Booking {
         this.isSpeaker = isSpeaker;
     }
 
-    float calcTotalPrice() {
-        // TODO
-        return -1;
+    double calcTotalPrice() {
+        double price = 0.0;
+
+        return price;
     }
 
-    float calcHotelPrice() {
-        // TODO
-        return -1;
+    double calcHotelPrice() {
+        double price = 0.0;
+
+        if (wifi) {
+            price += hotel.getWifiPrice();
+        }
+        if (breakfast) {
+            price += hotel.getBreakfastPrice();
+        }
+        if (shower) {
+            price += hotel.getShowerPrice();
+        }
+
+        if (getCompanion() == null) {
+            price += hotel.getPriceSingle();
+        } else {
+            price += hotel.getPriceDouble();
+        }
+
+        return price;
     }
 
     Company getCompany() {
@@ -62,5 +81,13 @@ public class Booking {
 
     void setParticipant(Participant participant) {
         this.participant = participant;
+    }
+
+    public Conference getConference() {
+        return conference;
+    }
+
+    public void setConference(Conference conference) {
+        this.conference = conference;
     }
 }
