@@ -1,6 +1,6 @@
 package model;
 
-public class Comapny {
+public class Company {
     private String name;
     private short phoneNumber;
 
