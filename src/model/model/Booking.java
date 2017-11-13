@@ -51,7 +51,7 @@ public class Booking {
             price += hotel.getShowerPrice();
         }
 
-        if (getCompanion().equals(null)) {
+        if (getCompanion() == null) {
             price += hotel.getPriceSingle();
         } else {
             price += hotel.getPriceDouble();
