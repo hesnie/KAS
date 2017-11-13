@@ -13,7 +13,7 @@ public class Hotel {
     private double breakfastPrice;
     private double showerPrice;
 
-    public Hotel(String name, String adress, float priceSingle, float priceDouble) {
+    public Hotel(String name, String adress, double priceSingle, double priceDouble) {
         this.name = name;
         this.adress = adress;
         this.priceSingle = priceSingle;

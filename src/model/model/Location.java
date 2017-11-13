@@ -8,8 +8,8 @@ public class Location {
     private String adress;
     private short maxParticipants;
     private String description;
-    private ArrayList<Hotel> hotels;
-    private ArrayList<TourType> tours;
+    private ArrayList<Hotel> hotels = new ArrayList<>();
+    private ArrayList<TourType> tours = new ArrayList<>();
 
     public Location(String name, String adress, short maxParticipants, String description) {
         this.name = name;

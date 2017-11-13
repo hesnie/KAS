@@ -11,12 +11,14 @@ public class Booking {
     private Companion companion;
     private Conference conference;
 
-    Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker, Participant participant) {
+    Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker, Participant participant,
+            Conference conference) {
         this.wifi = wifi;
         this.breakfast = breaktast;
         this.shower = shower;
         this.isSpeaker = isSpeaker;
         this.participant = participant;
+        this.conference = conference;
     }
 
     public double calcTotalPrice() {
@@ -75,7 +77,9 @@ public class Booking {
 
     public Companion createCompanion(String name) {
         Companion companion = new Companion(name);
+        this.companion = companion;
         return companion;
+
     }
 
     public Participant getParticipant() {
