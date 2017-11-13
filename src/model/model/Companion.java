@@ -11,8 +11,8 @@ public class Companion {
         this.name = name;
     }
 
-    public BookingTour createBookingTour(TourType tour, LocalDate date) {
-        BookingTour b = new BookingTour(tour, date);
+    public BookingTour createBookingTour(Tour tour) {
+        BookingTour b = new BookingTour(tour);
         bookingTours.add(b);
         return b;
     }
@@ -24,7 +24,7 @@ public class Companion {
     public double calcPrice() {
         double price = 0;
         for (int i = 0; i < bookingTours.size(); i++) {
-            price += bookingTours.get(i).getTour().getPrice();
+            price += bookingTours.get(i).getTour().getTourType().getPrice();
         }
         return price;
     }
