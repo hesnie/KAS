@@ -1,5 +1,8 @@
 package service;
 
+import java.util.ArrayList;
+
+import model.Conference;
 import model.ConferenceType;
 import model.Hotel;
 import model.Location;
@@ -7,6 +10,12 @@ import model.Participant;
 import model.Tour;
 
 public class Service {
+
+    public ArrayList<String> ListToursAndCompanions(Conference conference) {
+        ArrayList<String> listToursAndCompanions = new ArrayList<>();
+
+        return listToursAndCompanions;
+    }
 
     public void initContent() {
 

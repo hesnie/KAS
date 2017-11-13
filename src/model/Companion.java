@@ -21,8 +21,8 @@ public class Companion {
         return new ArrayList(bookingTours);
     }
 
-    float calcPrice() {
-        float price = 0;
+    double calcPrice() {
+        double price = 0;
         for (int i = 0; i < bookingTours.size(); i++) {
             price += bookingTours.get(i).getTour().getPrice();
         }

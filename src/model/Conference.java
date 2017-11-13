@@ -12,7 +12,7 @@ public class Conference {
     private Location location;
     private ArrayList<Booking> bookings;
 
-    public Conference(LocalDate dateStart, short duration, float price, ConferenceType conferenceType,
+    public Conference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
             Location location) {
         this.dateStart = dateStart;
         this.duration = duration;
