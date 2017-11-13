@@ -1,8 +1,9 @@
 package service;
 
 import java.time.LocalDate;
-
 import model.Booking;
+import java.util.ArrayList;
+
 import model.Conference;
 import model.ConferenceType;
 import model.Hotel;
@@ -11,6 +12,15 @@ import model.Participant;
 import model.Tour;
 
 public class Service {
+
+    public ArrayList<String> ListToursAndCompanions(Conference conference) {
+        ArrayList<String> listToursAndCompanions = new ArrayList<>();
+        for (int i = 0; i < conference.getLocation().getTours().size(); i++) {
+            String string = conference.getLocation().getTours().get(i).getName();
+            listToursAndCompanions.add(string);
+        }
+        return listToursAndCompanions;
+    }
 
     public void initContent() {
 

@@ -12,7 +12,7 @@ public class Conference {
     private Location location;
     private ArrayList<Booking> bookings;
 
-    public Conference(LocalDate dateStart, short duration, float price, ConferenceType conferenceType,
+    public Conference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
             Location location) {
         this.dateStart = dateStart;
         this.duration = duration;
@@ -43,5 +43,14 @@ public class Conference {
 
     public short getDuration() {
         return duration;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Companion createCompanionForBooking(int index, String name) {
+        bookings.get(index).createCompanion(name);
+        return bookings.get(index).getCompanion();
     }
 }

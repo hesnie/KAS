@@ -20,7 +20,14 @@ public class Booking {
     }
 
     double calcTotalPrice() {
-        double price = ((calcHotelPrice() + conference.getPrice()) * conference.getDuration()) + companion.calcPrice();
+        double price = 0.0;
+
+        if (isSpeaker) {
+            price = (calcHotelPrice() * (conference.getDuration() - 1)) + companion.calcPrice();
+        } else {
+            price = ((calcHotelPrice() + conference.getPrice()) * (conference.getDuration()) - 1)
+                    + companion.calcPrice();
+        }
         return price;
     }
 
