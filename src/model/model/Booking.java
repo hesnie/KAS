@@ -24,16 +24,18 @@ public class Booking {
     public double calcTotalPrice() {
         double price = 0.0;
 
+        if (companion != null) {
+            price += companion.calcPrice();
+        }
         if (isSpeaker) {
-            price = (calcHotelPricePrDay() * (conference.getDuration() - 1));
-            if (companion != null) {
-                price += companion.calcPrice();
+            if (hotel != null) {
+                price += calcHotelPricePrDay() * (conference.getDuration() - 1);
             }
         } else {
-            price = ((calcHotelPricePrDay() + conference.getPrice()) * (conference.getDuration()) - 1);
-            if (companion != null) {
-                price += companion.calcPrice();
+            if (hotel != null) {
+                price += calcHotelPricePrDay() * (conference.getDuration() - 1);
             }
+            price += conference.getPrice() * (conference.getDuration() - 1);
         }
         return price;
     }
@@ -84,7 +86,6 @@ public class Booking {
         Companion companion = new Companion(name);
         this.companion = companion;
         return companion;
-
     }
 
     public Participant getParticipant() {
