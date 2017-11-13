@@ -42,5 +42,4 @@ public class Tour {
     public short getMaxParticipants() {
         return maxParticipants;
     }
-
 }

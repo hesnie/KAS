@@ -10,53 +10,57 @@ public class Booking {
     private Companion companion;
     private Participant participant;
 
-    public Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker) {
+    Booking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker) {
         this.wifi = wifi;
         this.breakfast = breaktast;
         this.shower = shower;
         this.isSpeaker = isSpeaker;
     }
 
-    public float calcTotalPrice() {
+    float calcTotalPrice() {
         // TODO
         return -1;
     }
 
-    public float calcHotelPrice() {
+    float calcHotelPrice() {
         // TODO
         return -1;
     }
 
-    public Company getCompany() {
+    Company getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    void setCompany(Company company) {
         this.company = company;
     }
 
-    public Hotel getHotel() {
+    Hotel getHotel() {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
+    void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
 
-    public Companion getCompanion() {
+    Companion getCompanion() {
         return companion;
     }
 
-    public Companion createCompanion(String name) {
+    Companion createCompanion(String name) {
         Companion companion = new Companion(name);
         return companion;
     }
 
-    public Participant getParticipant() {
+    String getCompanionName() {
+        return companion.getName();
+    }
+
+    Participant getParticipant() {
         return participant;
     }
 
-    public void setParticipant(Participant participant) {
+    void setParticipant(Participant participant) {
         this.participant = participant;
     }
 }

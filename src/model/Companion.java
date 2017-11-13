@@ -28,5 +28,4 @@ public class Companion {
     String getName() {
         return name;
     }
-
 }
