@@ -3,6 +3,7 @@ package storage;
 import java.util.ArrayList;
 
 import model.Companion;
+import model.Company;
 import model.Conference;
 import model.ConferenceType;
 import model.Hotel;
@@ -51,4 +52,67 @@ public class Storage {
         return new ArrayList(companies);
     }
 
+    /**
+     * Adders
+     */
+
+    public void addConference(Conference conference) {
+        conferences.add(conference);
+    }
+
+    public void addConferenceType(ConferenceType conferenceType) {
+        conferenceTypes.add(conferenceType);
+    }
+
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public void addTour(Tour tour) {
+        tours.add(tour);
+    }
+
+    public void addHotel(Hotel hotel) {
+        hotels.add(hotel);
+    }
+
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
+    }
+
+    public void addCompany(Company company) {
+        companies.add(company);
+    }
+
+    /**
+     * Removers
+     */
+
+    public void removeConference(Conference conference) {
+        conferences.remove(conference);
+    }
+
+    public void removeConferenceType(ConferenceType conferenceType) {
+        conferenceTypes.remove(conferenceType);
+    }
+
+    public void removeLocation(Location location) {
+        locations.remove(location);
+    }
+
+    public void removeTour(Tour tour) {
+        tours.remove(tour);
+    }
+
+    public void removeHotel(Hotel hotel) {
+        hotels.remove(hotel);
+    }
+
+    public void removeParticipant(Participant participant) {
+        participants.remove(participant);
+    }
+
+    public void removeCompany(Company company) {
+        companies.remove(company);
+    }
 }
