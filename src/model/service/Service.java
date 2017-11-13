@@ -10,6 +10,7 @@ import model.model.Hotel;
 import model.model.Location;
 import model.model.Participant;
 import model.model.Tour;
+import model.model.TourType;
 
 public class Service {
 
@@ -49,9 +50,9 @@ public class Service {
         h3.setShowerPrice(50);
 
         // Ny Tour
-        Tour t1 = new Tour("tur til havnen", "Vi går en tur ned på havnen", 150, (short) 15);
-        Tour t2 = new Tour("Aros", "En lækker tur til Aros", 150, (short) 20);
-        Tour t3 = new Tour("Sejltur", "Sejltur på vandet", 200, (short) 10);
+        TourType t1 = new TourType("tur til havnen", "Vi går en tur ned på havnen", 150, (short) 15);
+        TourType t2 = new TourType("Aros", "En lækker tur til Aros", 150, (short) 20);
+        TourType t3 = new TourType("Sejltur", "Sejltur på vandet", 200, (short) 10);
 
         // Tilføj hotel
         l1.addHotel(h1);
@@ -72,10 +73,9 @@ public class Service {
         c1.createBooking(p2);
 
         c1.getBookings().get(0).createCompanion("Henrik");
-        c1.getBookings().get(0).getCompanion().createBookingTour(t1, )
+        c1.getBookings().get(0).getCompanion().createBookingTour(t1);
 
         c1.getBookings().get(1).createCompanion("Mathias");
-
 
         c1.getBookings().get(0).setHotel(h1);
         c1.getBookings().get(1).setHotel(h2);
