@@ -115,4 +115,5 @@ public class Storage {
     public void removeCompany(Company company) {
         companies.remove(company);
     }
+
 }

@@ -69,7 +69,9 @@ public class Service {
 
         // Booking
         c1.createBooking(p1);
-        c1.getBookings().get(0).
+        c1.createBooking(p2);
 
+        c1.createCompanionForBooking(0, "Henrik");
+        c1.createCompanionForBooking(1, "Mathias");
     }
 }
