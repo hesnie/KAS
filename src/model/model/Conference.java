@@ -53,4 +53,12 @@ public class Conference {
     public Location getLocation() {
         return location;
     }
+
+    public ConferenceType getConferenceType() {
+        return conferenceType;
+    }
+
+    public void setConferenceType(ConferenceType conferenceType) {
+        this.conferenceType = conferenceType;
+    }
 }

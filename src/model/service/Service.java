@@ -58,6 +58,21 @@ public class Service {
         return listHotelsAndParticipants;
     }
 
+    public ArrayList<String> ListBookingsOnConference(Conference conference) {
+        ArrayList<String> listBookings = new ArrayList<>();
+        ArrayList<Booking> bookings = conference.getBookings();
+        listBookings.add("Deltagere på \"" + conference.getConferenceType().getName() + "\":");
+        for (Booking b : bookings) {
+            String toAdd = b.getParticipant().getName();
+            if (b.isSpeaker()) {
+                toAdd += "(Foredragsholder)";
+            }
+            listBookings.add(toAdd);
+        }
+
+        return listBookings;
+    }
+
     public void initContent() {
 
         // participants
@@ -171,6 +186,12 @@ public class Service {
 
     public void printTest3() {
         for (String s : ListToursAndCompanions(c2)) {
+            System.out.println(s);
+        }
+    }
+
+    public void printTest4() {
+        for (String s : ListBookingsOnConference(c2)) {
             System.out.println(s);
         }
     }

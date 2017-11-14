@@ -109,4 +109,12 @@ public class Booking {
     void setShower(boolean shower) {
         this.shower = shower;
     }
+
+    public boolean isSpeaker() {
+        return isSpeaker;
+    }
+
+    public void setSpeaker(boolean isSpeaker) {
+        this.isSpeaker = isSpeaker;
+    }
 }
