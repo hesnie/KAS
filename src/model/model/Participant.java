@@ -19,4 +19,19 @@ public class Participant {
         return name;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public short getPhoneNUmber() {
+        return phoneNUmber;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public String getCountry() {
+        return country;
+    }
 }

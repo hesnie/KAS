@@ -24,17 +24,19 @@ public class Booking {
     public double calcTotalPrice() {
         double price = 0.0;
         int duration = conference.getDuration();
-        double hotelPricePrDay = calcHotelPricePrDay();
+        double hotelPricePrDay;
 
         if (companion != null) {
             price += companion.calcPrice();
         }
         if (isSpeaker) {
             if (hotel != null) {
+                hotelPricePrDay = calcHotelPricePrDay();
                 price += hotelPricePrDay * (duration - 1);
             }
         } else {
             if (hotel != null) {
+                hotelPricePrDay = calcHotelPricePrDay();
                 price += hotelPricePrDay * (duration - 1);
             }
             price += conference.getPrice() * duration;
@@ -108,5 +110,13 @@ public class Booking {
 
     void setShower(boolean shower) {
         this.shower = shower;
+    }
+
+    public boolean isSpeaker() {
+        return isSpeaker;
+    }
+
+    public void setSpeaker(boolean isSpeaker) {
+        this.isSpeaker = isSpeaker;
     }
 }
