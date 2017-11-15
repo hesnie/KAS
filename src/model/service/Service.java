@@ -247,17 +247,17 @@ public class Service {
         c1.getBookings().get(0).setHotel(h1);
         c1.getBookings().get(1).setHotel(h2);
         c1.getBookings().get(2).setHotel(h1);
-        c1.setHotelServices(0, true, true, true);
-        c1.setHotelServices(1, true, false, false);
-        c1.setHotelServices(2, true, true, true);
-
-        // test
-        c2.getBookings().get(1).setHotel(h1);
-        c2.getBookings().get(2).setHotel(h1);
-        c2.setHotelServices(2, true, false, false);
-
-        c2.getBookings().get(3).setHotel(h1);
-        c2.setHotelServices(3, true, false, false);
+        // c1.setHotelServices(0, true, true, true);
+        // c1.setHotelServices(1, true, false, false);
+        // c1.setHotelServices(2, true, true, true);
+        //
+        // // test
+        // c2.getBookings().get(1).setHotel(h1);
+        // c2.getBookings().get(2).setHotel(h1);
+        // c2.setHotelServices(2, true, false, false);
+        //
+        // c2.getBookings().get(3).setHotel(h1);
+        // c2.setHotelServices(3, true, false, false);
     }
 
     public void printTest() {
