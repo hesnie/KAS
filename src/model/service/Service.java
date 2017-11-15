@@ -3,6 +3,7 @@ package model.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import model.model.Booking;
+import model.model.Companion;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
@@ -15,6 +16,7 @@ import storage.Storage;
 public class Service {
 
     private Storage s1;
+    private Booking b1;
 
     // Skal slettes, kun til test
     private Conference c1;
@@ -78,9 +80,40 @@ public class Service {
 
     // =================================================================================================
 
+    // create participant
     public void CreateParticipant(String name, String adress, short phoneNumber) {
         Participant p = new Participant(name, adress, phoneNumber);
-        Storage.
+        s1.addParticipant(p);
+    }
+
+    // Create companion
+    public Companion Createcompanion(String name) {
+        Companion c = b1.createCompanion(name);
+        return c;
+    }
+
+    // Add hotel
+    public Hotel addParticipantToHotel(Hotel hotel) {
+        b1.setHotel(hotel);
+        return hotel;
+
+    }
+
+    // create booking
+    public Booking createBooking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker,
+            Participant participant, Conference conference, boolean companion, Hotel hotel, String companionName) {
+
+        Booking b = conference.createBooking(participant, isSpeaker);
+
+        if (hotel != null) {
+            conference.setHotelServices(b, wifi, breaktast, shower);
+            b.setHotel(hotel);
+        }
+        if (companion) {
+            b.createCompanion(companionName);
+
+        }
+        return b;
     }
 
     public void initContent() {

@@ -21,17 +21,18 @@ public class Conference {
         this.location = location;
     }
 
-    public void createBooking(Participant participant, boolean isSpeaker) {
+    public Booking createBooking(Participant participant, boolean isSpeaker) {
         Booking booking = new Booking(false, false, false, isSpeaker, participant, this);
         booking.setHotel(null);
         booking.setCompany(null);
         bookings.add(booking);
+        return booking;
     }
 
-    public void setHotelServices(int index, boolean wifi, boolean breakfast, boolean shower) {
-        bookings.get(index).setWifi(wifi);
-        bookings.get(index).setBreakfast(breakfast);
-        bookings.get(index).setShower(shower);
+    public void setHotelServices(Booking booking, boolean wifi, boolean breakfast, boolean shower) {
+        booking.setWifi(wifi);
+        booking.setBreakfast(breakfast);
+        booking.setShower(shower);
     }
 
     public void deleteBooking(Booking booking) {
