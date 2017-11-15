@@ -40,6 +40,8 @@ public class LocationPane extends GridPane {
         lvwLocations.setPrefHeight(200);
         lvwLocations.getItems().setAll(Service.getLocationsFromStorage());
 
+        // lvwLocations.getSelectionModel().clearSelection();
+
         txaDescription = new TextArea("her skal beligenheden beskrives");
         this.add(txaDescription, 1, 2);
         txaDescription.setEditable(false);
