@@ -170,7 +170,6 @@ public class Service {
         return tt;
     }
 
-<<<<<<< HEAD
     public Company createCompany(String name, short phoneNumber) {
         Company c = new Company(name, phoneNumber);
         s1.addCompany(c);
@@ -183,15 +182,48 @@ public class Service {
         return company;
     }
 
+    // =====================================================================================================
+    public static ArrayList<Conference> getConferencesFromStorage() {
+        return Storage.getConferences();
+    }
+
+    public static ArrayList<ConferenceType> getConferenceTypesFromStorage() {
+        return Storage.getConferenceTypes();
+    }
+
+    public static ArrayList<Location> getLocationsFromStorage() {
+        return Storage.getLocations();
+    }
+
+    public static ArrayList<TourType> getTourTypesFromStorage() {
+        return Storage.getTourTypes();
+    }
+
+    public static ArrayList<Tour> getToursFromStorage() {
+        return Storage.getTours();
+    }
+
+    public static ArrayList<Hotel> getHotelsFromStorage() {
+        return Storage.getHotels();
+    }
+
+    public static ArrayList<Participant> getParticipantsFromStorage() {
+        return Storage.getParticipants();
+    }
+
+    public static ArrayList<Company> getCompaniesFromStorage() {
+        return Storage.getCompanies();
+    }
+
     // ====================================================================================================
 
-=======
     public Tour createTour(LocalDate date, TourType tourType) {
         Tour t = new Tour(date, tourType);
         s1.addTour(t);
         return t;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
             double breakfastPrice, double showerPrice) {
@@ -206,6 +238,8 @@ public class Service {
 =======
 >>>>>>> 565ab38617acb60870c31dc700cbd8048f7e8483
 >>>>>>> 1167acac4f6d40308083570885bf782e34356ece
+=======
+>>>>>>> 3210dbeca64b9d7de5202dd91a7cbddaf0806890
     public void initContent() {
 
         // participants
