@@ -50,6 +50,7 @@ public class StartWindow extends Application {
         btnParticipant.setMinWidth(250);
         pane.add(btnParticipant, 1, 3);
         GridPane.setMargin(btnParticipant, new Insets(10, 10, 0, 10));
+        btnParticipant.setOnAction(event -> participantAction());
 
     }
 
@@ -58,6 +59,11 @@ public class StartWindow extends Application {
     private void adminAction() {
         AdminWindow admin = new AdminWindow("Admin");
         admin.showAndWait();
+    }
+
+    private void participantAction() {
+        ParticipantWindow participant = new ParticipantWindow("Participant");
+        participant.showAndWait();
     }
 
 }
