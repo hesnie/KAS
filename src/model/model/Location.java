@@ -9,7 +9,7 @@ public class Location {
     private short maxParticipants;
     private String description;
     private ArrayList<Hotel> hotels = new ArrayList<>();
-    private ArrayList<TourType> tours = new ArrayList<>();
+    private ArrayList<TourType> toursType = new ArrayList<>();
 
     public Location(String name, String adress, short maxParticipants, String description) {
         this.name = name;
@@ -30,15 +30,15 @@ public class Location {
         hotels.remove(hotel);
     }
 
-    public ArrayList<TourType> getTours() {
-        return new ArrayList<>(tours);
+    public ArrayList<TourType> getToursTypes() {
+        return new ArrayList<>(toursType);
     }
 
-    public void addTour(TourType tour) {
-        tours.add(tour);
+    public void addTour(TourType tourType) {
+        toursType.add(tourType);
     }
 
-    public void removeTour(TourType tour) {
-        tours.remove(tour);
+    public void removeTour(TourType tourType) {
+        toursType.remove(tourType);
     }
 }
