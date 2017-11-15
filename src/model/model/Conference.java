@@ -62,4 +62,9 @@ public class Conference {
     public void setConferenceType(ConferenceType conferenceType) {
         this.conferenceType = conferenceType;
     }
+
+    @Override
+    public String toString() {
+        return conferenceType.getName() + " (" + dateStart + ")";
+    }
 }
