@@ -8,7 +8,7 @@ public class App {
     public static void main(String[] args) {
 
         Service s1 = new Service();
-        s1.initContent();
+        Service.initContent();
 
         // s1.printTest();
         System.out.println();

@@ -17,14 +17,11 @@ import storage.Storage;
 
 public class Service {
 
-    private Storage s1;
-    private Booking b1;
-
     // Skal slettes, kun til test
     private Conference c1;
     private Conference c2;
 
-    public ArrayList<String> listToursAndCompanions(Conference conference) {
+    public static ArrayList<String> listToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
         ArrayList<TourType> listToursOnConference = conference.getLocation().getToursTypes();
         ArrayList<Booking> listBookingsOnConference = conference.getBookings();
@@ -47,10 +44,11 @@ public class Service {
 
     }
 
-    public ArrayList<String> listHotelsAndParticipants(Conference conference) {
+    public static ArrayList<String> listHotelsAndParticipants(Conference conference) {
         ArrayList<String> listHotelsAndParticipants = new ArrayList<>();
+        String h;
         for (int i = 0; i < conference.getLocation().getHotels().size(); i++) {
-            String h = conference.getLocation().getHotels().get(i).getName() + ": ";
+            h = conference.getLocation().getHotels().get(i).getName() + ": ";
             for (int j = 0; j < conference.getBookings().size(); j++) {
                 if (conference.getBookings().get(j).getHotel() == conference.getLocation().getHotels().get(i)) {
                     h += conference.getBookings().get(j).getParticipant().getName();
@@ -65,7 +63,7 @@ public class Service {
         return listHotelsAndParticipants;
     }
 
-    public ArrayList<String> listBookingsOnConference(Conference conference) {
+    public static ArrayList<String> listBookingsOnConference(Conference conference) {
         ArrayList<String> listBookings = new ArrayList<>();
         ArrayList<Booking> bookings = conference.getBookings();
         listBookings.add("Deltagere på \"" + conference.getConferenceType().getName() + "\":");
@@ -83,31 +81,31 @@ public class Service {
     // =================================================================================================
 
     // create participant
-    public Participant createParticipant(String name, String adress, short phoneNumber) {
+    public static Participant createParticipant(String name, String adress, short phoneNumber) {
         Participant p = new Participant(name, adress, phoneNumber);
-        s1.addParticipant(p);
+        Storage.addParticipant(p);
         return p;
     }
 
     // Create companion
-    public Companion createCompanion(String name) {
-        Companion c = b1.createCompanion(name);
+    public static Companion createCompanion(String name, Booking booking) {
+        Companion c = booking.createCompanion(name);
         return c;
     }
 
-    public void addTourToCompanion(Tour tour, Booking booking) {
+    public static void addTourToCompanion(Tour tour, Booking booking) {
         booking.getCompanion().createBookingTour(tour);
     }
 
     // Add hotel
-    public Hotel addParticipantToHotel(Hotel hotel) {
-        b1.setHotel(hotel);
+    public static Hotel addParticipantToHotel(Hotel hotel, Booking booking) {
+        booking.setHotel(hotel);
         return hotel;
 
     }
 
     // create booking
-    public Booking createBooking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker,
+    public static Booking createBooking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker,
             Participant participant, Conference conference, Hotel hotel, String companionName) {
 
         Booking b = conference.createBooking(participant, isSpeaker);
@@ -123,56 +121,56 @@ public class Service {
         return b;
     }
 
-    public ConferenceType createConferenceType(String name, String description) {
+    public static ConferenceType createConferenceType(String name, String description) {
         ConferenceType ct = new ConferenceType(name, description);
-        s1.addConferenceType(ct);
+        Storage.addConferenceType(ct);
         return ct;
     }
 
-    public Conference createConference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
-            Location location) {
+    public static Conference createConference(LocalDate dateStart, short duration, double price,
+            ConferenceType conferenceType, Location location) {
         Conference c = new Conference(dateStart, duration, price, conferenceType, location);
-        s1.addConference(c);
+        Storage.addConference(c);
         return c;
     }
 
-    public Hotel createHotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
+    public static Hotel createHotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
             boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice, double showerPrice) {
         Hotel h = new Hotel(name, adress, priceSingle, priceDouble, hasWifi, hasBreakfast, hasShower, wifiPrice,
                 breakfastPrice, showerPrice);
-        s1.addHotel(h);
+        Storage.addHotel(h);
         return h;
     }
 
-    public Hotel createHotel(String name, String adress, double priceSingle, double priceDouble) {
+    public static Hotel createHotel(String name, String adress, double priceSingle, double priceDouble) {
         Hotel h = new Hotel(name, adress, priceSingle, priceDouble);
-        s1.addHotel(h);
+        Storage.addHotel(h);
         return h;
     }
 
-    public Location createLocation(String name, String adress, short maxParticipants, String description) {
+    public static Location createLocation(String name, String adress, short maxParticipants, String description) {
         Location l = new Location(name, adress, maxParticipants, description);
-        s1.addLocation(l);
+        Storage.addLocation(l);
         return l;
     }
 
-    public void addHotelToLocation(Hotel hotel, Location location) {
+    public static void addHotelToLocation(Hotel hotel, Location location) {
         location.addHotel(hotel);
     }
 
-    public void addTourToLocation(TourType tourType, Location location) {
+    public static void addTourToLocation(TourType tourType, Location location) {
         location.addTour(tourType);
     }
 
-    public TourType createTourType(String name, String description, double price, short maxParticipants) {
+    public static TourType createTourType(String name, String description, double price, short maxParticipants) {
         TourType tt = new TourType(name, description, price, maxParticipants);
-        s1.addTourType(tt);
+        Storage.addTourType(tt);
         return tt;
     }
 
-    public Company createCompany(String name, short phoneNumber) {
+    public static Company createCompany(String name, short phoneNumber) {
         Company c = new Company(name, phoneNumber);
-        s1.addCompany(c);
+        Storage.addCompany(c);
         return c;
     }
 
@@ -217,15 +215,13 @@ public class Service {
 
     // ====================================================================================================
 
-    public Tour createTour(LocalDate date, TourType tourType) {
+    public static Tour createTour(LocalDate date, TourType tourType) {
         Tour t = new Tour(date, tourType);
-        s1.addTour(t);
+        Storage.addTour(t);
         return t;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
+    public static void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
             double breakfastPrice, double showerPrice) {
         hotel.setHasWifi(wifi);
         hotel.setWifiPrice(wifiPrice);
@@ -235,12 +231,7 @@ public class Service {
         hotel.setShowerPrice(showerPrice);
     }
 
-=======
->>>>>>> 565ab38617acb60870c31dc700cbd8048f7e8483
->>>>>>> 1167acac4f6d40308083570885bf782e34356ece
-=======
->>>>>>> 3210dbeca64b9d7de5202dd91a7cbddaf0806890
-    public void initContent() {
+    public static void initContent() {
 
         // participants
 
@@ -311,13 +302,6 @@ public class Service {
         addTourToCompanion(t3, b6);
         addTourToCompanion(t1, b7);
         addTourToCompanion(t2, b7);
-
-        // // test
-        // c2.getBookings().get(1).setHotel(h1);
-        // c2.getBookings().get(2).setHotel(h1);
-        // c2.setHotelServices(2, true, false, false);
-        //
-        // c2.getBookings().get(3).setHotel(h1);
     }
 
     public void printTest() {

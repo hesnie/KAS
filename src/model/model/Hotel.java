@@ -6,21 +6,18 @@ public class Hotel {
     private String adress;
     private double priceSingle;
     private double priceDouble;
-    private boolean hasWifi;
-    private boolean hasBreakfast;
-    private boolean hasShower;
-    private double wifiPrice;
-    private double breakfastPrice;
-    private double showerPrice;
+    private boolean hasWifi = false;
+    private boolean hasBreakfast = false;
+    private boolean hasShower = false;
+    private double wifiPrice = 0;
+    private double breakfastPrice = 0;
+    private double showerPrice = 0;
 
     public Hotel(String name, String adress, double priceSingle, double priceDouble) {
         this.name = name;
         this.adress = adress;
         this.priceSingle = priceSingle;
         this.priceDouble = priceDouble;
-        this.hasWifi = false;
-        this.hasBreakfast = false;
-        this.hasShower = false;
     }
 
     public Hotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
