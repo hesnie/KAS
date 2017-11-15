@@ -19,4 +19,9 @@ public class Tour {
         return tourType;
     }
 
+    @Override
+    public String toString() {
+        return tourType.getName();
+    }
+
 }

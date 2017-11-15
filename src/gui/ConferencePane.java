@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.model.Conference;
+import model.model.Location;
 import model.service.Service;
 
 public class ConferencePane extends GridPane {
@@ -34,7 +36,10 @@ public class ConferencePane extends GridPane {
 
         lvwConferences.getSelectionModel().clearSelection();
 
-        txaDescription = new TextArea("her skal konferencen beskrives");
+        ChangeListener<Conference> listener = (ov, oldConference, newConference) -> selectedConferenceChanged();
+        lvwConferences.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        txaDescription = new TextArea();
         this.add(txaDescription, 1, 2);
         txaDescription.setEditable(false);
 
@@ -51,6 +56,19 @@ public class ConferencePane extends GridPane {
 
         // -------------------------------------------------------------------------
 
+    }
+
+    private void selectedConferenceChanged() {
+        updateControls();
+    }
+
+    public void updateControls() {
+        Conference conference = lvwConferences.getSelectionModel().getSelectedItem();
+        if (conference != null) {
+            txaDescription.setText(conference.getConferenceType().getDescription());
+        } else {
+            txaDescription.clear();
+        }
     }
 
 }

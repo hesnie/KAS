@@ -41,4 +41,14 @@ public class Location {
     public void removeTourType(TourType tourType) {
         toursType.remove(tourType);
     }
+
+    @Override
+    public String toString() {
+        return name;
+        // return location.getName() + " (" + dateStart + ")";
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

@@ -1,7 +1,6 @@
 package gui;
 
-import java.util.ArrayList;
-
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -36,7 +35,10 @@ public class LocationPane extends GridPane {
 
         lvwLocations.getSelectionModel().clearSelection();
 
-        txaDescription = new TextArea("her skal beligenheden beskrives");
+        ChangeListener<Location> listener = (ov, oldLocation, newLocation) -> selectedLocationChanged();
+        lvwLocations.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        txaDescription = new TextArea();
         this.add(txaDescription, 1, 2);
         txaDescription.setEditable(false);
 
@@ -47,11 +49,31 @@ public class LocationPane extends GridPane {
 
         btnCreate = new Button("Opret beliggenhed");
         hbxButtons.getChildren().add(btnCreate);
+        btnCreate.setOnAction(event -> createAction());
 
         btnAdmin = new Button("Administrer beliggenhed");
         hbxButtons.getChildren().add(btnAdmin);
 
         // -------------------------------------------------------------------------
+
+    }
+
+    private void selectedLocationChanged() {
+        updateControls();
+    }
+
+    public void updateControls() {
+        Location location = lvwLocations.getSelectionModel().getSelectedItem();
+        if (location != null) {
+            txaDescription.setText(location.getDescription());
+        } else {
+            txaDescription.clear();
+        }
+    }
+
+    public void createAction() {
+        LocationWindow location = new LocationWindow("Ny lokation");
+        location.showAndWait();
 
     }
 
