@@ -10,8 +10,11 @@ import model.model.Location;
 import model.model.Participant;
 import model.model.Tour;
 import model.model.TourType;
+import storage.Storage;
 
 public class Service {
+
+    private Storage s1;
 
     // Skal slettes, kun til test
     private Conference c1;
@@ -71,6 +74,13 @@ public class Service {
         }
 
         return listBookings;
+    }
+
+    // =================================================================================================
+
+    public void CreateParticipant(String name, String adress, short phoneNumber) {
+        Participant p = new Participant(name, adress, phoneNumber);
+        Storage.
     }
 
     public void initContent() {
