@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.model.Booking;
 import model.model.BookingTour;
 import model.model.Companion;
+import model.model.Company;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
@@ -169,12 +170,29 @@ public class Service {
         return tt;
     }
 
+<<<<<<< HEAD
+    public Company createCompany(String name, short phoneNumber) {
+        Company c = new Company(name, phoneNumber);
+        s1.addCompany(c);
+        return c;
+    }
+
+    public Company addCompanyToBooking(Booking booking, Company company) {
+        booking.setCompany(company);
+
+        return company;
+    }
+
+    // ====================================================================================================
+
+=======
     public Tour createTour(LocalDate date, TourType tourType) {
         Tour t = new Tour(date, tourType);
         s1.addTour(t);
         return t;
     }
 
+<<<<<<< HEAD
     public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
             double breakfastPrice, double showerPrice) {
         hotel.setHasWifi(wifi);
@@ -185,6 +203,9 @@ public class Service {
         hotel.setShowerPrice(showerPrice);
     }
 
+=======
+>>>>>>> 565ab38617acb60870c31dc700cbd8048f7e8483
+>>>>>>> 1167acac4f6d40308083570885bf782e34356ece
     public void initContent() {
 
         // participants
