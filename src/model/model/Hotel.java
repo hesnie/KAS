@@ -98,4 +98,9 @@ public class Hotel {
     public String toString() {
         return name;
     }
+
+    public String getAdress() {
+        return adress;
+    }
+
 }

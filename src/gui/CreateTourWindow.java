@@ -22,8 +22,25 @@ import storage.Storage;
 public class CreateTourWindow extends Stage {
 
     private TourType tourType;
+    private int indeks = 0;
 
     public CreateTourWindow(String title) {
+        initStyle(StageStyle.UTILITY);
+        initModality(Modality.APPLICATION_MODAL);
+        setResizable(false);
+
+        setTitle(title);
+        GridPane pane = new GridPane();
+        initContent(pane);
+
+        Scene scene = new Scene(pane);
+        setScene(scene);
+    }
+
+    public CreateTourWindow(String title, int indeks) {
+        this.tourType = Service.getTourTypesFromStorage().get(indeks);
+        this.indeks = indeks;
+
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
@@ -61,6 +78,7 @@ public class CreateTourWindow extends Stage {
 
         btnCancel = new Button("Cancel");
         pane.add(btnCancel, 2, 4);
+        btnCancel.setOnAction(event -> cancelAction());
 
         // -------------------------------------
         // textFields
@@ -91,33 +109,39 @@ public class CreateTourWindow extends Stage {
         lblMaxParticipants = new Label("MaxParticipants");
         pane.add(lblMaxParticipants, 0, 3);
 
+        if (tourType != null) {
+            txfName.setText(tourType.getName());
+            txfPrice.setText("" + tourType.getPrice());
+            txfDescription.setText(tourType.getDescription());
+            txfMaxParticipants.setText("" + tourType.getMaxParticipants());
+        }
     }
 
     // ====================================================================================
 
     public void saveAction() {
-        String name = txfName.getText().trim();
-        if (name.length() == 0) {
-            return;
-        }
-        double price = 0;
-        try {
-            price = Double.parseDouble(txfPrice.getText().trim());
-        } catch (NumberFormatException ex) {
-            // do nothing
-        }
+        if (tourType == null) {
+            String name = txfName.getText().trim();
+            String description = txfDescription.getText().trim();
+            double price = 0;
+            Short maxParticipants = 0;
+            try {
+                price = Double.parseDouble(txfPrice.getText().trim());
+                maxParticipants = Short.parseShort(txfMaxParticipants.getText().trim());
+            } catch (NumberFormatException ex) {
+                // do nothing
+            }
 
-        String description = txfDescription.getText().trim();
+            TourType tourType = Service.createTourType(name, description, price, maxParticipants);
 
-        Short maxParticipants = 0;
-        try {
-            maxParticipants = Short.parseShort(txfMaxParticipants.getText().trim());
-        } catch (NumberFormatException ex) {
-            // do nothing
+        } else {
+            Storage.getTourTypes().get(indeks).setDescription(txfDescription.getText().trim());
         }
 
-        TourType tourType = Service.createTourType(name, description, price, maxParticipants);
+        hide();
+    }
 
+    public void cancelAction() {
         hide();
     }
 

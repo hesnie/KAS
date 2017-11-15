@@ -42,4 +42,9 @@ public class TourType {
     public short getMaxParticipants() {
         return maxParticipants;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
