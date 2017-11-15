@@ -61,6 +61,7 @@ public class StartWindow extends Application {
     private void adminAction() {
         AdminWindow admin = new AdminWindow("Admin");
         admin.show();
+
     }
 
     private void participantAction() {
