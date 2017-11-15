@@ -149,17 +149,23 @@ public class Service {
         return l;
     }
 
-    public TourType createTourType(String name, String description, float price, short maxParticipants) {
+    public TourType createTourType(String name, String description, double price, short maxParticipants) {
         TourType tt = new TourType(name, description, price, maxParticipants);
-        s1.addTour(tt);
+        s1.addTourType(tt);
         return tt;
+    }
+
+    public Tour createTour(LocalDate date, TourType tourType) {
+        Tour t = new Tour(date, tourType);
+        s1.addTour(t);
+        return t;
     }
 
     public void initContent() {
 
         // participants
 
-        Participant p1 = new Participant("Finn Madsen", "Adelgade 1", (short) 123);
+        Participant p1 = CreateParticipant("Finn Madsen", "Adelgade 1", (short) 123);
         Participant p2 = new Participant("Niels Petersen", "Adelgade 2", (short) 1234);
         Participant p3 = new Participant("Peter Sommer", "Adelgade 3", (short) 12345);
         Participant p4 = new Participant("Lone Jensen", "Adelgade 4", (short) 123456);
@@ -184,10 +190,10 @@ public class Service {
         h3.setHasShower(true);
         h3.setShowerPrice(50);
 
-        // Ny Tour
-        TourType tT1 = new TourType("Egeskov", "Tur til egeskov", 75, (short) 15);
-        TourType tT2 = new TourType("Byrundttur i Odense", "En lækker tur i Odense", 125, (short) 20);
-        TourType tT3 = new TourType("Trapholt", "Tur til trapholt", 200, (short) 10);
+        // Ny Tour type
+        TourType tT1 = createTourType("Egeskov", "Tur til egeskov", 75, (short) 15);
+        TourType tT2 = createTourType("Byrundttur i Odense", "En lækker tur i Odense", 125, (short) 20);
+        TourType tT3 = createTourType("Trapholt", "Tur til trapholt", 200, (short) 10);
 
         // Tilføj hotel
         l1.addHotel(h1);

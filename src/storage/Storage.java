@@ -1,20 +1,21 @@
 package storage;
 
 import java.util.ArrayList;
-
 import model.model.Company;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
 import model.model.Location;
 import model.model.Participant;
+import model.model.Tour;
 import model.model.TourType;
 
 public class Storage {
     private ArrayList<Conference> conferences = new ArrayList<>();
     private ArrayList<ConferenceType> conferenceTypes = new ArrayList<>();
     private ArrayList<Location> locations = new ArrayList<>();
-    private ArrayList<TourType> tours = new ArrayList<>();
+    private ArrayList<TourType> tourTypes = new ArrayList<>();
+    private ArrayList<Tour> tours = new ArrayList<>();
     private ArrayList<Hotel> hotels = new ArrayList<>();
     private ArrayList<Participant> participants = new ArrayList<>();
     private ArrayList<Company> companies = new ArrayList<>();
@@ -24,31 +25,35 @@ public class Storage {
      */
 
     public ArrayList<Conference> getConferences() {
-        return new ArrayList(conferences);
+        return new ArrayList<>(conferences);
     }
 
     public ArrayList<ConferenceType> getConferenceTypes() {
-        return new ArrayList(conferenceTypes);
+        return new ArrayList<>(conferenceTypes);
     }
 
     public ArrayList<Location> getLocations() {
-        return new ArrayList(locations);
+        return new ArrayList<>(locations);
     }
 
-    public ArrayList<TourType> getTours() {
-        return new ArrayList(tours);
+    public ArrayList<TourType> getTourTypes() {
+        return new ArrayList<>(tourTypes);
+    }
+
+    public ArrayList<Tour> getTours() {
+        return new ArrayList<>(tours);
     }
 
     public ArrayList<Hotel> getHotels() {
-        return new ArrayList(hotels);
+        return new ArrayList<>(hotels);
     }
 
     public ArrayList<Participant> getParticipants() {
-        return new ArrayList(participants);
+        return new ArrayList<>(participants);
     }
 
     public ArrayList<Company> getCompanies() {
-        return new ArrayList(companies);
+        return new ArrayList<>(companies);
     }
 
     /**
@@ -67,7 +72,11 @@ public class Storage {
         locations.add(location);
     }
 
-    public void addTour(TourType tour) {
+    public void addTourType(TourType tourType) {
+        tourTypes.add(tourType);
+    }
+
+    public void addTour(Tour tour) {
         tours.add(tour);
     }
 
@@ -99,7 +108,11 @@ public class Storage {
         locations.remove(location);
     }
 
-    public void removeTour(TourType tour) {
+    public void removeTourType(TourType tourType) {
+        tourTypes.remove(tourType);
+    }
+
+    public void removeTour(Tour tour) {
         tours.remove(tour);
     }
 
@@ -114,5 +127,4 @@ public class Storage {
     public void removeCompany(Company company) {
         companies.remove(company);
     }
-
 }
