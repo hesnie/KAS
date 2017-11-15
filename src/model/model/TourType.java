@@ -4,10 +4,10 @@ public class TourType {
     private String name;
     private String description;
     private boolean lunchIncluded;
-    private float price;
+    private double price;
     private short maxParticipants;
 
-    public TourType(String name, String description, float price, short maxParticipants) {
+    public TourType(String name, String description, double price, short maxParticipants) {
         this.name = name;
         this.price = price;
         this.maxParticipants = maxParticipants;
@@ -35,7 +35,7 @@ public class TourType {
         this.lunchIncluded = lunchIncluded;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
