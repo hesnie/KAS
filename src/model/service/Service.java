@@ -222,11 +222,6 @@ public class Service {
     }
 
     public static void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
-<<<<<<< HEAD
-            // public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast,
-            // boolean shower, double wifiPrice,
-=======
->>>>>>> ca0588a34e25b44aa6472d5fd1094f66e13bc0f7
             double breakfastPrice, double showerPrice) {
         hotel.setHasWifi(wifi);
         hotel.setWifiPrice(wifiPrice);
@@ -237,11 +232,6 @@ public class Service {
     }
 
     public static void initContent() {
-<<<<<<< HEAD
-        // public void initContent() {
-=======
->>>>>>> ca0588a34e25b44aa6472d5fd1094f66e13bc0f7
-
         // participants
 
         Participant p1 = createParticipant("Finn Madsen", "Adelgade 1", (short) 123);
