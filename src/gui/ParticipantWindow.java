@@ -3,6 +3,7 @@ package gui;
 import model.model.Conference;
 import model.service.Service;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,9 +45,10 @@ public class ParticipantWindow extends Stage {
         // set vertical gap between components
         pane.setVgap(10);
 
-        btnBooking = new Button("Add");
+        btnBooking = new Button("Tilmeld");
         pane.add(btnBooking, 0, 3);
         GridPane.setMargin(btnBooking, new Insets(10, 10, 0, 10));
+        btnBooking.setOnAction(event -> BookingFormAction());
 
         lvwConferences = new ListView<>();
         pane.add(lvwConferences, 0, 0, 1, 3);
@@ -54,9 +56,27 @@ public class ParticipantWindow extends Stage {
         lvwConferences.setPrefHeight(200);
         lvwConferences.getItems().setAll(Service.getConferencesFromStorage());
 
-        txaDescription = new TextArea("her skal konferencen beskrives");
+        ChangeListener<Conference> listener = (ov, oldConference, newConference) -> selectionChanged();
+        lvwConferences.getSelectionModel().selectedItemProperty().addListener(listener);
+
+        txaDescription = new TextArea("Marker en konference for at få info om den");
         pane.add(txaDescription, 2, 0, 2, 3);
         txaDescription.setEditable(false);
+    }
+
+    private void BookingFormAction() {
+        BookingFormWindow participant = new BookingFormWindow("Tilmelding til konference");
+        participant.showAndWait();
+    }
+
+    private void selectionChanged() {
+        Conference newConference = lvwConferences.getSelectionModel().getSelectedItem();
+        if (newConference != null) {
+            txaDescription.setText(
+                    newConference.getConferenceType().getName() + ", " + newConference.getPrice() + " kr. pr. dag");
+        } else {
+            txaDescription.setText("Marker en konference for at få info om den");
+        }
 
     }
 }
