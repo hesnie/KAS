@@ -18,8 +18,8 @@ import storage.Storage;
 public class Service {
 
     // Skal slettes, kun til test
-    private Conference c1;
-    private Conference c2;
+    private static Conference c1;
+    private static Conference c2;
 
     public static ArrayList<String> listToursAndCompanions(Conference conference) {
         ArrayList<String> listToursAndCompanions = new ArrayList<>();
@@ -106,7 +106,7 @@ public class Service {
 
     // create booking
     public static Booking createBooking(boolean wifi, boolean breaktast, boolean shower, boolean isSpeaker,
-            Participant participant, Conference conference, Hotel hotel, String companionName) {
+            Participant participant, Conference conference, Hotel hotel, boolean companion, String companionName) {
 
         Booking b = conference.createBooking(participant, isSpeaker);
 
@@ -114,7 +114,7 @@ public class Service {
             conference.setHotelServices(b, wifi, breaktast, shower);
             b.setHotel(hotel);
         }
-        if (companionName != "" || companionName != null) {
+        if (companion) {
             b.createCompanion(companionName);
 
         }
@@ -159,7 +159,7 @@ public class Service {
     }
 
     public static void addTourToLocation(TourType tourType, Location location) {
-        location.addTour(tourType);
+        location.addTourType(tourType);
     }
 
     public static TourType createTourType(String name, String description, double price, short maxParticipants) {
@@ -221,11 +221,7 @@ public class Service {
         return t;
     }
 
-<<<<<<< HEAD
     public static void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
-=======
-    public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
->>>>>>> eb7ecd8d4e798caaceca143b8b7c678fc6fc9484
             double breakfastPrice, double showerPrice) {
         hotel.setHasWifi(wifi);
         hotel.setWifiPrice(wifiPrice);
@@ -235,11 +231,7 @@ public class Service {
         hotel.setShowerPrice(showerPrice);
     }
 
-<<<<<<< HEAD
     public static void initContent() {
-=======
-    public void initContent() {
->>>>>>> eb7ecd8d4e798caaceca143b8b7c678fc6fc9484
 
         // participants
 
@@ -284,8 +276,8 @@ public class Service {
         addTourToLocation(tT3, l2);
 
         // Ny conference
-        Conference c1 = createConference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
-        Conference c2 = createConference(LocalDate.of(2017, 11, 20), (short) 3, 1500, ct2, l1);
+        c1 = createConference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
+        c2 = createConference(LocalDate.of(2017, 11, 20), (short) 3, 1500, ct2, l1);
 
         // Ny tour
         Tour t1 = createTour(LocalDate.of(2017, 11, 21), tT1);
@@ -293,14 +285,14 @@ public class Service {
         Tour t3 = createTour(LocalDate.of(2017, 11, 23), tT3);
 
         // booking
-        Booking b1 = createBooking(true, true, true, false, p1, c1, h1, "Henrik");
-        Booking b2 = createBooking(true, false, false, false, p2, c1, h2, "Mathias");
-        Booking b3 = createBooking(true, true, true, false, p3, c1, h1, null);
+        Booking b1 = createBooking(true, true, true, false, p1, c1, h1, true, "Henrik");
+        Booking b2 = createBooking(true, false, false, false, p2, c1, h2, true, "Mathias");
+        Booking b3 = createBooking(true, true, true, false, p3, c1, h1, false, null);
 
-        Booking b4 = createBooking(true, true, true, false, p1, c2, h1, null);
-        Booking b5 = createBooking(true, true, true, false, p2, c2, h1, null);
-        Booking b6 = createBooking(true, false, false, false, p3, c2, h1, "Mie Sommer");
-        Booking b7 = createBooking(true, false, false, true, p4, c2, h1, "Jan Madsen");
+        Booking b4 = createBooking(true, true, true, false, p1, c2, h1, false, null);
+        Booking b5 = createBooking(true, true, true, false, p2, c2, h1, false, null);
+        Booking b6 = createBooking(true, false, false, false, p3, c2, h1, true, "Mie Sommer");
+        Booking b7 = createBooking(true, false, false, true, p4, c2, h1, true, "Jan Madsen");
 
         // companions tours
         addTourToCompanion(t1, b1);

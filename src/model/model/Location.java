@@ -34,11 +34,11 @@ public class Location {
         return new ArrayList<>(toursType);
     }
 
-    public void addTour(TourType tourType) {
+    public void addTourType(TourType tourType) {
         toursType.add(tourType);
     }
 
-    public void removeTour(TourType tourType) {
+    public void removeTourType(TourType tourType) {
         toursType.remove(tourType);
     }
 }

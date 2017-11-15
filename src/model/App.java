@@ -1,7 +1,6 @@
 package model;
 
 import model.service.Service;
-import model.model.Conference;
 
 public class App {
 
@@ -10,18 +9,12 @@ public class App {
         Service s1 = new Service();
         Service.initContent();
 
-        // s1.printTest();
+        s1.printTest();
         System.out.println();
         s1.printTest2();
-
         System.out.println();
         s1.printTest3();
         System.out.println();
-        s1.printTest4();
-        System.out.println();
-        s1.printTest3();
-        System.out.println();
-
         s1.printTest4();
         System.out.println();
     }
