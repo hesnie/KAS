@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.service.Service;
 
 public class StartWindow extends Application {
     public static void main(String[] args) {
@@ -19,6 +20,7 @@ public class StartWindow extends Application {
         stage.setTitle("KAS");
         GridPane pane = new GridPane();
         initContent(pane);
+        Service.initContent();
 
         Scene scene = new Scene(pane);
         stage.setScene(scene);
@@ -58,12 +60,12 @@ public class StartWindow extends Application {
     // Actions
     private void adminAction() {
         AdminWindow admin = new AdminWindow("Admin");
-        admin.showAndWait();
+        admin.show();
     }
 
     private void participantAction() {
         ParticipantWindow participant = new ParticipantWindow("Participant");
-        participant.showAndWait();
+        participant.show();
     }
 
 }

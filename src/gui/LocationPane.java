@@ -1,19 +1,13 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.model.Location;
@@ -40,7 +34,7 @@ public class LocationPane extends GridPane {
         lvwLocations.setPrefHeight(200);
         lvwLocations.getItems().setAll(Service.getLocationsFromStorage());
 
-        // lvwLocations.getSelectionModel().clearSelection();
+        lvwLocations.getSelectionModel().clearSelection();
 
         txaDescription = new TextArea("her skal beligenheden beskrives");
         this.add(txaDescription, 1, 2);
