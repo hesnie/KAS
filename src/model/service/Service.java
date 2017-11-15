@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import model.model.Booking;
 import model.model.Companion;
+import model.model.Company;
 import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
@@ -154,6 +155,20 @@ public class Service {
         s1.addTour(tt);
         return tt;
     }
+
+    public Company createCompany(String name, short phoneNumber) {
+        Company c = new Company(name, phoneNumber);
+        s1.addCompany(c);
+        return c;
+    }
+
+    public Company addCompanyToBooking(Booking booking, Company company) {
+        booking.setCompany(company);
+
+        return company;
+    }
+
+    // ====================================================================================================
 
     public void initContent() {
 
