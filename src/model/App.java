@@ -13,13 +13,9 @@ public class App {
         // s1.printTest();
         System.out.println();
         s1.printTest2();
-<<<<<<< HEAD
 
-        s1.printTest4();
-=======
         System.out.println();
         s1.printTest3();
         System.out.println();
->>>>>>> f5922fe4a6d7a770787ebd200342768ab1f1623d
     }
 }
