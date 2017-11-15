@@ -116,6 +116,45 @@ public class Service {
         return b;
     }
 
+    public ConferenceType createConferenceType(String name, String description) {
+        ConferenceType ct = new ConferenceType(name, description);
+        s1.addConferenceType(ct);
+        return ct;
+    }
+
+    public Conference createConference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
+            Location location) {
+        Conference c = new Conference(dateStart, duration, price, conferenceType, location);
+        s1.addConference(c);
+        return c;
+    }
+
+    public Hotel createHotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
+            boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice, double showerPrice) {
+        Hotel h = new Hotel(name, adress, priceSingle, priceDouble, hasWifi, hasBreakfast, hasShower, wifiPrice,
+                breakfastPrice, showerPrice);
+        s1.addHotel(h);
+        return h;
+    }
+
+    public Hotel createHotel(String name, String adress, double priceSingle, double priceDouble) {
+        Hotel h = new Hotel(name, adress, priceSingle, priceDouble);
+        s1.addHotel(h);
+        return h;
+    }
+
+    public Location createLocation(String name, String adress, short maxParticipants, String description) {
+        Location l = new Location(name, adress, maxParticipants, description);
+        s1.addLocation(l);
+        return l;
+    }
+
+    public TourType createTourType(String name, String description, float price, short maxParticipants) {
+        TourType tt = new TourType(name, description, price, maxParticipants);
+        s1.addTour(tt);
+        return tt;
+    }
+
     public void initContent() {
 
         // participants
@@ -126,17 +165,20 @@ public class Service {
         Participant p4 = new Participant("Lone Jensen", "Adelgade 4", (short) 123456);
 
         // Ny conference
-        ConferenceType ct1 = new ConferenceType("Comic con", "Confernce for comics");
-        ConferenceType ct2 = new ConferenceType("Hav og Himmel", "noget med mad");
+        ConferenceType ct1 = createConferenceType("Comic con", "Confernce for comics");
+        ConferenceType ct2 = createConferenceType("Hav og Himmel", "noget med mad");
 
         // Ny beligenhed
-        Location l1 = new Location("Musikhuset Aarhus", "Der hvor det ligger?", (short) 100, "Det her er et flot sted");
-        Location l2 = new Location("Kongresscenter Aarhus", "lige på sin plads", (short) 200, "Meget højt til loftet");
+        Location l1 = createLocation("Musikhuset Aarhus", "Der hvor det ligger?", (short) 100,
+                "Det her er et flot sted");
+        Location l2 = createLocation("Kongresscenter Aarhus", "lige på sin plads", (short) 200,
+                "Meget højt til loftet");
 
         // Nyt hotel
-        Hotel h1 = new Hotel("Den hvide svane", "Midt i byen", 1050, 1250, true, true, false, 50, 0, 0);
-        Hotel h2 = new Hotel("Hostel", "Ved havnen", 200, 300);
-        Hotel h3 = new Hotel("det dyre", "trøjborg", 300, 400);
+        Hotel h1 = createHotel("Den hvide svane", "Midt i byen", 1050, 1250, true, true, false, 50, 0, 0);
+        Hotel h2 = createHotel("Hostel", "Ved havnen", 200, 300);
+        Hotel h3 = createHotel("det dyre", "trøjborg", 300, 400);
+
         h3.setHasWifi(true);
         h3.setWifiPrice(20);
         h3.setHasShower(true);
@@ -160,10 +202,8 @@ public class Service {
         l2.addTour(tT3);
 
         // Ny conference
-        c1 = new Conference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
-
-        // test
-        c2 = new Conference(LocalDate.of(2017, 11, 20), (short) 3, 1500, ct2, l1);
+        Conference c1 = createConference(LocalDate.of(2017, 12, 5), (short) 3, 500, ct1, l1);
+        Conference c2 = createConference(LocalDate.of(2017, 11, 20), (short) 3, 1500, ct2, l1);
 
         // Ny tour
         Tour t1 = new Tour(LocalDate.of(2017, 11, 21), tT1);
