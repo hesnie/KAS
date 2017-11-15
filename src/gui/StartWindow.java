@@ -43,6 +43,7 @@ public class StartWindow extends Application {
         btnAdmin.setMinWidth(250);
         pane.add(btnAdmin, 1, 2);
         GridPane.setMargin(btnAdmin, new Insets(10, 10, 0, 10));
+        btnAdmin.setOnAction(event -> adminAction());
 
         btnParticipant = new Button("Deltager");
         btnParticipant.setMinHeight(80);
@@ -51,4 +52,12 @@ public class StartWindow extends Application {
         GridPane.setMargin(btnParticipant, new Insets(10, 10, 0, 10));
 
     }
+
+    // =====================================================================================================
+    // Actions
+    private void adminAction() {
+        AdminWindow admin = new AdminWindow("Admin");
+        admin.showAndWait();
+    }
+
 }

@@ -1,27 +1,34 @@
 package gui;
 
+import model.service.Service;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class AdminWindow extends StartWindow {
+public class AdminWindow extends Stage {
 
     public static void main(String[] args) {
-        AdminWindow.launch(args);
+        Application.launch(args);
     }
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("Arcitecture Demo");
+    public AdminWindow(String title) {
+        initStyle(StageStyle.UTILITY);
+        initModality(Modality.APPLICATION_MODAL);
+        setResizable(false);
+
+        setTitle(title);
         BorderPane pane = new BorderPane();
         initContent(pane);
 
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
+        setScene(scene);
     }
 
     // -------------------------------------------------------------------------

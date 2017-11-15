@@ -221,7 +221,11 @@ public class Service {
         return t;
     }
 
+<<<<<<< HEAD
     public static void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
+=======
+    public void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
+>>>>>>> eb7ecd8d4e798caaceca143b8b7c678fc6fc9484
             double breakfastPrice, double showerPrice) {
         hotel.setHasWifi(wifi);
         hotel.setWifiPrice(wifiPrice);
@@ -231,7 +235,11 @@ public class Service {
         hotel.setShowerPrice(showerPrice);
     }
 
+<<<<<<< HEAD
     public static void initContent() {
+=======
+    public void initContent() {
+>>>>>>> eb7ecd8d4e798caaceca143b8b7c678fc6fc9484
 
         // participants
 
