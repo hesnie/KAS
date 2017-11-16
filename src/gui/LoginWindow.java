@@ -64,7 +64,7 @@ public class LoginWindow extends Stage {
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
-        pane.add(lblError, 1, 3);
+        pane.add(lblError, 0, 3, 2, 3);
 
     }
 
@@ -73,7 +73,8 @@ public class LoginWindow extends Stage {
             AdminWindow admin = new AdminWindow("Admin");
             admin.show();
         } else {
-            lblError.setText("Forkert navn eller password");
+            lblError.setText("navn = admin  -  password = admin");
         }
+
     }
 }
