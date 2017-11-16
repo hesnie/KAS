@@ -24,17 +24,25 @@ public class LoginWindow extends Stage {
         setResizable(false);
 
         setTitle(title);
+<<<<<<< HEAD
+        BorderPane pane = new BorderPane();
+        // initContent(pane);
+=======
         GridPane pane = new GridPane();
         initContent(pane);
+>>>>>>> c5ebe7c89f441ac9fa3b5a1c1294b015bba560f5
 
         Scene scene = new Scene(pane);
         setScene(scene);
     }
 
+<<<<<<< HEAD
+=======
     private Label lblName, lblPassword, lblError;
     private TextField txfName, txfPassword;
     private Button btnLogin;
 
+>>>>>>> c5ebe7c89f441ac9fa3b5a1c1294b015bba560f5
     private void initContent(GridPane pane) {
         // show or hide grid lines
         pane.setGridLinesVisible(false);
@@ -45,6 +53,10 @@ public class LoginWindow extends Stage {
         pane.setHgap(10);
         // set vertical gap between components
         pane.setVgap(10);
+<<<<<<< HEAD
+    }
+}
+=======
 
         lblName = new Label("Navn: ");
         pane.add(lblName, 0, 0);
@@ -78,3 +90,4 @@ public class LoginWindow extends Stage {
 
     }
 }
+>>>>>>> c5ebe7c89f441ac9fa3b5a1c1294b015bba560f5

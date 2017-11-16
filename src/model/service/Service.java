@@ -237,18 +237,6 @@ public class Service {
         return Storage.getHotels();
     }
 
-    public static ArrayList<Hotel> getHotelsFromStorage(Conference conference) {
-        ArrayList<Hotel> result = new ArrayList<>();
-
-        for (Hotel h : getHotelsFromStorage()) {
-            if (conference.getLocation().getHotels().equals(h)) {
-                result.add(h);
-            }
-        }
-
-        return result;
-    }
-
     public static ArrayList<Participant> getParticipantsFromStorage() {
         return Storage.getParticipants();
     }
