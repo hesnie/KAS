@@ -2,8 +2,13 @@ package gui;
 
 import model.model.Company;
 import model.model.Conference;
+import model.model.Tour;
+import model.model.TourType;
 import model.service.Service;
 import storage.Storage;
+
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,15 +38,12 @@ public class BookingFormWindow extends Stage {
         setTitle(title);
         GridPane pane = new GridPane();
         initContent(pane);
-        initHeadline(selectedConference);
+        lblHeadline.setText("Tilmelding til: " + selectedConference.getConferenceType().getName());
+        this.selectedConference = selectedConference;
 
         Scene scene = new Scene(pane);
         setScene(scene);
 
-    }
-
-    private void initHeadline(Conference selectedConference) {
-        lblHeadline.setText("Tilmelding til: " + selectedConference.getConferenceType().getName());//
     }
 
     // -----------------------------------------------------------------
@@ -49,6 +51,9 @@ public class BookingFormWindow extends Stage {
     private TextField txfName, txfAdress, txfCity, txfCountry, txfPhoneNr, txfCompanionName;
     private CheckBox cbxSpeaker, cbxCompanion, cbxHotel, cbxCompany;
     private ComboBox<Company> cbbCompanies;
+    private ListView<Tour> lvwTours;
+    private Conference selectedConference;
+    private int rowCount = 2;
 
     private void initContent(GridPane pane) {
         pane.setGridLinesVisible(true);
@@ -144,32 +149,70 @@ public class BookingFormWindow extends Stage {
     }
 
     private void companionFields(GridPane pane, boolean show) {
-        int xPos = 2;
         Label lblCompanionHeadline = new Label("Program for ledsagere");
         HBox companion = new HBox();
         txfCompanionName = new TextField();
         companion.getChildren().add(new Label("Ledsagernavn:"));
         companion.getChildren().add(txfCompanionName);
+        Label lblTourName;
+        Label lblTourDate;
+        Label lblPriceAndDescription;
+        Button btnAddTour;
+        HBox companionHbox;
+
         if (show) {
-            pane.add(lblCompanionHeadline, 0, xPos);
-            pane.add(companion, 0, xPos + 1);
+            pane.add(lblCompanionHeadline, 0, rowCount, 2, 1);
+            pane.add(companion, 0, rowCount + 1, 2, 1);
+            rowCount += 2;
+            for (int i = 0; i < selectedConference.getLocation().getToursTypes().size(); i++) {
+                companionHbox = new HBox();
+                lblTourName = new Label(selectedConference.getLocation().getToursTypes().get(i).getName());
+                lblTourDate = new Label("Dato!!!");
+                lblPriceAndDescription = new Label("");
+                btnAddTour = new Button("Tilmeld");
+                companionHbox.getChildren().addAll(lblTourName, lblTourDate, lblPriceAndDescription, btnAddTour);
+                pane.add(companionHbox, 0, rowCount + i);
+                rowCount++;
+            }
+            rowCount += 2;
             sizeToScene();
         } else if (!show) {
-            pane.getChildren().remove(lblCompanionHeadline);
+            // remove all content from companion from pane...
+            // pane.getChildren().remove(lblCompanionHeadline);
             sizeToScene();
         }
     }
 
     private void hotelFields(GridPane pane, boolean show) {
-        int xPos = 4;
+
         Label lblHotelHeadline = new Label("Overnatningsønsker");
-        HBox hotel = new HBox();
+        Label lblHotelName;
+        Label lblHotelDescription;
+        CheckBox cbxWifi;
+        CheckBox cbxBreakfast;
+        CheckBox cbxShower;
+        HBox hotelHbox = new HBox();
+
         if (show) {
-            pane.add(lblHotelHeadline, 0, xPos);
-            pane.add(hotel, 0, xPos + 1);
+            pane.add(lblHotelHeadline, 0, rowCount, 2, 1);
+            rowCount++;
+            for (int i = 0; i < selectedConference.getLocation().getHotels().size(); i++) {
+                hotelHbox = new HBox();
+                lblHotelName = new Label(selectedConference.getLocation().getHotels().get(i).getName());
+                lblHotelDescription = new Label(
+                        "Kr. " + selectedConference.getLocation().getHotels().get(i).getPriceDouble() + "/"
+                                + selectedConference.getLocation().getHotels().get(i).getPriceSingle());
+                cbxWifi = new CheckBox();
+                cbxBreakfast = new CheckBox();
+                cbxShower = new CheckBox();
+                hotelHbox.getChildren().addAll(lblHotelName, lblHotelDescription, cbxShower, cbxBreakfast, cbxWifi);
+                pane.add(hotelHbox, 0, rowCount + i);
+                rowCount++;
+            }
             sizeToScene();
         } else if (!show) {
-            pane.getChildren().remove(lblHotelHeadline);
+            // remove all content from hotel from pane...
+            // pane.getChildren().remove(lblHotelHeadline);
             sizeToScene();
         }
     }

@@ -201,11 +201,6 @@ public class Service {
         return Storage.getTours();
     }
 
-    public static ArrayList<Tour> getToursFromConference(Conference conference) {
-        ArrayList<Tour> result = null;
-        return result;
-    }
-
     public static ArrayList<Hotel> getHotelsFromStorage() {
         return Storage.getHotels();
     }
