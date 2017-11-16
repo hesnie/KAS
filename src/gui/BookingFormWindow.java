@@ -1,9 +1,12 @@
 package gui;
 
 import model.model.Company;
+import model.model.Conference;
 import model.service.Service;
 import storage.Storage;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +25,7 @@ import javafx.stage.StageStyle;
 
 public class BookingFormWindow extends Stage {
 
-    public BookingFormWindow(String title) {
+    public BookingFormWindow(String title, Conference selectedConference) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);
         setResizable(false);
@@ -30,14 +33,20 @@ public class BookingFormWindow extends Stage {
         setTitle(title);
         GridPane pane = new GridPane();
         initContent(pane);
+        initHeadline(selectedConference);
 
         Scene scene = new Scene(pane);
         setScene(scene);
+
+    }
+
+    private void initHeadline(Conference selectedConference) {
+        lblHeadline.setText("Tilmelding til: " + selectedConference.getConferenceType().getName());//
     }
 
     // -----------------------------------------------------------------
-
-    private TextField txfName, txfAdress, txfCity, txfCountry, txfPhoneNr;
+    private Label lblHeadline = new Label();
+    private TextField txfName, txfAdress, txfCity, txfCountry, txfPhoneNr, txfCompanionName;
     private CheckBox cbxSpeaker, cbxCompanion, cbxHotel, cbxCompany;
     private ComboBox<Company> cbbCompanies;
 
@@ -116,7 +125,52 @@ public class BookingFormWindow extends Stage {
         rowTwo.getChildren().add(lineTwoTwo);
         rowTwo.getChildren().add(lineThreeTwo);
 
-        pane.add(rowOne, 0, 0);
-        pane.add(rowTwo, 1, 0);
+        cbxCompanion.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                companionFields(pane, newValue);
+            }
+        });
+        cbxHotel.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                hotelFields(pane, newValue);
+            }
+        });
+
+        pane.add(lblHeadline, 0, 0);
+        pane.add(rowOne, 0, 1);
+        pane.add(rowTwo, 1, 1);
+    }
+
+    private void companionFields(GridPane pane, boolean show) {
+        int xPos = 2;
+        Label lblCompanionHeadline = new Label("Program for ledsagere");
+        HBox companion = new HBox();
+        txfCompanionName = new TextField();
+        companion.getChildren().add(new Label("Ledsagernavn:"));
+        companion.getChildren().add(txfCompanionName);
+        if (show) {
+            pane.add(lblCompanionHeadline, 0, xPos);
+            pane.add(companion, 0, xPos + 1);
+            sizeToScene();
+        } else if (!show) {
+            pane.getChildren().remove(lblCompanionHeadline);
+            sizeToScene();
+        }
+    }
+
+    private void hotelFields(GridPane pane, boolean show) {
+        int xPos = 4;
+        Label lblHotelHeadline = new Label("Overnatningsønsker");
+        HBox hotel = new HBox();
+        if (show) {
+            pane.add(lblHotelHeadline, 0, xPos);
+            pane.add(hotel, 0, xPos + 1);
+            sizeToScene();
+        } else if (!show) {
+            pane.getChildren().remove(lblHotelHeadline);
+            sizeToScene();
+        }
     }
 }

@@ -33,21 +33,18 @@ public class ParticipantWindow extends Stage {
     private Button btnBooking;
     private ListView<Conference> lvwConferences;
     private TextArea txaDescription;
+    private Conference newConference;
 
     private void initContent(GridPane pane) {
-        // show or hide grid lines
-        pane.setGridLinesVisible(true);
-
-        // set padding of the pane
+        pane.setGridLinesVisible(false);
         pane.setPadding(new Insets(20));
-        // set horizontal gap between components
         pane.setHgap(10);
-        // set vertical gap between components
         pane.setVgap(10);
 
         btnBooking = new Button("Tilmeld");
         pane.add(btnBooking, 0, 3);
         GridPane.setMargin(btnBooking, new Insets(10, 10, 0, 10));
+        btnBooking.setDisable(true);
         btnBooking.setOnAction(event -> BookingFormAction());
 
         lvwConferences = new ListView<>();
@@ -65,18 +62,18 @@ public class ParticipantWindow extends Stage {
     }
 
     private void BookingFormAction() {
-        BookingFormWindow participant = new BookingFormWindow("Tilmelding til konference");
+        BookingFormWindow participant = new BookingFormWindow("Tilmelding til konference", newConference);
         participant.showAndWait();
     }
 
     private void selectionChanged() {
-        Conference newConference = lvwConferences.getSelectionModel().getSelectedItem();
+        newConference = lvwConferences.getSelectionModel().getSelectedItem();
         if (newConference != null) {
             txaDescription.setText(
                     newConference.getConferenceType().getName() + ", " + newConference.getPrice() + " kr. pr. dag");
+            btnBooking.setDisable(false);
         } else {
             txaDescription.setText("Marker en konference for at få info om den");
         }
-
     }
 }
