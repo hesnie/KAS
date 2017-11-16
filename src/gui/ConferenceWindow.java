@@ -113,6 +113,7 @@ public class ConferenceWindow extends Stage {
 
         txaDescription = new TextArea("");
         pane.add(txaDescription, 1, 1);
+        txaDescription.setMaxWidth(300);
         // --------------------------------------
         // Labels
 
@@ -187,9 +188,11 @@ public class ConferenceWindow extends Stage {
             tourDates.add(d);
             tourDates.get(i).setOnAction(event -> tourDatePickerAction(new Tour(tourDates.get(j).getValue(),
                     cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().get(j))));
+            tourDates.get(i).setMaxWidth(110);
             pane.add(tourDates.get(i), 5, i);
 
         }
+        sizeToScene();
 
     }
 

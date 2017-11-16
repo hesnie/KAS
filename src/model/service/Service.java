@@ -2,6 +2,8 @@ package model.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javafx.scene.control.DatePicker;
 import model.model.Booking;
 import model.model.BookingTour;
 import model.model.Companion;
@@ -79,6 +81,30 @@ public class Service {
     }
 
     // =================================================================================================
+
+    public static void tourTypeSet(TourType tourType, String name, String description, short maxParticipants,
+            double price) {
+        tourType.setDescription(description);
+        tourType.setMaxParticipants(maxParticipants);
+        tourType.setName(name);
+        tourType.setPrice(price);
+    }
+
+    public static void hotelSet(Hotel hotel, String name, String adress, double priceSingle, double priceDouble,
+            boolean hasWifi, boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice,
+            double showerPrice) {
+        hotel.setName(name);
+        hotel.setAdress(adress);
+        hotel.setSinglePice(priceSingle);
+        hotel.setDoublePrice(priceDouble);
+        hotel.setHasWifi(hasWifi);
+        hotel.setHasBreakfast(hasBreakfast);
+        hotel.setHasShower(hasShower);
+        hotel.setWifiPrice(wifiPrice);
+        hotel.setBreakfastPrice(breakfastPrice);
+        hotel.setShowerPrice(showerPrice);
+
+    }
 
     // add tour to Conference
     public static Tour addTourToConference(Tour tour, Conference conference) {
@@ -303,6 +329,10 @@ public class Service {
 
         // tilføj tour til konference
         addTourToConference(t1, c1);
+        addTourToConference(t2, c1);
+        addTourToConference(t3, c1);
+        addTourToConference(t1, c2);
+        addTourToConference(t2, c2);
 
         // booking
         Booking b1 = createBooking(true, true, true, false, p1, c1, h1, true, "Henrik");

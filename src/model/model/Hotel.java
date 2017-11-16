@@ -103,4 +103,19 @@ public class Hotel {
         return adress;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public void setSinglePice(Double price) {
+        this.priceSingle = priceSingle;
+    }
+
+    public void setDoublePrice(double price) {
+        this.priceDouble = price;
+    }
 }
