@@ -201,6 +201,11 @@ public class Service {
         return Storage.getTours();
     }
 
+    public static ArrayList<Tour> getToursFromConference(Conference conference) {
+        ArrayList<Tour> result = null;
+        return result;
+    }
+
     public static ArrayList<Hotel> getHotelsFromStorage() {
         return Storage.getHotels();
     }
@@ -219,6 +224,11 @@ public class Service {
         Tour t = new Tour(date, tourType);
         Storage.addTour(t);
         return t;
+    }
+
+    private static void createNewCompany(String name, int phoneNumber) {
+        Company c = new Company(name, phoneNumber);
+        Storage.addCompany(c);
     }
 
     public static void setHotelServices(Hotel hotel, boolean wifi, boolean breakfast, boolean shower, double wifiPrice,
@@ -260,6 +270,13 @@ public class Service {
         TourType tT1 = createTourType("Egeskov", "Tur til egeskov", 75, (short) 15);
         TourType tT2 = createTourType("Byrundttur i Odense", "En lækker tur i Odense", 125, (short) 20);
         TourType tT3 = createTourType("Trapholt", "Tur til trapholt", 200, (short) 10);
+
+        // Tilføj firmaer
+
+        createNewCompany("Google", 12341234);
+        createNewCompany("IBM", 94839483);
+        createNewCompany("Aarstiderne", 28382838);
+        createNewCompany("EAAA", 34563456);
 
         // Tilføj hotel
 
