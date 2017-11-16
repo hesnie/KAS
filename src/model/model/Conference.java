@@ -11,6 +11,7 @@ public class Conference {
     private ConferenceType conferenceType;
     private Location location;
     private ArrayList<Booking> bookings = new ArrayList<>();
+    private ArrayList<Tour> tours = new ArrayList<>();
 
     public Conference(LocalDate dateStart, short duration, double price, ConferenceType conferenceType,
             Location location) {
@@ -27,6 +28,15 @@ public class Conference {
         booking.setCompany(null);
         bookings.add(booking);
         return booking;
+    }
+
+    public Tour addTour(Tour tour) {
+        tours.add(tour);
+        return tour;
+    }
+
+    public ArrayList<Tour> getTours() {
+        return new ArrayList(tours);
     }
 
     public void setHotelServices(Booking booking, boolean wifi, boolean breakfast, boolean shower) {

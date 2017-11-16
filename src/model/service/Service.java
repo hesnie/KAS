@@ -80,6 +80,12 @@ public class Service {
 
     // =================================================================================================
 
+    // add tour to Conference
+    public static Tour addTourToConference(Tour tour, Conference conference) {
+        conference.addTour(tour);
+        return tour;
+    }
+
     // create participant
     public static Participant createParticipant(String name, String adress, short phoneNumber) {
         Participant p = new Participant(name, adress, phoneNumber);
@@ -300,6 +306,9 @@ public class Service {
         Tour t2 = createTour(LocalDate.of(2017, 11, 22), tT2);
         Tour t3 = createTour(LocalDate.of(2017, 11, 23), tT3);
 
+        // tilføj tour til konference
+        addTourToConference(t1, c1);
+
         // booking
         Booking b1 = createBooking(true, true, true, false, p1, c1, h1, true, "Henrik");
         Booking b2 = createBooking(true, false, false, false, p2, c1, h2, true, "Mathias");
@@ -318,6 +327,36 @@ public class Service {
         addTourToCompanion(t3, b6);
         addTourToCompanion(t1, b7);
         addTourToCompanion(t2, b7);
+    }
+
+    public static String locationOutputTextForLocationWindow(Location location) {
+        String s;
+        s = location.getName() + "\n" + location.getDescription() + ":" + "\n" + "\n";
+        s += "Udflugter: " + "\n";
+        for (int i = 0; i < location.getToursTypes().size(); i++) {
+            s += location.getToursTypes().get(i).getName() + "\n";
+        }
+        s += "\n" + "Hoteller: " + "\n";
+        for (int i = 0; i < location.getHotels().size(); i++) {
+            s += location.getHotels().get(i).getName() + "\n";
+        }
+
+        return s;
+    }
+
+    public static String ConferenceOutputTextForConferenceWindow(Conference conference) {
+        String s;
+        s = conference.getConferenceType().getName() + "\n";
+        for (int i = 0; i < conference.getTours().size(); i++) {
+            s += conference.getTours().get(i).getTourType().getName() + "(" + conference.getTours().get(i).getDate()
+                    + ")" + "\n";
+        }
+        return s;
+    }
+
+    public static void updateTourType(TourType tourType, String name, String Descriprion, double price,
+            short macParticipants) {
+
     }
 
     public void printTest() {

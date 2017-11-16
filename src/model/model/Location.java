@@ -18,6 +18,10 @@ public class Location {
         this.description = description;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<Hotel> getHotels() {
         return new ArrayList<>(hotels);
     }

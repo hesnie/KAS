@@ -73,7 +73,8 @@ public class ConferencePane extends GridPane {
     public void updateControls() {
         Conference conference = lvwConferences.getSelectionModel().getSelectedItem();
         if (conference != null) {
-            txaDescription.setText(conference.getConferenceType().getDescription());
+            txaDescription.setText(Service
+                    .ConferenceOutputTextForConferenceWindow(lvwConferences.getSelectionModel().getSelectedItem()));
         } else {
             txaDescription.clear();
         }

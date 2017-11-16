@@ -65,7 +65,7 @@ public class LocationPane extends GridPane {
     public void updateControls() {
         Location location = lvwLocations.getSelectionModel().getSelectedItem();
         if (location != null) {
-            txaDescription.setText(location.getDescription());
+            txaDescription.setText(Service.locationOutputTextForLocationWindow(location));
         } else {
             txaDescription.clear();
         }
