@@ -59,8 +59,8 @@ public class StartWindow extends Application {
     // =====================================================================================================
     // Actions
     private void adminAction() {
-        AdminWindow admin = new AdminWindow("Admin");
-        admin.show();
+        LoginWindow login = new LoginWindow("Login");
+        login.show();
 
     }
 
