@@ -5,14 +5,14 @@ public class Participant {
     private String adress;
     private String town;
     private String country;
-    private short phoneNUmber;
+    private int phoneNumber;
 
-    public Participant(String name, String adress, short phoneNumber) {
+    public Participant(String name, String adress, int phoneNumber) {
         this.name = name;
         this.adress = adress;
         this.town = "";
         this.country = "";
-        this.phoneNUmber = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -23,8 +23,8 @@ public class Participant {
         return adress;
     }
 
-    public short getPhoneNUmber() {
-        return phoneNUmber;
+    public int getPhoneNUmber() {
+        return phoneNumber;
     }
 
     public String getTown() {
