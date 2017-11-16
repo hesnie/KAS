@@ -17,6 +17,7 @@ public class LocationPane extends GridPane {
     private Button btnCreate, btnAdmin;
     private ListView<Location> lvwLocations;
     private TextArea txaDescription;
+    private Label lblError;
 
     public LocationPane() {
         setPadding(new Insets(20));
@@ -53,6 +54,11 @@ public class LocationPane extends GridPane {
 
         btnAdmin = new Button("Administrer beliggenhed");
         hbxButtons.getChildren().add(btnAdmin);
+        btnAdmin.setOnAction(event -> adminAction());
+
+        lblError = new Label();
+        lblError.setStyle("-fx-text-fill: red");
+        hbxButtons.getChildren().add(lblError);
 
         // -------------------------------------------------------------------------
 
@@ -77,6 +83,10 @@ public class LocationPane extends GridPane {
 
         lvwLocations.getItems().setAll(Service.getLocationsFromStorage());
 
+    }
+
+    public void adminAction() {
+        lblError.setText("Det har vi så godt nok ikke lige nået... ");
     }
 
 }

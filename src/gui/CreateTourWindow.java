@@ -100,7 +100,7 @@ public class CreateTourWindow extends Stage {
         lblName = new Label("Navn: ");
         pane.add(lblName, 0, 0);
 
-        lblPrice = new Label("Adresse: ");
+        lblPrice = new Label("Pris: ");
         pane.add(lblPrice, 0, 1);
 
         lblDescription = new Label("Beskrivelse");
@@ -120,22 +120,22 @@ public class CreateTourWindow extends Stage {
     // ====================================================================================
 
     public void saveAction() {
-        if (tourType == null) {
-            String name = txfName.getText().trim();
-            String description = txfDescription.getText().trim();
-            double price = 0;
-            Short maxParticipants = 0;
-            try {
-                price = Double.parseDouble(txfPrice.getText().trim());
-                maxParticipants = Short.parseShort(txfMaxParticipants.getText().trim());
-            } catch (NumberFormatException ex) {
-                // do nothing
-            }
 
+        String name = txfName.getText().trim();
+        String description = txfDescription.getText().trim();
+        double price = 0;
+        Short maxParticipants = 0;
+        try {
+            price = Double.parseDouble(txfPrice.getText().trim());
+            maxParticipants = Short.parseShort(txfMaxParticipants.getText().trim());
+        } catch (NumberFormatException ex) {
+            // do nothing
+        }
+        if (tourType == null) {
             TourType tourType = Service.createTourType(name, description, price, maxParticipants);
 
         } else {
-            Storage.getTourTypes().get(indeks).setDescription(txfDescription.getText().trim());
+            Service.tourTypeSet(tourType, name, description, maxParticipants, price);
         }
 
         hide();

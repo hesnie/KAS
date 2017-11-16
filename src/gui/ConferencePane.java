@@ -15,9 +15,10 @@ import model.service.Service;
 
 public class ConferencePane extends GridPane {
 
-    private Button btnCreate, btnAdmin;
+    private Button btnCreate, btnAdmin, btnToursAndCompanions, btnHotelsAndParticipants, btnBookingsOnConference;
     private ListView<Conference> lvwConferences;
     private TextArea txaDescription;
+    private Label lblError;
 
     public ConferencePane() {
         setPadding(new Insets(20));
@@ -54,6 +55,23 @@ public class ConferencePane extends GridPane {
 
         btnAdmin = new Button("Administrer konference");
         hbxButtons.getChildren().add(btnAdmin);
+        btnAdmin.setOnAction(event -> adminAction());
+
+        lblError = new Label();
+        lblError.setStyle("-fx-text-fill: red");
+        hbxButtons.getChildren().add(lblError);
+
+        btnToursAndCompanions = new Button("Udflugter og ledsager");
+        hbxButtons.getChildren().add(btnToursAndCompanions);
+        btnToursAndCompanions.setOnAction(event -> toursAndCompanionsAction());
+
+        btnHotelsAndParticipants = new Button("Hoteller og deltager");
+        hbxButtons.getChildren().add(btnHotelsAndParticipants);
+        btnHotelsAndParticipants.setOnAction(event -> hotelsAndParticipants());
+
+        btnBookingsOnConference = new Button("Deltagere til konference");
+        hbxButtons.getChildren().add(btnBookingsOnConference);
+        btnBookingsOnConference.setOnAction(event -> bookingsOnConference());
 
         // -------------------------------------------------------------------------
 
@@ -80,4 +98,51 @@ public class ConferencePane extends GridPane {
         }
     }
 
+    public void adminAction() {
+        lblError.setText("Det har vi så godt nok ikke lige nået... ");
+    }
+
+    public void toursAndCompanionsAction() {
+        txaDescription.setText("Udflugter og ledsagere:" + "\n");
+        if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
+            for (int i = 0; i < Service.listToursAndCompanions(lvwConferences.getSelectionModel().getSelectedItem())
+                    .size(); i++) {
+                txaDescription.appendText(
+                        Service.listToursAndCompanions(lvwConferences.getSelectionModel().getSelectedItem()).get(i)
+                                + "\n");
+            }
+        } else {
+            return;
+        }
+    }
+
+    public void hotelsAndParticipants() {
+        txaDescription.setText("Hoteller og deltager:" + "\n");
+        if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
+            for (int i = 0; i < Service.listHotelsAndParticipants(lvwConferences.getSelectionModel().getSelectedItem())
+                    .size(); i++) {
+                txaDescription.appendText(
+                        Service.listHotelsAndParticipants(lvwConferences.getSelectionModel().getSelectedItem()).get(i)
+                                + "\n");
+            }
+        } else {
+            return;
+        }
+    }
+
+    public void bookingsOnConference() {
+        txaDescription.setText("Deltagere til konferencen:" + "\n");
+        if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
+            for (int i = 0; i < Service.listBookingsOnConference(lvwConferences.getSelectionModel().getSelectedItem())
+                    .size(); i++) {
+                txaDescription.appendText(
+                        Service.listBookingsOnConference(lvwConferences.getSelectionModel().getSelectedItem()).get(i)
+                                + "\n");
+            }
+
+        } else {
+            return;
+        }
+
+    }
 }

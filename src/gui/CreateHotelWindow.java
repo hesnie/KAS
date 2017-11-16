@@ -184,10 +184,14 @@ public class CreateHotelWindow extends Stage {
         } catch (NumberFormatException ex) {
             // do nothing
         }
+        if (hotel == null) {
+            Hotel hotel = Service.createHotel(name, adress, priceSingle, priceDouble, wifi, breakfast, shower,
+                    wifiPrice, breakfastPrice, showerPrice);
+        } else {
+            Service.hotelSet(hotel, name, adress, priceSingle, priceDouble, wifi, breakfast, shower, wifiPrice,
+                    breakfastPrice, showerPrice);
 
-        Hotel hotel = Service.createHotel(name, adress, priceSingle, priceDouble, wifi, breakfast, shower, wifiPrice,
-                breakfastPrice, showerPrice);
-
+        }
         hide();
     }
 
