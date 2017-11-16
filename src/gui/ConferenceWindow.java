@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.model.Conference;
 import model.model.ConferenceType;
 import model.model.Hotel;
 import model.model.Location;
@@ -49,12 +50,13 @@ public class ConferenceWindow extends Stage {
 
     // -------------------------------------------------------------------------------------------------
     private Button btnNewConferenceType, btnSave, btnCancel;
-    private Label lblStartDate, lblLength, lblPrice, lblType, lblLocation, lblDescription;
+    private Label lblStartDate, lblLength, lblPrice, lblType, lblLocation, lblDescription, lblTourName;
     private TextField txfStartDate, txfLength, txfPrice;
     private TextArea txaDescription;
     private ComboBox<ConferenceType> cbbType;
     private ComboBox<Location> cbbLocation;
-    private DatePicker datePicker;
+    private DatePicker datePicker, tour;
+    private ArrayList<Tour> tours = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
@@ -92,6 +94,7 @@ public class ConferenceWindow extends Stage {
         // Comboboxes
         cbbLocation = new ComboBox<>();
         cbbLocation.getItems().addAll(Storage.getLocations());
+        cbbLocation.setOnAction(event -> updateLocation(pane));
         pane.add(cbbLocation, 3, 0);
 
         cbbType = new ComboBox<>();
@@ -131,7 +134,8 @@ public class ConferenceWindow extends Stage {
         lblDescription = new Label("Konference beskrivelse: ");
         pane.add(lblDescription, 0, 1);
 
-        // buttons
+        // ---------------------------------
+
     }
 
     // ----------------------------------------------------------------
@@ -156,13 +160,41 @@ public class ConferenceWindow extends Stage {
         } catch (NumberFormatException ex) {
             // do nothin
         }
-        Service.createConference(startDate, duration, price, type, location);
+        Conference conference = Service.createConference(startDate, duration, price, type, location);
+        for (int i = 0; i < tours.size(); i++) {
+            Service.addTourToConference(tours.get(i), conference);
 
+        }
         hide();
     }
 
     private void UpdateDescription() {
         txaDescription.setText(cbbType.getSelectionModel().getSelectedItem().getDescription());
+
+    }
+
+    // DatePicker tour1;
+    private ArrayList<DatePicker> tourDates = new ArrayList<>();
+
+    private void updateLocation(GridPane pane) {
+
+        for (int i = 0; i < cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().size(); i++) {
+            int j = i;
+            lblTourName = new Label(cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().get(i).getName());
+            pane.add(lblTourName, 4, i);
+            // tour1 = new DatePicker();
+            DatePicker d = new DatePicker();
+            tourDates.add(d);
+            tourDates.get(i).setOnAction(event -> tourDatePickerAction(new Tour(tourDates.get(j).getValue(),
+                    cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().get(j))));
+            pane.add(tourDates.get(i), 5, i);
+
+        }
+
+    }
+
+    private void tourDatePickerAction(Tour tour) {
+        tours.add(tour);
     }
 
     private void cancelAction() {
