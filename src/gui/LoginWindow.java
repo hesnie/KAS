@@ -26,13 +26,13 @@ public class LoginWindow extends Stage {
 
         setTitle(title);
         BorderPane pane = new BorderPane();
-        initContent(pane);
+        // initContent(pane);
 
         Scene scene = new Scene(pane);
         setScene(scene);
     }
 
-private void initContent(GridPane pane) {
+    private void initContent(GridPane pane) {
         // show or hide grid lines
         pane.setGridLinesVisible(false);
 
@@ -42,3 +42,5 @@ private void initContent(GridPane pane) {
         pane.setHgap(10);
         // set vertical gap between components
         pane.setVgap(10);
+    }
+}

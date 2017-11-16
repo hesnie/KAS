@@ -211,7 +211,7 @@ public class BookingFormWindow extends Stage {
         Label lblHotelHeadline = new Label("Overnatningsønsker");
         lblHotelHeadline.setFont(Font.font(24));
         cbbHotels = new ComboBox<>();
-        cbbHotels.getItems().addAll(Service.getHotelsFromStorage(selectedConference));
+        cbbHotels.getItems().addAll(selectedConference.getLocation().getHotels());
         cbbHotels.setOnAction(event -> updateHotelDescription());
 
         if (show) {
@@ -249,6 +249,7 @@ public class BookingFormWindow extends Stage {
                 cbxSpeaker.isSelected(), p, selectedConference, h, cbxCompanion.isSelected(),
                 txfCompanionName.getText());
         addTourBookingsToCompanion(b);
+        hide();
     }
 
     private void saveTourBooking(Tour tour) {
