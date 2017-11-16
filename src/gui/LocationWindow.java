@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -43,6 +45,8 @@ public class LocationWindow extends Stage {
     private ListView<TourType> tours;
     private ListView<Hotel> hotels;
     private TextField txfName, txfPrice, txfDescription, txfMaxParticipants;
+
+    private ArrayList<TourType> tourTypes = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
@@ -154,6 +158,7 @@ public class LocationWindow extends Stage {
     private int selectedTourTypeChanged() {
         btnAdminTour.setDisable(false);
         int tourIndeks = tours.getSelectionModel().getSelectedIndex();
+        tourTypes.addAll(tours.getSelectionModel().getSelectedItems());
         return tourIndeks;
     }
 
