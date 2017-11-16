@@ -1,7 +1,9 @@
 package gui;
 
 import java.util.ArrayList;
-
+import javafx.scene.control.MultipleSelectionModel;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SelectionModel;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -40,13 +42,15 @@ public class LocationWindow extends Stage {
     }
 
     // -----------------------------------------------------------------------------------------------
-    private Label lblName, lblPrice, lblDescription, lblTour, lblHotel, lblMaxParticipants;
-    private Button btnCreateTour, btnCreateHotel, btnAdminTour, btnAdminHotel, btnSave, btnCancel;
+    private Label lblName, lblAdress, lblDescription, lblTour, lblHotel, lblMaxParticipants;
+    private Button btnCreateTour, btnCreateHotel, btnAdminTour, btnAdminHotel, btnSave, btnCancel, btnAddTourToLocation,
+            btnAddHotelToLocation;
     private ListView<TourType> tours;
     private ListView<Hotel> hotels;
-    private TextField txfName, txfPrice, txfDescription, txfMaxParticipants;
+    private TextField txfName, txfAdress, txfDescription, txfMaxParticipants;
 
     private ArrayList<TourType> tourTypes = new ArrayList<>();
+    private ArrayList<Hotel> selHotels = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
@@ -82,10 +86,18 @@ public class LocationWindow extends Stage {
 
         btnSave = new Button("Gem");
         pane.add(btnSave, 2, 5);
+        btnSave.setOnAction(event -> saveAction());
 
         btnCancel = new Button("Cancel");
         pane.add(btnCancel, 3, 5);
 
+        btnAddTourToLocation = new Button("Tilføj tour til beliggenhed");
+        pane.add(btnAddTourToLocation, 2, 4);
+        btnAddTourToLocation.setOnAction(event -> AddTourToLocation());
+
+        btnAddHotelToLocation = new Button("Tilføj hotel til beliggenhed");
+        pane.add(btnAddHotelToLocation, 3, 4);
+        btnAddHotelToLocation.setOnAction(event -> addHotelToLocation());
         // -----------------------------------
         // listview
         tours = new ListView<>();
@@ -93,6 +105,8 @@ public class LocationWindow extends Stage {
         tours.setPrefWidth(200);
         tours.setPrefHeight(200);
         tours.getItems().setAll(Service.getTourTypesFromStorage());
+
+        tours.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         ChangeListener<TourType> listener1 = (ov, oldTourType, newTourType) -> selectedTourTypeChanged();
         tours.getSelectionModel().selectedItemProperty().addListener(listener1);
@@ -103,6 +117,8 @@ public class LocationWindow extends Stage {
         hotels.setPrefHeight(200);
         hotels.getItems().setAll(Service.getHotelsFromStorage());
 
+        hotels.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         ChangeListener<Hotel> listener2 = (ov, oldHotel, newHotel) -> selectedHotelChanged();
         hotels.getSelectionModel().selectedItemProperty().addListener(listener2);
 
@@ -111,26 +127,27 @@ public class LocationWindow extends Stage {
 
         txfName = new TextField("");
         pane.add(txfName, 1, 1);
-        txfName.setEditable(false);
+        txfName.setEditable(true);
 
-        txfPrice = new TextField("");
-        pane.add(txfPrice, 1, 2);
-        txfName.setEditable(false);
+        txfAdress = new TextField("");
+        pane.add(txfAdress, 1, 2);
+        txfName.setEditable(true);
 
         txfDescription = new TextField("");
         pane.add(txfDescription, 1, 3);
-        txfName.setEditable(false);
+        txfName.setEditable(true);
 
         txfMaxParticipants = new TextField();
         pane.add(txfMaxParticipants, 1, 4);
+
         // ----------------------------------------------
         // Labels
 
         lblName = new Label("Navn: ");
         pane.add(lblName, 0, 1);
 
-        lblPrice = new Label("Pris: ");
-        pane.add(lblPrice, 0, 2);
+        lblAdress = new Label("Adress: ");
+        pane.add(lblAdress, 0, 2);
 
         lblDescription = new Label("Beskrivelse: ");
         pane.add(lblDescription, 0, 3);
@@ -147,19 +164,50 @@ public class LocationWindow extends Stage {
     }
 
     // -------------------------------------------------
+    private void AddTourToLocation() {
+        tourTypes.addAll(tours.getSelectionModel().getSelectedItems());
+
+    }
+
+    private void addHotelToLocation() {
+        selHotels.addAll(hotels.getSelectionModel().getSelectedItems());
+    }
+
+    private void saveAction() {
+        String name = txfName.getText().trim();
+        String adress = txfAdress.getText().trim();
+        short maxParticipants = 0;
+        String description = txfDescription.getText().trim();
+        try {
+            maxParticipants = Short.parseShort(txfMaxParticipants.getText().trim());
+        } catch (NumberFormatException ex) {
+            // do nothing
+        }
+        Location location = Service.createLocation(name, adress, maxParticipants, description);
+        for (int i = 0; i < tourTypes.size(); i++) {
+            Service.addTourToLocation(tourTypes.get(i), location);
+        }
+        for (int i = 0; i < selHotels.size(); i++) {
+            Service.addHotelToLocation(selHotels.get(i), location);
+        }
+
+        hide();
+
+    }
+
     private void CreateTourAction() {
         CreateTourWindow Tour = new CreateTourWindow("Tour");
         Tour.showAndWait();
 
-        tours.getItems().setAll(Service.getTourTypesFromStorage());
-
+        updateAction();
     }
 
     private int selectedTourTypeChanged() {
         btnAdminTour.setDisable(false);
+
         int tourIndeks = tours.getSelectionModel().getSelectedIndex();
-        tourTypes.addAll(tours.getSelectionModel().getSelectedItems());
         return tourIndeks;
+
     }
 
     private void AdminTourAction() {
@@ -167,18 +215,19 @@ public class LocationWindow extends Stage {
         CreateTourWindow Tour = new CreateTourWindow("Tour", selectedTourTypeChanged());
         Tour.showAndWait();
 
-        tours.getItems().setAll(Service.getTourTypesFromStorage());
+        updateAction();
     }
 
     private void CreateHotelAction() {
         CreateHotelWindow hotel = new CreateHotelWindow("Hotel");
         hotel.showAndWait();
 
-        hotels.getItems().setAll(Service.getHotelsFromStorage());
+        updateAction();
     }
 
     private int selectedHotelChanged() {
         btnAdminHotel.setDisable(false);
+
         int hotelIndeks = hotels.getSelectionModel().getSelectedIndex();
         return hotelIndeks;
     }
@@ -188,6 +237,11 @@ public class LocationWindow extends Stage {
         CreateHotelWindow Hotel = new CreateHotelWindow("Tour", selectedHotelChanged());
         Hotel.showAndWait();
 
+        updateAction();
+    }
+
+    private void updateAction() {
+        tours.getItems().setAll(Service.getTourTypesFromStorage());
         hotels.getItems().setAll(Service.getHotelsFromStorage());
     }
 

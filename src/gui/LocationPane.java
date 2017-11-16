@@ -75,6 +75,8 @@ public class LocationPane extends GridPane {
         LocationWindow location = new LocationWindow("Ny lokation");
         location.showAndWait();
 
+        lvwLocations.getItems().setAll(Service.getLocationsFromStorage());
+
     }
 
 }

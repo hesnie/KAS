@@ -45,7 +45,6 @@ public class Location {
     @Override
     public String toString() {
         return name;
-        // return location.getName() + " (" + dateStart + ")";
     }
 
     public String getDescription() {

@@ -50,12 +50,20 @@ public class ConferencePane extends GridPane {
 
         btnCreate = new Button("Opret konference");
         hbxButtons.getChildren().add(btnCreate);
+        btnCreate.setOnAction(event -> createConference());
 
         btnAdmin = new Button("Administrer konference");
         hbxButtons.getChildren().add(btnAdmin);
 
         // -------------------------------------------------------------------------
 
+    }
+
+    private void createConference() {
+        ConferenceWindow conference = new ConferenceWindow("Ny konference");
+        conference.showAndWait();
+
+        lvwConferences.getItems().setAll(Service.getConferencesFromStorage());
     }
 
     private void selectedConferenceChanged() {
