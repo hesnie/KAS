@@ -14,10 +14,6 @@ import javafx.stage.StageStyle;
 
 public class AdminWindow extends Stage {
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
     public AdminWindow(String title) {
         initStyle(StageStyle.UTILITY);
         initModality(Modality.APPLICATION_MODAL);

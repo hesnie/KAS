@@ -1,7 +1,10 @@
 package gui;
 
+import model.model.Booking;
 import model.model.Company;
 import model.model.Conference;
+import model.model.Hotel;
+import model.model.Participant;
 import model.model.Tour;
 import model.model.TourType;
 import model.service.Service;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -39,6 +45,7 @@ public class BookingFormWindow extends Stage {
         GridPane pane = new GridPane();
         initContent(pane);
         lblHeadline.setText("Tilmelding til: " + selectedConference.getConferenceType().getName());
+        lblHeadline.setFont(Font.font(32));
         this.selectedConference = selectedConference;
 
         Scene scene = new Scene(pane);
@@ -48,15 +55,22 @@ public class BookingFormWindow extends Stage {
 
     // -----------------------------------------------------------------
     private Label lblHeadline = new Label();
+    private Label lblHotelDescription = new Label();
     private TextField txfName, txfAdress, txfCity, txfCountry, txfPhoneNr, txfCompanionName;
     private CheckBox cbxSpeaker, cbxCompanion, cbxHotel, cbxCompany;
     private ComboBox<Company> cbbCompanies;
-    private ListView<Tour> lvwTours;
+    private ComboBox<Hotel> cbbHotels;
+    private Button btnSignUp = new Button("Tilmeld");
+    CheckBox cbxShower;
+    CheckBox cbxBreakfast;
+    CheckBox cbxWifi;
+
     private Conference selectedConference;
     private int rowCount = 2;
+    ArrayList<Tour> bookedTours = new ArrayList<>();
 
     private void initContent(GridPane pane) {
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -79,7 +93,9 @@ public class BookingFormWindow extends Stage {
         cbxCompany = new CheckBox("Firmabetaling");
 
         cbbCompanies = new ComboBox<>();
-        cbbCompanies.getItems().addAll(Storage.getCompanies());
+        cbbCompanies.getItems().addAll(Service.getCompaniesFromStorage());
+
+        btnSignUp.setOnAction(event -> createBooking());
 
         VBox rowOne = new VBox();
         VBox rowTwo = new VBox();
@@ -118,7 +134,10 @@ public class BookingFormWindow extends Stage {
         rowOne.setMinWidth(300);
         rowTwo.setMinWidth(300);
 
-        rowOne.getChildren().add(new Label("Deltagerinformation"));
+        Label lblHead = new Label("Deltagerinformation");
+        lblHead.setFont(Font.font(24));
+
+        rowOne.getChildren().add(lblHead);
         rowOne.getChildren().add(lineOneOne);
         rowOne.getChildren().add(lineTwoOne);
         rowOne.getChildren().add(lineThreeOne);
@@ -146,10 +165,12 @@ public class BookingFormWindow extends Stage {
         pane.add(lblHeadline, 0, 0);
         pane.add(rowOne, 0, 1);
         pane.add(rowTwo, 1, 1);
+        pane.add(btnSignUp, 3, 0);
     }
 
     private void companionFields(GridPane pane, boolean show) {
         Label lblCompanionHeadline = new Label("Program for ledsagere");
+        lblCompanionHeadline.setFont(Font.font(24));
         HBox companion = new HBox();
         txfCompanionName = new TextField();
         companion.getChildren().add(new Label("Ledsagernavn:"));
@@ -164,12 +185,14 @@ public class BookingFormWindow extends Stage {
             pane.add(lblCompanionHeadline, 0, rowCount, 2, 1);
             pane.add(companion, 0, rowCount + 1, 2, 1);
             rowCount += 2;
-            for (int i = 0; i < selectedConference.getLocation().getToursTypes().size(); i++) {
+            for (int i = 0; i < selectedConference.getTours().size(); i++) {
                 companionHbox = new HBox();
-                lblTourName = new Label(selectedConference.getLocation().getToursTypes().get(i).getName());
-                lblTourDate = new Label("Dato!!!");
-                lblPriceAndDescription = new Label("");
+                int finalI = i;
+                lblTourName = new Label(selectedConference.getTours().get(i).getTourType().getName());
+                lblTourDate = new Label(selectedConference.getTours().get(i).getDate().toString());
+                lblPriceAndDescription = new Label("Beskrivelse... ");
                 btnAddTour = new Button("Tilmeld");
+                btnAddTour.setOnAction(event -> saveTourBooking(selectedConference.getTours().get(finalI)));
                 companionHbox.getChildren().addAll(lblTourName, lblTourDate, lblPriceAndDescription, btnAddTour);
                 pane.add(companionHbox, 0, rowCount + i);
                 rowCount++;
@@ -186,34 +209,56 @@ public class BookingFormWindow extends Stage {
     private void hotelFields(GridPane pane, boolean show) {
 
         Label lblHotelHeadline = new Label("Overnatningsønsker");
-        Label lblHotelName;
-        Label lblHotelDescription;
-        CheckBox cbxWifi;
-        CheckBox cbxBreakfast;
-        CheckBox cbxShower;
-        HBox hotelHbox = new HBox();
+        lblHotelHeadline.setFont(Font.font(24));
+        cbbHotels = new ComboBox<>();
+        cbbHotels.getItems().addAll(Service.getHotelsFromStorage(selectedConference));
+        cbbHotels.setOnAction(event -> updateHotelDescription());
 
         if (show) {
             pane.add(lblHotelHeadline, 0, rowCount, 2, 1);
-            rowCount++;
-            for (int i = 0; i < selectedConference.getLocation().getHotels().size(); i++) {
-                hotelHbox = new HBox();
-                lblHotelName = new Label(selectedConference.getLocation().getHotels().get(i).getName());
-                lblHotelDescription = new Label(
-                        "Kr. " + selectedConference.getLocation().getHotels().get(i).getPriceDouble() + "/"
-                                + selectedConference.getLocation().getHotels().get(i).getPriceSingle());
-                cbxWifi = new CheckBox();
-                cbxBreakfast = new CheckBox();
-                cbxShower = new CheckBox();
-                hotelHbox.getChildren().addAll(lblHotelName, lblHotelDescription, cbxShower, cbxBreakfast, cbxWifi);
-                pane.add(hotelHbox, 0, rowCount + i);
-                rowCount++;
-            }
+            HBox headlinesHBox = new HBox();
+            HBox hotelHBox = new HBox();
+            cbxShower = new CheckBox();
+            cbxBreakfast = new CheckBox();
+            cbxWifi = new CheckBox();
+
+            headlinesHBox.getChildren().addAll(new Label("Hotel"), new Label("Priser: (dobbelt/enkelt)"),
+                    new Label("Bad"), new Label("Mad"), new Label("Wifi"));
+            hotelHBox.getChildren().addAll(cbbHotels, lblHotelDescription, cbxShower, cbxBreakfast, cbxWifi);
+            pane.add(headlinesHBox, 0, rowCount + 1);
+            pane.add(hotelHBox, 0, rowCount + 2);
+
             sizeToScene();
         } else if (!show) {
             // remove all content from hotel from pane...
             // pane.getChildren().remove(lblHotelHeadline);
             sizeToScene();
+        }
+    }
+
+    private void updateHotelDescription() {
+        lblHotelDescription.setText(cbbHotels.getSelectionModel().getSelectedItem().getPriceDouble() + "/"
+                + cbbHotels.getSelectionModel().getSelectedItem().getPriceSingle());
+    }
+
+    private void createBooking() {
+        Participant p = Service.createParticipant(txfName.getText(), txfAdress.getText(),
+                Integer.parseInt(txfPhoneNr.getText()));
+        Hotel h = cbbHotels.getSelectionModel().getSelectedItem();
+        Booking b = Service.createBooking(cbxWifi.isSelected(), cbxBreakfast.isSelected(), cbxShower.isSelected(),
+                cbxSpeaker.isSelected(), p, selectedConference, h, cbxCompanion.isSelected(),
+                txfCompanionName.getText());
+        addTourBookingsToCompanion(b);
+    }
+
+    private void saveTourBooking(Tour tour) {
+        bookedTours.add(tour);
+    }
+
+    private void addTourBookingsToCompanion(Booking booking) {
+
+        for (Tour t : bookedTours) {
+            Service.addTourToCompanion(t, booking);
         }
     }
 }
