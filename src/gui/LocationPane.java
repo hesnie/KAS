@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.model.Location;
 import model.service.Service;
 
@@ -23,13 +25,23 @@ public class LocationPane extends GridPane {
         setPadding(new Insets(20));
         setHgap(20);
         setVgap(10);
-        setGridLinesVisible(false);
+        setGridLinesVisible(true);
 
-        Label lblComp = new Label("Locations");
+        HBox hbxButtons = new HBox(40);
+        this.add(hbxButtons, 0, 2, 1, 2);
+        hbxButtons.setPadding(new Insets(10, 0, 0, 0));
+        hbxButtons.setAlignment(Pos.BASELINE_LEFT);
+
+        HBox hbxInfo = new HBox();
+        this.add(hbxInfo, 0, 1);
+        hbxInfo.setSpacing(50);
+
+        Label lblComp = new Label("Beliggenheder");
+        lblComp.setFont(Font.font(30));
         this.add(lblComp, 0, 0);
 
         lvwLocations = new ListView<>();
-        this.add(lvwLocations, 0, 1, 1, 3);
+        hbxInfo.getChildren().add(lvwLocations);
         lvwLocations.setPrefWidth(200);
         lvwLocations.setPrefHeight(200);
         lvwLocations.getItems().setAll(Service.getLocationsFromStorage());
@@ -39,27 +51,23 @@ public class LocationPane extends GridPane {
         ChangeListener<Location> listener = (ov, oldLocation, newLocation) -> selectedLocationChanged();
         lvwLocations.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        txaDescription = new TextArea();
-        this.add(txaDescription, 1, 2);
+        txaDescription = new TextArea("Marker beliggenhed for mere info");
+        hbxInfo.getChildren().add(txaDescription);
         txaDescription.setEditable(false);
 
-        HBox hbxButtons = new HBox(40);
-        this.add(hbxButtons, 0, 4, 3, 1);
-        hbxButtons.setPadding(new Insets(10, 0, 0, 0));
-        hbxButtons.setAlignment(Pos.BASELINE_CENTER);
-
         btnCreate = new Button("Opret beliggenhed");
+        btnCreate.setMinWidth(120);
         hbxButtons.getChildren().add(btnCreate);
         btnCreate.setOnAction(event -> createAction());
 
         btnAdmin = new Button("Administrer beliggenhed");
+        btnAdmin.setMinWidth(150);
         hbxButtons.getChildren().add(btnAdmin);
         btnAdmin.setOnAction(event -> adminAction());
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
-        hbxButtons.getChildren().add(lblError);
-
+        this.add(lblError, 0, 4);
         // -------------------------------------------------------------------------
 
     }

@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -50,17 +51,18 @@ public class ConferenceWindow extends Stage {
 
     // -------------------------------------------------------------------------------------------------
     private Button btnNewConferenceType, btnSave, btnCancel;
-    private Label lblStartDate, lblLength, lblPrice, lblType, lblLocation, lblDescription, lblTourName;
-    private TextField txfStartDate, txfLength, txfPrice;
+    private Label lblStartDate, lblDuration, lblPrice, lblType, lblLocation, lblDescription, lblTourName;
+    private TextField txfStartDate, txfDuration, txfPrice;
     private TextArea txaDescription;
     private ComboBox<ConferenceType> cbbType;
     private ComboBox<Location> cbbLocation;
     private DatePicker datePicker, tour;
     private ArrayList<Tour> tours = new ArrayList<>();
+    private HBox hbxAllFields;
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
-        pane.setGridLinesVisible(false);
+        pane.setGridLinesVisible(true);
 
         // set padding of the pane
         pane.setPadding(new Insets(20));
@@ -69,25 +71,92 @@ public class ConferenceWindow extends Stage {
         // set vertical gap between components
         pane.setVgap(10);
 
+        // -------------------------------------
+        // HBoxes
+
+        hbxAllFields = new HBox();
+        hbxAllFields.setSpacing(20);
+        pane.add(hbxAllFields, 0, 1);
+
+        HBox hbxType = new HBox();
+        hbxType.setSpacing(3);
+        pane.add(hbxType, 0, 0);
+
+        HBox hbxDescription = new HBox();
+        hbxAllFields.getChildren().add(hbxDescription);
+
+        VBox vbxNewType = new VBox();
+        vbxNewType.setSpacing(80);
+        vbxNewType.setAlignment(Pos.TOP_CENTER);
+        hbxDescription.getChildren().add(vbxNewType);
+
+        VBox vbxFields = new VBox();
+        vbxFields.setSpacing(10);
+        hbxAllFields.getChildren().add(vbxFields);
+
+        HBox hbxLocation = new HBox();
+        vbxFields.getChildren().add(hbxLocation);
+
+        HBox hbxStartDate = new HBox();
+        vbxFields.getChildren().add(hbxStartDate);
+
+        HBox hbxDuration = new HBox();
+        vbxFields.getChildren().add(hbxDuration);
+
+        HBox hbxPrice = new HBox();
+        vbxFields.getChildren().add(hbxPrice);
+
+        HBox hbxButtons = new HBox();
+        hbxButtons.setSpacing(20);
+        hbxButtons.setAlignment(Pos.CENTER_RIGHT);
+        vbxFields.getChildren().add(hbxButtons);
+
+        // --------------------------------------
+        // Labels
+
+        lblStartDate = new Label("Start dato: ");
+        lblStartDate.setMinWidth(120);
+        hbxStartDate.getChildren().add(lblStartDate);
+
+        lblDuration = new Label("Varighed: ");
+        lblDuration.setMinWidth(120);
+        hbxDuration.getChildren().add(lblDuration);
+
+        lblPrice = new Label("Pris pr. dag: ");
+        lblPrice.setMinWidth(120);
+        hbxPrice.getChildren().add(lblPrice);
+
+        lblType = new Label("Konference type: ");
+        lblType.setMinWidth(120);
+        hbxType.getChildren().add(lblType);
+
+        lblLocation = new Label("Beliggenhed: ");
+        lblLocation.setMinWidth(120);
+        hbxLocation.getChildren().add(lblLocation);
+
+        lblDescription = new Label("Konference beskrivelse: ");
+        vbxNewType.getChildren().add(lblDescription);
+
         // ------------------------------------
         // date picker
         datePicker = new DatePicker();
-        pane.add(datePicker, 3, 1);
+        hbxStartDate.getChildren().add(datePicker);
 
         // --------------------------------------
         // Buttons
 
         btnNewConferenceType = new Button("Ny type");
-        pane.add(btnNewConferenceType, 0, 4);
+        btnNewConferenceType.setAlignment(Pos.CENTER);
+        vbxNewType.getChildren().add(btnNewConferenceType);
 
         btnNewConferenceType.setOnAction(event -> CreateTypeAction());
 
         btnSave = new Button("Gem");
-        pane.add(btnSave, 1, 4);
+        hbxButtons.getChildren().add(btnSave);
         btnSave.setOnAction(event -> CreateConferenceAction());
 
-        btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 2, 4);
+        btnCancel = new Button("Annuller");
+        hbxButtons.getChildren().add(btnCancel);
         btnCancel.setOnAction(event -> cancelAction());
 
         // -------------------------------------
@@ -95,45 +164,28 @@ public class ConferenceWindow extends Stage {
         cbbLocation = new ComboBox<>();
         cbbLocation.getItems().addAll(Storage.getLocations());
         cbbLocation.setOnAction(event -> updateLocation(pane));
-        pane.add(cbbLocation, 3, 0);
+        hbxLocation.getChildren().add(cbbLocation);
 
         cbbType = new ComboBox<>();
         cbbType.getItems().addAll(Storage.getConferenceTypes());
         cbbType.setOnAction(event -> UpdateDescription());
-        pane.add(cbbType, 1, 0);
+        cbbType.setMinWidth(300);
+        cbbType.setMaxWidth(300);
+        hbxType.getChildren().add(cbbType);
 
         // ------------------------------------
         // TextFields
 
-        txfLength = new TextField("");
-        pane.add(txfLength, 3, 2);
+        txfDuration = new TextField("");
+        hbxDuration.getChildren().add(txfDuration);
 
         txfPrice = new TextField("");
-        pane.add(txfPrice, 3, 3);
+        hbxPrice.getChildren().add(txfPrice);
 
         txaDescription = new TextArea("");
-        pane.add(txaDescription, 1, 1);
+        hbxDescription.getChildren().add(txaDescription);
+        txaDescription.setMinWidth(300);
         txaDescription.setMaxWidth(300);
-        // --------------------------------------
-        // Labels
-
-        lblStartDate = new Label("Start dato: ");
-        pane.add(lblStartDate, 2, 1);
-
-        lblLength = new Label("Længde: ");
-        pane.add(lblLength, 2, 2);
-
-        lblPrice = new Label("Pris: ");
-        pane.add(lblPrice, 2, 3);
-
-        lblType = new Label("vælg Type: ");
-        pane.add(lblType, 0, 0);
-
-        lblLocation = new Label("Vælg beliggenhed: ");
-        pane.add(lblLocation, 2, 0);
-
-        lblDescription = new Label("Konference beskrivelse: ");
-        pane.add(lblDescription, 0, 1);
 
         // ---------------------------------
 
@@ -157,7 +209,7 @@ public class ConferenceWindow extends Stage {
 
         try {
             price = Double.parseDouble(txfPrice.getText().trim());
-            duration = Short.parseShort(txfLength.getText().trim());
+            duration = Short.parseShort(txfDuration.getText().trim());
         } catch (NumberFormatException ex) {
             // do nothin
         }
@@ -178,18 +230,27 @@ public class ConferenceWindow extends Stage {
     private ArrayList<DatePicker> tourDates = new ArrayList<>();
 
     private void updateLocation(GridPane pane) {
+        VBox vbxTours = new VBox();
+        vbxTours.setSpacing(10);
+        HBox hbxTour;
+        hbxAllFields.getChildren().add(vbxTours);
 
         for (int i = 0; i < cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().size(); i++) {
             int j = i;
+            hbxTour = new HBox();
             lblTourName = new Label(cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().get(i).getName());
-            pane.add(lblTourName, 4, i);
+            lblTourName.setMinWidth(150);
+            lblTourName.setMaxWidth(150);
+            hbxTour.getChildren().add(lblTourName);
             // tour1 = new DatePicker();
             DatePicker d = new DatePicker();
             tourDates.add(d);
             tourDates.get(i).setOnAction(event -> tourDatePickerAction(new Tour(tourDates.get(j).getValue(),
                     cbbLocation.getSelectionModel().getSelectedItem().getToursTypes().get(j))));
             tourDates.get(i).setMaxWidth(110);
-            pane.add(tourDates.get(i), 5, i);
+            hbxTour.getChildren().add(d);
+            vbxTours.getChildren().add(hbxTour);
+            // pane.add(tourDates.get(i), 5, i);
 
         }
         sizeToScene();

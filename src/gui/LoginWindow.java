@@ -69,12 +69,13 @@ public class LoginWindow extends Stage {
     }
 
     private void loginAction() {
-        if (txfPassword.getText().trim().equals("admin") && txfName.getText().trim().equals("admin")) {
-            AdminWindow admin = new AdminWindow("Admin");
-            admin.show();
-        } else {
-            lblError.setText("navn = admin  -  password = admin");
-        }
+        // if (txfPassword.getText().trim().equals("admin") &&
+        // txfName.getText().trim().equals("admin")) {
+        AdminWindow admin = new AdminWindow("Admin");
+        admin.show();
+        // } else {
+        // lblError.setText("navn = admin - password = admin");
+        // }
 
     }
 }

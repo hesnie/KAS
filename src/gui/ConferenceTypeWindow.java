@@ -68,7 +68,7 @@ public class ConferenceTypeWindow extends Stage {
         pane.add(btnSave, 0, 3);
         btnSave.setOnAction(event -> SaveAction());
 
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Annuller");
         pane.add(btnCancel, 1, 3);
 
         // ----------------------------------
