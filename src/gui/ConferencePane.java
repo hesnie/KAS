@@ -26,7 +26,7 @@ public class ConferencePane extends GridPane {
         setPadding(new Insets(20));
         setHgap(20);
         setVgap(10);
-        setGridLinesVisible(true);
+        setGridLinesVisible(false);
 
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 2, 1, 2);
@@ -96,7 +96,7 @@ public class ConferencePane extends GridPane {
         updateControls();
     }
 
-    public void updateControls() {
+    private void updateControls() {
         Conference conference = lvwConferences.getSelectionModel().getSelectedItem();
         if (conference != null) {
             txaDescription.setText(Service
@@ -106,11 +106,11 @@ public class ConferencePane extends GridPane {
         }
     }
 
-    public void adminAction() {
+    private void adminAction() {
         lblError.setText("Det har vi så godt nok ikke lige nået... ");
     }
 
-    public void toursAndCompanionsAction() {
+    private void toursAndCompanionsAction() {
         txaDescription.setText("Udflugter og ledsagere:" + "\n");
         if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
             for (int i = 0; i < Service.listToursAndCompanions(lvwConferences.getSelectionModel().getSelectedItem())
@@ -124,7 +124,7 @@ public class ConferencePane extends GridPane {
         }
     }
 
-    public void hotelsAndParticipants() {
+    private void hotelsAndParticipants() {
         txaDescription.setText("Hoteller og deltagere:" + "\n");
         if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
             for (int i = 0; i < Service.listHotelsAndParticipants(lvwConferences.getSelectionModel().getSelectedItem())
@@ -138,7 +138,7 @@ public class ConferencePane extends GridPane {
         }
     }
 
-    public void bookingsOnConference() {
+    private void bookingsOnConference() {
         txaDescription.setText("Deltagere til konferencen:" + "\n");
         if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
             for (int i = 0; i < Service.listBookingsOnConference(lvwConferences.getSelectionModel().getSelectedItem())

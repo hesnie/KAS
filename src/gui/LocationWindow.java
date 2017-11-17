@@ -56,7 +56,7 @@ public class LocationWindow extends Stage {
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
 
         // set padding of the pane
         pane.setPadding(new Insets(20));

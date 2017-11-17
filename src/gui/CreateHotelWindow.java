@@ -158,19 +158,19 @@ public class CreateHotelWindow extends Stage {
 
     // ====================================================================================
 
-    public void wifiAction(Boolean checked) {
+    private void wifiAction(Boolean checked) {
         txfWifiPrice.setDisable(!checked);
     }
 
-    public void breakfastAction(Boolean checked) {
+    private void breakfastAction(Boolean checked) {
         txfBreakfastPrice.setDisable(!checked);
     }
 
-    public void showerAction(Boolean checked) {
+    private void showerAction(Boolean checked) {
         txfShowerPrice.setDisable(!checked);
     }
 
-    public void saveAction() {
+    private void saveAction() {
         String name = txfName.getText().trim();
         String adress = txfAdress.getText().trim();
         double priceSingle = 0;
@@ -202,7 +202,7 @@ public class CreateHotelWindow extends Stage {
         hide();
     }
 
-    public void cancelAction() {
+    private void cancelAction() {
         hide();
     }
 

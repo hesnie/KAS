@@ -124,7 +124,7 @@ public class CreateTourWindow extends Stage {
 
     // ====================================================================================
 
-    public void saveAction() {
+    private void saveAction() {
 
         String name = txfName.getText().trim();
         String description = txfDescription.getText().trim();
@@ -146,7 +146,7 @@ public class CreateTourWindow extends Stage {
         hide();
     }
 
-    public void cancelAction() {
+    private void cancelAction() {
         hide();
     }
 

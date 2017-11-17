@@ -73,6 +73,10 @@ public class Conference {
         this.conferenceType = conferenceType;
     }
 
+    public LocalDate getStartDate() {
+        return dateStart;
+    }
+
     @Override
     public String toString() {
         return conferenceType.getName() + " (" + dateStart + ")";

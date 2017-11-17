@@ -25,7 +25,7 @@ public class LocationPane extends GridPane {
         setPadding(new Insets(20));
         setHgap(20);
         setVgap(10);
-        setGridLinesVisible(true);
+        setGridLinesVisible(false);
 
         HBox hbxButtons = new HBox(40);
         this.add(hbxButtons, 0, 2, 1, 2);
@@ -76,7 +76,7 @@ public class LocationPane extends GridPane {
         updateControls();
     }
 
-    public void updateControls() {
+    private void updateControls() {
         Location location = lvwLocations.getSelectionModel().getSelectedItem();
         if (location != null) {
             txaDescription.setText(Service.locationOutputTextForLocationWindow(location));
@@ -85,7 +85,7 @@ public class LocationPane extends GridPane {
         }
     }
 
-    public void createAction() {
+    private void createAction() {
         LocationWindow location = new LocationWindow("Ny lokation");
         location.showAndWait();
 
@@ -93,7 +93,7 @@ public class LocationPane extends GridPane {
 
     }
 
-    public void adminAction() {
+    private void adminAction() {
         lblError.setText("Det har vi så godt nok ikke lige nået... ");
     }
 

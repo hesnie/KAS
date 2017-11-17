@@ -373,6 +373,9 @@ public class Service {
     public static String ConferenceOutputTextForConferenceWindow(Conference conference) {
         String s;
         s = conference.getConferenceType().getName() + "\n";
+        s += "Pris pr. dag: " + conference.getPrice() + "\n";
+        s += "StartDato: " + conference.getStartDate();
+        s += "  - SlutDato: " + conference.getStartDate().plusDays(conference.getDuration()) + "\n";
         for (int i = 0; i < conference.getTours().size(); i++) {
             s += conference.getTours().get(i).getTourType().getName() + "(" + conference.getTours().get(i).getDate()
                     + ")" + "\n";
