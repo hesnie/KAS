@@ -49,7 +49,7 @@ public class ParticipantWindow extends Stage {
 
         lvwConferences = new ListView<>();
         pane.add(lvwConferences, 0, 0, 1, 3);
-        lvwConferences.setPrefWidth(200);
+        lvwConferences.setPrefWidth(300);
         lvwConferences.setPrefHeight(200);
         lvwConferences.getItems().setAll(Service.getConferencesFromStorage());
 

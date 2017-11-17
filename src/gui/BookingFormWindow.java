@@ -68,7 +68,7 @@ public class BookingFormWindow extends Stage {
     private Button btnSignUp = new Button("Tilmeld");
     private Label lblTotalPrice = new Label();
     private Label lblCompanionPrice = new Label();
-    private Label lblHotelPrice = new Label("Total pris : 0.0 kr.");
+    private Label lblHotelPrice = new Label("Overnatningspris: 0.0 kr.");
     private CheckBox cbxShower;
     private CheckBox cbxBreakfast;
     private CheckBox cbxWifi;
@@ -78,7 +78,7 @@ public class BookingFormWindow extends Stage {
     private Conference selectedConference;
     private int rowCount = 3;
     private double totalPrice = 0.0;
-    ArrayList<Tour> bookedTours = new ArrayList<>();
+    private ArrayList<Tour> bookedTours = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         pane.setGridLinesVisible(false);
@@ -102,16 +102,18 @@ public class BookingFormWindow extends Stage {
         Label lblCity = new Label("By");
         Label lblCountry = new Label("Land");
         Label lblPhoneNr = new Label("Telefonnr.");
+        Label lblConferencePrice = new Label(
+                "Konference pris: " + (selectedConference.getPrice() * selectedConference.getDuration()) + " kr.");
 
         ArrayList<Label> labelsParticipants = new ArrayList<>();
         labelsParticipants.addAll(Arrays.asList(lblName, lblAdress, lblCity, lblCountry, lblPhoneNr, lblTotalPrice,
-                lblCompanionPrice, lblHotelPrice));
+                lblCompanionPrice, lblHotelPrice, lblConferencePrice));
 
         for (Label l : labelsParticipants) {
             l.setMinWidth(100);
         }
 
-        cbxSpeaker = new CheckBox("Foredragsholder?");
+        cbxSpeaker = new CheckBox("Foredragsholder");
         cbxCompanion = new CheckBox("Medtager ledsager");
         cbxHotel = new CheckBox("Ønsker overnatning");
         cbxCompany = new CheckBox("Firmabetaling");
@@ -122,6 +124,7 @@ public class BookingFormWindow extends Stage {
         cbbParticipants = new ComboBox<>();
         cbbParticipants.getItems().addAll(Service.getParticipantsFromStorage());
         HBox participantsAndLabel = new HBox();
+        participantsAndLabel.setSpacing(10);
         participantsAndLabel.getChildren().add(new Label("Allerede oprettet?"));
         participantsAndLabel.getChildren().add(cbbParticipants);
         cbbParticipants.setOnAction(event -> fillParticipantInfo());
@@ -168,6 +171,10 @@ public class BookingFormWindow extends Stage {
         lineFourTwo.getChildren().add(cbxCompanion);
         lineFourTwo.getChildren().add(cbxHotel);
 
+        HBox totalPriceBox = new HBox();
+        totalPriceBox.setAlignment(Pos.CENTER_RIGHT);
+        totalPriceBox.getChildren().add(lblTotalPrice);
+
         rowOne.setMinWidth(300);
         rowTwo.setMinWidth(300);
 
@@ -179,18 +186,26 @@ public class BookingFormWindow extends Stage {
         rowOne.getChildren().add(lineThreeOne);
         rowOne.getChildren().add(lineFourOne);
 
-        rowTwo.getChildren().add(lineOneTwo);
         rowTwo.getChildren().add(lineTwoTwo);
         rowTwo.getChildren().add(lineThreeTwo);
+        rowTwo.getChildren().add(lineOneTwo);
         rowTwo.getChildren().add(lineFourTwo);
 
-        rowThree.getChildren().add(btnSignUp);
+        HBox placeholder1 = new HBox();
+        HBox placeholder2 = new HBox();
+        HBox conferencePriceBox = new HBox();
+        conferencePriceBox.setAlignment(Pos.CENTER_RIGHT);
+        conferencePriceBox.setMinHeight(30);
+        conferencePriceBox.getChildren().add(lblConferencePrice);
+
         rowThree.getChildren().add(participantsAndLabel);
-        rowThree.getChildren().add(lblTotalPrice);
+        rowThree.getChildren().add(placeholder1);
+        rowThree.getChildren().add(placeholder2);
+        rowThree.getChildren().add(conferencePriceBox);
 
         ArrayList<HBox> Hboxs = new ArrayList<>();
         Hboxs.addAll(Arrays.asList(lineOneOne, lineTwoOne, lineThreeOne, lineFourOne, lineOneTwo, lineTwoTwo,
-                lineThreeTwo, lineFourTwo));
+                lineThreeTwo, lineFourTwo, participantsAndLabel, placeholder1, placeholder2));
 
         for (HBox h : Hboxs) {
             h.setMinHeight(30);
@@ -232,7 +247,8 @@ public class BookingFormWindow extends Stage {
         pane.add(rowThree, 2, 2);
         pane.add(companionInfo, 0, 3, 3, 1);
         pane.add(hotelInfo, 0, 4, 3, 1);
-        pane.add(lblTotalPrice, 2, 5);
+        pane.add(btnSignUp, 0, 5);
+        pane.add(totalPriceBox, 2, 5);
         updatePriceFields();
     }
 
@@ -246,7 +262,7 @@ public class BookingFormWindow extends Stage {
     }
 
     private void companionFields(GridPane pane, boolean show) {
-        Label lblCompanionHeadline = new Label("Program for ledsagere");
+        Label lblCompanionHeadline = new Label("Program for ledsager");
         lblCompanionHeadline.setFont(Font.font(24));
         HBox companion = new HBox();
         companion.setSpacing(10);
@@ -407,7 +423,7 @@ public class BookingFormWindow extends Stage {
             for (Tour t : bookedTours) {
                 companionPrice += t.getTourType().getPrice();
             }
-            lblCompanionPrice.setText("Ledsager udgifter: " + companionPrice);
+            lblCompanionPrice.setText("Ledsager udgifter: " + companionPrice + " kr.");
             totalPrice += companionPrice;
             if (cbxHotel.isSelected() && cbbHotels.getSelectionModel().getSelectedItem() != null) {
                 Hotel hotel = cbbHotels.getSelectionModel().getSelectedItem();
