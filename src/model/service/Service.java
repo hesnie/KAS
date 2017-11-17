@@ -113,8 +113,9 @@ public class Service {
     }
 
     // create participant
-    public static Participant createParticipant(String name, String adress, int phoneNumber) {
-        Participant p = new Participant(name, adress, phoneNumber);
+    public static Participant createParticipant(String name, String adress, int phoneNumber, String town,
+            String contry) {
+        Participant p = new Participant(name, adress, phoneNumber, town, contry);
         Storage.addParticipant(p);
         return p;
     }
@@ -271,10 +272,10 @@ public class Service {
     public static void initContent() {
         // participants
 
-        Participant p1 = createParticipant("Finn Madsen", "Adelgade 1", (short) 123);
-        Participant p2 = createParticipant("Niels Petersen", "Adelgade 2", (short) 1234);
-        Participant p3 = createParticipant("Peter Sommer", "Adelgade 3", (short) 12345);
-        Participant p4 = createParticipant("Lone Jensen", "Adelgade 4", (short) 123456);
+        Participant p1 = createParticipant("Finn Madsen", "Adelgade 1", 28451255, "Silkeborg", "Danmark");
+        Participant p2 = createParticipant("Niels Petersen", "Adelgade 2", 34569823, "Herning", "Danmark");
+        Participant p3 = createParticipant("Peter Sommer", "Adelgade 3", 24367812, "Århus", "Danmark");
+        Participant p4 = createParticipant("Lone Jensen", "Adelgade 4", 12357950, "Randers", "Danmark");
 
         // Ny conference
         ConferenceType ct1 = createConferenceType("Comic con", "Confernce for comics");

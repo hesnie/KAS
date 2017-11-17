@@ -7,12 +7,17 @@ public class Participant {
     private String country;
     private int phoneNumber;
 
-    public Participant(String name, String adress, int phoneNumber) {
+    public Participant(String name, String adress, int phoneNumber, String town, String country) {
         this.name = name;
         this.adress = adress;
-        this.town = "";
-        this.country = "";
+        this.town = town;
+        this.country = country;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     public String getName() {
@@ -23,7 +28,7 @@ public class Participant {
         return adress;
     }
 
-    public int getPhoneNUmber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
