@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.model.Hotel;
 import model.service.Service;
-import storage.Storage;
 
 public class CreateHotelWindow extends Stage {
 
