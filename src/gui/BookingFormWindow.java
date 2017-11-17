@@ -57,6 +57,9 @@ public class BookingFormWindow extends Stage {
     private ComboBox<Hotel> cbbHotels;
     private ComboBox<Participant> cbbParticipants;
     private Button btnSignUp = new Button("Tilmeld");
+    private Button btnCancel = new Button("Annuller");
+    private Button btnAddTour;
+    private Button btnRemoveTour;
     private Label lblTotalPrice = new Label();
     private Label lblCompanionPrice = new Label();
     private Label lblHotelPrice = new Label("Overnatningspris: 0.0 kr.");
@@ -67,7 +70,6 @@ public class BookingFormWindow extends Stage {
     private VBox hotelInfo;
 
     private Conference selectedConference;
-    private int rowCount = 3;
     private double totalPrice = 0.0;
     private ArrayList<Tour> bookedTours = new ArrayList<>();
 
@@ -120,6 +122,7 @@ public class BookingFormWindow extends Stage {
         participantsAndLabel.getChildren().add(cbbParticipants);
         cbbParticipants.setOnAction(event -> fillParticipantInfo());
         btnSignUp.setOnAction(event -> createBooking());
+        btnCancel.setOnAction(event -> hide());
         cbbCompanies.setDisable(true);
 
         VBox rowOne = new VBox();
@@ -189,6 +192,11 @@ public class BookingFormWindow extends Stage {
         conferencePriceBox.setMinHeight(30);
         conferencePriceBox.getChildren().add(lblConferencePrice);
 
+        HBox signUpOrCancel = new HBox();
+        signUpOrCancel.setSpacing(10);
+        signUpOrCancel.getChildren().add(btnSignUp);
+        signUpOrCancel.getChildren().add(btnCancel);
+
         rowThree.getChildren().add(participantsAndLabel);
         rowThree.getChildren().add(placeholder1);
         rowThree.getChildren().add(placeholder2);
@@ -238,7 +246,7 @@ public class BookingFormWindow extends Stage {
         pane.add(rowThree, 2, 2);
         pane.add(companionInfo, 0, 3, 3, 1);
         pane.add(hotelInfo, 0, 4, 3, 1);
-        pane.add(btnSignUp, 0, 5);
+        pane.add(signUpOrCancel, 0, 5);
         pane.add(totalPriceBox, 2, 5);
         updatePriceFields();
     }
@@ -263,17 +271,15 @@ public class BookingFormWindow extends Stage {
         Label lblTourName;
         Label lblTourDate;
         Label lblPriceAndDescription;
-        Button btnAddTour;
         HBox companionHbox;
 
         if (show) {
             companionInfo.getChildren().add(lblCompanionHeadline);
             companionInfo.getChildren().add(companion);
-            rowCount += 2;
             for (int i = 0; i < selectedConference.getTours().size(); i++) {
                 companionHbox = new HBox();
                 companionHbox.setSpacing(10);
-                int finalI = i;
+                final int finalI = i;
                 lblTourName = new Label(selectedConference.getTours().get(i).getTourType().getName());
                 lblTourName.setMinWidth(200);
                 lblTourDate = new Label(selectedConference.getTours().get(i).getDate().toString());
@@ -281,12 +287,22 @@ public class BookingFormWindow extends Stage {
                 lblPriceAndDescription = new Label(selectedConference.getTours().get(i).getTourType().getDescription());
                 lblPriceAndDescription.setMinWidth(200);
                 btnAddTour = new Button("Tilmeld");
+                btnRemoveTour = new Button("Afmeld");
+                // btnRemoveTour.setDisable(true);
                 btnAddTour.setOnAction(event -> {
                     saveTourBooking(selectedConference.getTours().get(finalI));
+                    // btnRemoveTour.setDisable(false);
+                    // btnAddTour.setDisable(true);
                     updatePriceFields();
-                    sizeToScene();
                 });
-                companionHbox.getChildren().addAll(lblTourName, lblTourDate, lblPriceAndDescription, btnAddTour);
+                btnRemoveTour.setOnAction(event -> {
+                    removeTourBooking(selectedConference.getTours().get(finalI));
+                    // btnAddTour.setDisable(false);
+                    // btnRemoveTour.setDisable(true);
+                    updatePriceFields();
+                });
+                companionHbox.getChildren().addAll(lblTourName, lblTourDate, lblPriceAndDescription, btnAddTour,
+                        btnRemoveTour);
                 companionInfo.getChildren().add(companionHbox);
             }
             HBox companionPrice = new HBox();
@@ -393,6 +409,10 @@ public class BookingFormWindow extends Stage {
 
     private void saveTourBooking(Tour tour) {
         bookedTours.add(tour);
+    }
+
+    private void removeTourBooking(Tour tour) {
+        bookedTours.remove(tour);
     }
 
     private void addTourBookingsToCompanion(Booking booking) {
