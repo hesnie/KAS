@@ -9,6 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.model.Conference;
 import model.model.Location;
 import model.service.Service;
@@ -24,13 +26,23 @@ public class ConferencePane extends GridPane {
         setPadding(new Insets(20));
         setHgap(20);
         setVgap(10);
-        setGridLinesVisible(false);
+        setGridLinesVisible(true);
+
+        HBox hbxButtons = new HBox(40);
+        this.add(hbxButtons, 0, 2, 1, 2);
+        hbxButtons.setPadding(new Insets(10, 0, 0, 0));
+        hbxButtons.setAlignment(Pos.BASELINE_LEFT);
+
+        HBox hbxInfo = new HBox();
+        hbxInfo.setSpacing(50);
+        this.add(hbxInfo, 0, 1);
 
         Label lblComp = new Label("Konferencer");
+        lblComp.setFont(Font.font(30));
         this.add(lblComp, 0, 0);
 
         lvwConferences = new ListView<>();
-        this.add(lvwConferences, 0, 1, 1, 3);
+        hbxInfo.getChildren().add(lvwConferences);
         lvwConferences.setPrefWidth(200);
         lvwConferences.setPrefHeight(200);
         lvwConferences.getItems().setAll(Service.getConferencesFromStorage());
@@ -40,32 +52,28 @@ public class ConferencePane extends GridPane {
         ChangeListener<Conference> listener = (ov, oldConference, newConference) -> selectedConferenceChanged();
         lvwConferences.getSelectionModel().selectedItemProperty().addListener(listener);
 
-        txaDescription = new TextArea();
-        this.add(txaDescription, 1, 2);
+        txaDescription = new TextArea("Marker konference for info");
+        hbxInfo.getChildren().add(txaDescription);
         txaDescription.setEditable(false);
-
-        HBox hbxButtons = new HBox(40);
-        this.add(hbxButtons, 0, 4, 3, 1);
-        hbxButtons.setPadding(new Insets(10, 0, 0, 0));
-        hbxButtons.setAlignment(Pos.BASELINE_CENTER);
 
         btnCreate = new Button("Opret konference");
         hbxButtons.getChildren().add(btnCreate);
+        btnCreate.setMinWidth(120);
         btnCreate.setOnAction(event -> createConference());
 
         btnAdmin = new Button("Administrer konference");
+        btnAdmin.setMinWidth(150);
         hbxButtons.getChildren().add(btnAdmin);
         btnAdmin.setOnAction(event -> adminAction());
 
         lblError = new Label();
         lblError.setStyle("-fx-text-fill: red");
-        hbxButtons.getChildren().add(lblError);
-
-        btnToursAndCompanions = new Button("Udflugter og ledsager");
+        this.add(lblError, 0, 4);
+        btnToursAndCompanions = new Button("Udflugter og ledsagere");
         hbxButtons.getChildren().add(btnToursAndCompanions);
         btnToursAndCompanions.setOnAction(event -> toursAndCompanionsAction());
 
-        btnHotelsAndParticipants = new Button("Hoteller og deltager");
+        btnHotelsAndParticipants = new Button("Hoteller og deltagere");
         hbxButtons.getChildren().add(btnHotelsAndParticipants);
         btnHotelsAndParticipants.setOnAction(event -> hotelsAndParticipants());
 
@@ -117,7 +125,7 @@ public class ConferencePane extends GridPane {
     }
 
     public void hotelsAndParticipants() {
-        txaDescription.setText("Hoteller og deltager:" + "\n");
+        txaDescription.setText("Hoteller og deltagere:" + "\n");
         if (lvwConferences.getSelectionModel().getSelectedItem() != null) {
             for (int i = 0; i < Service.listHotelsAndParticipants(lvwConferences.getSelectionModel().getSelectedItem())
                     .size(); i++) {

@@ -6,6 +6,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SelectionModel;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -68,8 +69,9 @@ public class ConferenceTypeWindow extends Stage {
         pane.add(btnSave, 0, 3);
         btnSave.setOnAction(event -> SaveAction());
 
-        btnCancel = new Button("Cancel");
+        btnCancel = new Button("Annuller");
         pane.add(btnCancel, 1, 3);
+        btnCancel.setOnAction(EventHandler -> cancelAction());
 
         // ----------------------------------
         // TextField
@@ -97,6 +99,10 @@ public class ConferenceTypeWindow extends Stage {
         String description = txfDescription.getText().trim();
 
         Service.createConferenceType(name, description);
+        hide();
+    }
+
+    private void cancelAction() {
         hide();
     }
 }

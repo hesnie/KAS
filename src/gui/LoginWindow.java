@@ -73,7 +73,7 @@ public class LoginWindow extends Stage {
             AdminWindow admin = new AdminWindow("Admin");
             admin.show();
         } else {
-            lblError.setText("navn = admin  -  password = admin");
+            lblError.setText("navn = admin - password = admin");
         }
 
     }

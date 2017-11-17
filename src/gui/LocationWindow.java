@@ -6,6 +6,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SelectionModel;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,7 +56,7 @@ public class LocationWindow extends Stage {
 
     private void initContent(GridPane pane) {
         // show or hide grid lines
-        pane.setGridLinesVisible(false);
+        pane.setGridLinesVisible(true);
 
         // set padding of the pane
         pane.setPadding(new Insets(20));
@@ -63,48 +65,79 @@ public class LocationWindow extends Stage {
         // set vertical gap between components
         pane.setVgap(10);
 
-        // ------------------------------------
-        // buttons
+        // ---------------------------------------
+        VBox vbxTextFields = new VBox();
+        pane.add(vbxTextFields, 1, 1);
+        vbxTextFields.setSpacing(27);
+        vbxTextFields.setPadding(new Insets(27, 0, 0, 0));
+        vbxTextFields.setAlignment(Pos.TOP_LEFT);
 
-        btnCreateTour = new Button("Create Tour");
-        pane.add(btnCreateTour, 2, 2);
-        btnCreateTour.setOnAction(event -> CreateTourAction());
+        HBox hbxLists = new HBox();
+        hbxLists.setSpacing(10);
+        hbxLists.setAlignment(Pos.TOP_CENTER);
+        pane.add(hbxLists, 2, 1);
 
-        btnAdminTour = new Button("Administrer tour");
-        pane.add(btnAdminTour, 2, 3);
-        btnAdminTour.setDisable(true);
-        btnAdminTour.setOnAction(event -> AdminTourAction());
+        VBox vbxTours = new VBox();
+        vbxTours.setSpacing(10);
+        hbxLists.getChildren().add(vbxTours);
 
-        btnCreateHotel = new Button("Create Hotel");
-        pane.add(btnCreateHotel, 3, 2);
-        btnCreateHotel.setOnAction(event -> CreateHotelAction());
+        VBox vbxHotels = new VBox();
+        vbxHotels.setSpacing(10);
+        hbxLists.getChildren().add(vbxHotels);
 
-        btnAdminHotel = new Button("Administrer Hotel");
-        pane.add(btnAdminHotel, 3, 3);
-        btnAdminHotel.setDisable(true);
-        btnAdminHotel.setOnAction(event -> AdminHotelAction());
+        HBox hbxName = new HBox();
+        hbxName.setAlignment(Pos.CENTER_LEFT);
+        vbxTextFields.getChildren().add(hbxName);
 
-        btnSave = new Button("Gem");
-        pane.add(btnSave, 2, 5);
-        btnSave.setOnAction(event -> saveAction());
+        HBox hbxAdress = new HBox();
+        hbxAdress.setAlignment(Pos.CENTER_LEFT);
+        vbxTextFields.getChildren().add(hbxAdress);
 
-        btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 3, 5);
+        HBox hbxDescription = new HBox();
+        hbxDescription.setAlignment(Pos.CENTER_LEFT);
+        vbxTextFields.getChildren().add(hbxDescription);
 
-        btnAddTourToLocation = new Button("Tilføj tour til beliggenhed");
-        pane.add(btnAddTourToLocation, 2, 4);
-        btnAddTourToLocation.setOnAction(event -> AddTourToLocation());
+        HBox hbxMaxParticipants = new HBox();
+        hbxMaxParticipants.setAlignment(Pos.CENTER_LEFT);
+        vbxTextFields.getChildren().add(hbxMaxParticipants);
 
-        btnAddHotelToLocation = new Button("Tilføj hotel til beliggenhed");
-        pane.add(btnAddHotelToLocation, 3, 4);
-        btnAddHotelToLocation.setOnAction(event -> addHotelToLocation());
+        HBox hbxButtons = new HBox();
+        hbxButtons.setAlignment(Pos.CENTER);
+        hbxButtons.setSpacing(50);
+        vbxTextFields.getChildren().add(hbxButtons);
+
+        // ----------------------------------------------
+        // Labels
+
+        lblName = new Label("Navn: ");
+        lblName.setMinWidth(80);
+        hbxName.getChildren().add(lblName);
+
+        lblAdress = new Label("Adresse: ");
+        lblAdress.setMinWidth(80);
+        hbxAdress.getChildren().add(lblAdress);
+
+        lblDescription = new Label("Beskrivelse: ");
+        lblDescription.setMinWidth(80);
+        hbxDescription.getChildren().add(lblDescription);
+
+        lblTour = new Label("Udflugter");
+        vbxTours.getChildren().add(lblTour);
+
+        lblHotel = new Label("Hoteller");
+        vbxHotels.getChildren().add(lblHotel);
+
+        lblMaxParticipants = new Label("Max deltagere: ");
+        lblMaxParticipants.setMinWidth(80);
+        hbxMaxParticipants.getChildren().add(lblMaxParticipants);
+
         // -----------------------------------
         // listview
         tours = new ListView<>();
-        pane.add(tours, 2, 1);
         tours.setPrefWidth(200);
-        tours.setPrefHeight(200);
+        tours.setMaxHeight(200);
         tours.getItems().setAll(Service.getTourTypesFromStorage());
+        vbxTours.getChildren().add(tours);
 
         tours.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -112,54 +145,71 @@ public class LocationWindow extends Stage {
         tours.getSelectionModel().selectedItemProperty().addListener(listener1);
 
         hotels = new ListView<>();
-        pane.add(hotels, 3, 1);
         hotels.setPrefWidth(200);
-        hotels.setPrefHeight(200);
+        hotels.setMaxHeight(200);
         hotels.getItems().setAll(Service.getHotelsFromStorage());
+        vbxHotels.getChildren().add(hotels);
 
         hotels.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         ChangeListener<Hotel> listener2 = (ov, oldHotel, newHotel) -> selectedHotelChanged();
         hotels.getSelectionModel().selectedItemProperty().addListener(listener2);
 
+        // ------------------------------------
+        // buttons
+
+        btnCreateTour = new Button("Opret Tour");
+        vbxTours.getChildren().add(btnCreateTour);
+        btnCreateTour.setOnAction(event -> CreateTourAction());
+
+        btnAdminTour = new Button("Administrer tour");
+        vbxTours.getChildren().add(btnAdminTour);
+        btnAdminTour.setDisable(true);
+        btnAdminTour.setOnAction(event -> AdminTourAction());
+
+        btnCreateHotel = new Button("Opret Hotel");
+        vbxHotels.getChildren().add(btnCreateHotel);
+        btnCreateHotel.setOnAction(event -> CreateHotelAction());
+
+        btnAdminHotel = new Button("Administrer Hotel");
+        vbxHotels.getChildren().add(btnAdminHotel);
+        btnAdminHotel.setDisable(true);
+        btnAdminHotel.setOnAction(event -> AdminHotelAction());
+
+        btnSave = new Button("Gem");
+        hbxButtons.getChildren().add(btnSave);
+        btnSave.setOnAction(event -> saveAction());
+
+        btnCancel = new Button("Anuller");
+        hbxButtons.getChildren().add(btnCancel);
+        btnCancel.setOnAction(event -> cancelAction());
+
+        btnAddTourToLocation = new Button("Tilføj udflugt til beliggenhed");
+        vbxTours.getChildren().add(btnAddTourToLocation);
+        btnAddTourToLocation.setOnAction(event -> AddTourToLocation());
+
+        btnAddHotelToLocation = new Button("Tilføj hotel til beliggenhed");
+        vbxHotels.getChildren().add(btnAddHotelToLocation);
+        btnAddHotelToLocation.setOnAction(event -> addHotelToLocation());
+
         // ----------------------------------
         // textfield
 
         txfName = new TextField("");
-        pane.add(txfName, 1, 1);
+        hbxName.getChildren().add(txfName);
         txfName.setEditable(true);
 
         txfAdress = new TextField("");
-        pane.add(txfAdress, 1, 2);
+        hbxAdress.getChildren().add(txfAdress);
         txfName.setEditable(true);
 
         txfDescription = new TextField("");
-        pane.add(txfDescription, 1, 3);
+        hbxDescription.getChildren().add(txfDescription);
         txfName.setEditable(true);
 
         txfMaxParticipants = new TextField();
-        pane.add(txfMaxParticipants, 1, 4);
-
-        // ----------------------------------------------
-        // Labels
-
-        lblName = new Label("Navn: ");
-        pane.add(lblName, 0, 1);
-
-        lblAdress = new Label("Adress: ");
-        pane.add(lblAdress, 0, 2);
-
-        lblDescription = new Label("Beskrivelse: ");
-        pane.add(lblDescription, 0, 3);
-
-        lblTour = new Label("Tours");
-        pane.add(lblTour, 2, 0);
-
-        lblHotel = new Label("Hoteller");
-        pane.add(lblHotel, 3, 0);
-
-        lblMaxParticipants = new Label("Max deltagere: ");
-        pane.add(lblMaxParticipants, 0, 4);
+        hbxMaxParticipants.getChildren().add(txfMaxParticipants);
+        txfMaxParticipants.setEditable(true);
 
     }
 
@@ -243,6 +293,10 @@ public class LocationWindow extends Stage {
     private void updateAction() {
         tours.getItems().setAll(Service.getTourTypesFromStorage());
         hotels.getItems().setAll(Service.getHotelsFromStorage());
+    }
+
+    private void cancelAction() {
+        hide();
     }
 
 }

@@ -69,15 +69,20 @@ public class CreateTourWindow extends Stage {
         // set vertical gap between components
         pane.setVgap(10);
 
+        HBox hbxButtons = new HBox();
+        hbxButtons.setSpacing(10);
+        hbxButtons.setAlignment(Pos.CENTER_RIGHT);
+        pane.add(hbxButtons, 1, 4);
+
         // -------------------------------------
         // Buttons
 
         btnSave = new Button("Gem");
-        pane.add(btnSave, 1, 4);
+        hbxButtons.getChildren().add(btnSave);
         btnSave.setOnAction(event -> saveAction());
 
-        btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 2, 4);
+        btnCancel = new Button("Annuller");
+        hbxButtons.getChildren().add(btnCancel);
         btnCancel.setOnAction(event -> cancelAction());
 
         // -------------------------------------
@@ -103,10 +108,10 @@ public class CreateTourWindow extends Stage {
         lblPrice = new Label("Pris: ");
         pane.add(lblPrice, 0, 1);
 
-        lblDescription = new Label("Beskrivelse");
+        lblDescription = new Label("Beskrivelse: ");
         pane.add(lblDescription, 0, 2);
 
-        lblMaxParticipants = new Label("MaxParticipants");
+        lblMaxParticipants = new Label("MaxParticipants: ");
         pane.add(lblMaxParticipants, 0, 3);
 
         if (tourType != null) {

@@ -2,12 +2,14 @@ package gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -66,6 +68,11 @@ public class CreateHotelWindow extends Stage {
         // set vertical gap between components
         pane.setVgap(10);
 
+        HBox hbxButtons = new HBox();
+        hbxButtons.setSpacing(10);
+        hbxButtons.setAlignment(Pos.CENTER_RIGHT);
+        pane.add(hbxButtons, 1, 7);
+
         // --------------------------------------
         // checkbox
         cbxWifi = new CheckBox("Wifi");
@@ -86,11 +93,11 @@ public class CreateHotelWindow extends Stage {
         // --------------------------------------
         // buttons
         btnSave = new Button("Gem");
-        pane.add(btnSave, 0, 7);
+        hbxButtons.getChildren().add(btnSave);
         btnSave.setOnAction(event -> saveAction());
 
-        btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 1, 7);
+        btnCancel = new Button("Annuller");
+        hbxButtons.getChildren().add(btnCancel);
         btnCancel.setOnAction(Event -> cancelAction());
 
         // --------------------------------------
