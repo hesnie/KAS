@@ -3,9 +3,7 @@ package model.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.scene.control.DatePicker;
 import model.model.Booking;
-import model.model.BookingTour;
 import model.model.Companion;
 import model.model.Company;
 import model.model.Conference;

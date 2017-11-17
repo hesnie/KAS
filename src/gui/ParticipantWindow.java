@@ -1,8 +1,5 @@
 package gui;
 
-import model.model.Conference;
-import model.service.Service;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,6 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.model.Conference;
+import model.service.Service;
 
 public class ParticipantWindow extends Stage {
 

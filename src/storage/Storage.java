@@ -1,6 +1,7 @@
 package storage;
 
 import java.util.ArrayList;
+
 import model.model.Company;
 import model.model.Conference;
 import model.model.ConferenceType;

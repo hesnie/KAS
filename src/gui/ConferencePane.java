@@ -9,10 +9,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.model.Conference;
-import model.model.Location;
 import model.service.Service;
 
 public class ConferencePane extends GridPane {

@@ -1,23 +1,10 @@
 package gui;
 
-import model.model.Booking;
-import model.model.Company;
-import model.model.Conference;
-import model.model.Hotel;
-import model.model.Participant;
-import model.model.Tour;
-import model.model.TourType;
-import model.service.Service;
-import storage.Storage;
-
-import java.nio.charset.IllegalCharsetNameException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,17 +12,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.model.Booking;
+import model.model.Company;
+import model.model.Conference;
+import model.model.Hotel;
+import model.model.Participant;
+import model.model.Tour;
+import model.service.Service;
 
 public class BookingFormWindow extends Stage {
 
