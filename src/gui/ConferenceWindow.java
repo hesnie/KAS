@@ -2,11 +2,7 @@ package gui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.SelectionModel;
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,11 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,10 +20,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.model.Conference;
 import model.model.ConferenceType;
-import model.model.Hotel;
 import model.model.Location;
 import model.model.Tour;
-import model.model.TourType;
 import model.service.Service;
 import storage.Storage;
 

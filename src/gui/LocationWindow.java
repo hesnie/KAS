@@ -152,11 +152,11 @@ public class LocationWindow extends Stage {
         // ------------------------------------
         // buttons
 
-        btnCreateTour = new Button("Opret Tour");
+        btnCreateTour = new Button("Opret udflugt");
         vbxTours.getChildren().add(btnCreateTour);
         btnCreateTour.setOnAction(event -> CreateTourAction());
 
-        btnAdminTour = new Button("Administrer tour");
+        btnAdminTour = new Button("Administrer udflugt");
         vbxTours.getChildren().add(btnAdminTour);
         btnAdminTour.setDisable(true);
         btnAdminTour.setOnAction(event -> AdminTourAction());
