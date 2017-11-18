@@ -66,6 +66,7 @@ public class LoginWindow extends Stage {
         if (txfPassword.getText().trim().equals("admin") && txfName.getText().trim().equals("admin")) {
             AdminWindow admin = new AdminWindow("Admin");
             admin.show();
+            hide();
         } else {
             lblError.setText("navn = admin - password = admin");
         }

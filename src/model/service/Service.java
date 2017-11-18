@@ -88,11 +88,11 @@ public class Service {
         tourType.setPrice(price);
     }
 
-    public static void hotelSet(Hotel hotel, String name, String adress, double priceSingle, double priceDouble,
+    public static void hotelSet(Hotel hotel, String name, String address, double priceSingle, double priceDouble,
             boolean hasWifi, boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice,
             double showerPrice) {
         hotel.setName(name);
-        hotel.setAdress(adress);
+        hotel.setAddress(address);
         hotel.setSinglePice(priceSingle);
         hotel.setDoublePrice(priceDouble);
         hotel.setHasWifi(hasWifi);
@@ -379,35 +379,5 @@ public class Service {
                     + ")" + "\n";
         }
         return s;
-    }
-
-    public static void updateTourType(TourType tourType, String name, String Descriprion, double price,
-            short macParticipants) {
-
-    }
-
-    public void printTest() {
-        for (int i = 0; i < c2.getBookings().size(); i++) {
-            System.out.println(c2.getBookings().get(i).calcTotalPrice());
-        }
-    }
-
-    public void printTest2() {
-        for (int i = 0; i < listHotelsAndParticipants(c2).size(); i++) {
-            System.out.println(listHotelsAndParticipants(c2).get(i));
-        }
-
-    }
-
-    public void printTest3() {
-        for (String s : listToursAndCompanions(c2)) {
-            System.out.println(s);
-        }
-    }
-
-    public void printTest4() {
-        for (String s : listBookingsOnConference(c2)) {
-            System.out.println(s);
-        }
     }
 }

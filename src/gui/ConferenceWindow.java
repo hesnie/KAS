@@ -202,7 +202,7 @@ public class ConferenceWindow extends Stage {
             price = Double.parseDouble(txfPrice.getText().trim());
             duration = Short.parseShort(txfDuration.getText().trim());
         } catch (NumberFormatException ex) {
-            // do nothin
+            // do nothing
         }
         Conference conference = Service.createConference(startDate, duration, price, type, location);
         for (int i = 0; i < tours.size(); i++) {
@@ -233,7 +233,6 @@ public class ConferenceWindow extends Stage {
             lblTourName.setMinWidth(150);
             lblTourName.setMaxWidth(150);
             hbxTour.getChildren().add(lblTourName);
-            // tour1 = new DatePicker();
             DatePicker d = new DatePicker();
             tourDates.add(d);
             tourDates.get(i).setOnAction(event -> tourDatePickerAction(new Tour(tourDates.get(j).getValue(),
@@ -241,8 +240,6 @@ public class ConferenceWindow extends Stage {
             tourDates.get(i).setMaxWidth(110);
             hbxTour.getChildren().add(d);
             vbxTours.getChildren().add(hbxTour);
-            // pane.add(tourDates.get(i), 5, i);
-
         }
         sizeToScene();
 

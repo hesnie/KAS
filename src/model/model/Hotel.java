@@ -3,7 +3,7 @@ package model.model;
 public class Hotel {
 
     private String name;
-    private String adress;
+    private String address;
     private double priceSingle;
     private double priceDouble;
     private boolean hasWifi = false;
@@ -15,7 +15,7 @@ public class Hotel {
 
     public Hotel(String name, String adress, double priceSingle, double priceDouble) {
         this.name = name;
-        this.adress = adress;
+        this.address = adress;
         this.priceSingle = priceSingle;
         this.priceDouble = priceDouble;
     }
@@ -23,7 +23,7 @@ public class Hotel {
     public Hotel(String name, String adress, double priceSingle, double priceDouble, boolean hasWifi,
             boolean hasBreakfast, boolean hasShower, double wifiPrice, double breakfastPrice, double showerPrice) {
         this.name = name;
-        this.adress = adress;
+        this.address = adress;
         this.priceSingle = priceSingle;
         this.priceDouble = priceDouble;
         this.hasWifi = hasWifi;
@@ -100,19 +100,19 @@ public class Hotel {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setSinglePice(Double price) {
-        this.priceSingle = priceSingle;
+    public void setSinglePice(double price) {
+        this.priceSingle = price;
     }
 
     public void setDoublePrice(double price) {

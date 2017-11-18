@@ -58,8 +58,6 @@ public class BookingFormWindow extends Stage {
     private ComboBox<Participant> cbbParticipants;
     private Button btnSignUp = new Button("Tilmeld");
     private Button btnCancel = new Button("Annuller");
-    private Button btnAddTour;
-    private Button btnRemoveTour;
     private Label lblTotalPrice = new Label();
     private Label lblCompanionPrice = new Label();
     private Label lblHotelPrice = new Label("Overnatningspris: 0.0 kr.");
@@ -72,6 +70,8 @@ public class BookingFormWindow extends Stage {
     private Conference selectedConference;
     private double totalPrice = 0.0;
     private ArrayList<Tour> bookedTours = new ArrayList<>();
+    private ArrayList<Button> addTourButtons = new ArrayList<>();
+    private ArrayList<Button> removeTourButtons = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         pane.setGridLinesVisible(false);
@@ -286,19 +286,21 @@ public class BookingFormWindow extends Stage {
                 lblTourDate.setPrefWidth(100);
                 lblPriceAndDescription = new Label(selectedConference.getTours().get(i).getTourType().getDescription());
                 lblPriceAndDescription.setMinWidth(200);
-                btnAddTour = new Button("Tilmeld");
-                btnRemoveTour = new Button("Afmeld");
-                // btnRemoveTour.setDisable(true);
-                btnAddTour.setOnAction(event -> {
+                Button btnAddTour = new Button("Tilmeld");
+                addTourButtons.add(btnAddTour);
+                Button btnRemoveTour = new Button("Afmeld");
+                btnRemoveTour.setDisable(true);
+                removeTourButtons.add(btnRemoveTour);
+                addTourButtons.get(i).setOnAction(event -> {
                     saveTourBooking(selectedConference.getTours().get(finalI));
-                    // btnRemoveTour.setDisable(false);
-                    // btnAddTour.setDisable(true);
+                    btnRemoveTour.setDisable(false);
+                    btnAddTour.setDisable(true);
                     updatePriceFields();
                 });
-                btnRemoveTour.setOnAction(event -> {
+                removeTourButtons.get(i).setOnAction(event -> {
                     removeTourBooking(selectedConference.getTours().get(finalI));
-                    // btnAddTour.setDisable(false);
-                    // btnRemoveTour.setDisable(true);
+                    btnAddTour.setDisable(false);
+                    btnRemoveTour.setDisable(true);
                     updatePriceFields();
                 });
                 companionHbox.getChildren().addAll(lblTourName, lblTourDate, lblPriceAndDescription, btnAddTour,
@@ -323,7 +325,10 @@ public class BookingFormWindow extends Stage {
         lblHotelHeadline.setFont(Font.font(24));
         cbbHotels = new ComboBox<>();
         cbbHotels.getItems().addAll(selectedConference.getLocation().getHotels());
-        cbbHotels.setOnAction(event -> updateHotelDescription());
+        cbbHotels.setOnAction(event -> {
+            updateHotelDescription();
+            updateHotelCheckboxes(cbxWifi, cbxShower, cbxBreakfast);
+        });
 
         if (show) {
             hotelInfo.getChildren().add(lblHotelHeadline);
@@ -332,6 +337,9 @@ public class BookingFormWindow extends Stage {
             cbxShower = new CheckBox();
             cbxBreakfast = new CheckBox();
             cbxWifi = new CheckBox();
+            cbxShower.setDisable(true);
+            cbxBreakfast.setDisable(true);
+            cbxWifi.setDisable(true);
             Label lblHotel = new Label("Hotel");
             Label lblPrice = new Label("Priser: (dobbelt/enkelt)");
             Label lblShower = new Label("Bad");
@@ -393,7 +401,19 @@ public class BookingFormWindow extends Stage {
         lblHotelDescription.setText(cbbHotels.getSelectionModel().getSelectedItem().getPriceDouble() + "/"
                 + cbbHotels.getSelectionModel().getSelectedItem().getPriceSingle());
         updatePriceFields();
-        sizeToScene();
+    }
+
+    private void updateHotelCheckboxes(CheckBox wifi, CheckBox shower, CheckBox breakfast) {
+        Hotel selectedHotel = cbbHotels.getSelectionModel().getSelectedItem();
+        if (selectedHotel.getWifiPrice() > 0) {
+            wifi.setDisable(false);
+        }
+        if (selectedHotel.getShowerPrice() > 0) {
+            shower.setDisable(false);
+        }
+        if (selectedHotel.getBreakfastPrice() > 0) {
+            breakfast.setDisable(false);
+        }
     }
 
     private void createBooking() {
